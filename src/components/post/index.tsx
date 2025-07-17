@@ -1,14 +1,20 @@
+"use client";
 import { IPost } from "@/models";
 import React from "react";
 import styles from "./post.module.css";
+import { useRouter } from "next/navigation";
 
 interface IPostProps {
   post: IPost;
 }
 
 const Post = ({ post }: IPostProps) => {
+  const router = useRouter();
+  const handleClick = () => {
+    router.push(`/post/${post.id}`);
+  };
   return (
-    <div className={styles.post}>
+    <div className={styles.post} onClick={handleClick}>
       <img src={post.featuredImage} alt={post.title} className={styles.image} />
       <div className={styles.content}>
         <div className={styles.category}>{post.category}</div>
