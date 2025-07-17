@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simplified-ninja-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: simplified-ninja
+  template:
+    metadata:
+      labels:
+        app: simplified-ninja
+    spec:
+      containers:
+        - name: simplified-ninja
+          image: r3v3ng3r/simplified-ninja-blog
+          ports:
+            - containerPort: 3000

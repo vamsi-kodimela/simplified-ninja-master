@@ -2,13 +2,13 @@ import { POSTS } from "@/data/posts";
 import styles from "./page.module.css";
 
 interface PostPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 const PostPage = async ({ params }: PostPageProps) => {
-  const { slug } = await params;
+  const slug = (await params).slug;
   const post = POSTS.find((post) => post.slug === slug);
   if (!post) {
     return <div>Post not found</div>;
