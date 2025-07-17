@@ -8,7 +8,7 @@
 
 ## RUN Docker image
 
-`docker run -p 3000:300 simplified-ninja`
+`docker run -p 3000:3000 simplified-ninja`
 
 ## Apply the K8 Deployment
 
