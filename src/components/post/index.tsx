@@ -25,6 +25,7 @@ const Post = ({ post }: IPostProps) => {
           {post.description}
           {post.description}
         </p>
+        <div className={styles.divider}></div>
         <div className={styles.createdAt}>
           {post.createdAt.toLocaleDateString()}
         </div>
