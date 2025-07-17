@@ -10,6 +10,7 @@ const POSTS: IPost[] = [
     featuredImage: "https://placehold.co/600x400",
     createdAt: new Date(),
     updatedAt: new Date(),
+    slug: "post-1",
   },
   {
     id: "2",
@@ -20,6 +21,7 @@ const POSTS: IPost[] = [
     featuredImage: "https://placehold.co/600x400",
     createdAt: new Date(),
     updatedAt: new Date(),
+    slug: "post-2",
   },
   {
     id: "3",
@@ -30,6 +32,7 @@ const POSTS: IPost[] = [
     featuredImage: "https://placehold.co/600x400",
     createdAt: new Date(),
     updatedAt: new Date(),
+    slug: "post-3",
   },
   {
     id: "4",
@@ -40,6 +43,7 @@ const POSTS: IPost[] = [
     featuredImage: "https://placehold.co/600x400",
     createdAt: new Date(),
     updatedAt: new Date(),
+    slug: "post-4",
   },
   {
     id: "5",
@@ -50,6 +54,7 @@ const POSTS: IPost[] = [
     featuredImage: "https://placehold.co/600x400",
     createdAt: new Date(),
     updatedAt: new Date(),
+    slug: "post-5",
   },
 ];
 

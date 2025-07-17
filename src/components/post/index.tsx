@@ -11,7 +11,7 @@ interface IPostProps {
 const Post = ({ post }: IPostProps) => {
   const router = useRouter();
   const handleClick = () => {
-    router.push(`/post/${post.id}`);
+    router.push(`/post/${post.slug}`);
   };
   return (
     <div className={styles.post} onClick={handleClick}>

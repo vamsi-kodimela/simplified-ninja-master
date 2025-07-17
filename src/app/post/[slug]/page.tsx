@@ -3,13 +3,13 @@ import { POSTS } from "@/data/posts";
 
 interface PostPageProps {
   params: {
-    id: string;
+    slug: string;
   };
 }
 
 const PostPage = async ({ params }: PostPageProps) => {
-  const { id } = await params;
-  const post = POSTS.find((post) => post.id === id);  
+  const { slug } = await params;
+  const post = POSTS.find((post) => post.slug === slug);
   if (!post) {
     return <div>Post not found</div>;
   }
