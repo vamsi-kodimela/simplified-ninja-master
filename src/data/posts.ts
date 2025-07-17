@@ -1,0 +1,56 @@
+import { IPost } from "@/models";
+
+const POSTS: IPost[] = [
+  {
+    id: "1",
+    title: "Post 1",
+    description: "Description 1",
+    content: "Content 1",
+    category: "Category 1",
+    featuredImage: "https://placehold.co/600x400",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    id: "2",
+    title: "Post 2",
+    description: "Description 2",
+    content: "Content 2",
+    category: "Category 2",
+    featuredImage: "https://placehold.co/600x400",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    id: "3",
+    title: "Post 3",
+    description: "Description 3",
+    content: "Content 3",
+    category: "Category 3",
+    featuredImage: "https://placehold.co/600x400",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    id: "4",
+    title: "Post 4",
+    description: "Description 4",
+    content: "Content 4",
+    category: "Category 4",
+    featuredImage: "https://placehold.co/600x400",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    id: "5",
+    title: "Post 5",
+    description: "Description 5",
+    content: "Content 5",
+    category: "Category 5",
+    featuredImage: "https://placehold.co/600x400",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+];
+
+export { POSTS };
