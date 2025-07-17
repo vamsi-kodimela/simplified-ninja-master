@@ -13,18 +13,7 @@ const Post = ({ post }: IPostProps) => {
       <div className={styles.content}>
         <div className={styles.category}>{post.category}</div>
         <h3 className={styles.title}>{post.title}</h3>
-        <p className={styles.description}>
-          {post.description}
-          {post.description}
-          {post.description}
-          {post.description}
-          {post.description}
-          {post.description}
-          {post.description}
-          {post.description}
-          {post.description}
-          {post.description}
-        </p>
+        <p className={styles.description}>{post.description}</p>
         <div className={styles.divider}></div>
         <div className={styles.createdAt}>
           {post.createdAt.toLocaleDateString()}
