@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: simplified-ninja
-          image: r3v3ng3r/simplified-ninja-blog
+          image: r3v3ng3r/simplified-ninja-blog:latest
           ports:
             - containerPort: 3000

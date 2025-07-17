@@ -9,7 +9,9 @@
     "lint": "next lint",
     "prepare": "husky",
     "format": "prettier --check .",
-    "format:fix": "prettier --write ."
+    "format:fix": "prettier --write .",
+    "deploy": "bash scripts/deployment.sh",
+    "predeploy": "npm config set script-shell 'C:\\Program Files\\git\\bin\\bash.exe'"
   },
   "dependencies": {
     "next": "15.4.1",
