@@ -18,8 +18,8 @@
 .title {
   margin: 0;
   font-size: 1.2rem;
+  color: #0059b3;
   font-weight: 600;
-  color: #333;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -45,8 +45,8 @@
 
 .category {
   font-size: 0.8rem;
-  color: #0059b3;
   font-weight: 600;
+  color: #ccc;
 }
 
 .createdAt {
