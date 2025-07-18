@@ -12,7 +12,7 @@ const Navbar = () => {
             src="/simplified-ninja.png"
             alt="logo"
             width={200}
-            height={50}
+            height={60}
           />
         </Link>
       </div>
