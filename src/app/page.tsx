@@ -1,20 +1,15 @@
 "use client";
 
 import { Post } from "@/components/post";
-import { POSTS } from "@/data";
-import { IPost } from "@/models";
-import { useEffect, useState } from "react";
+import { useGlobalStore } from "@/store/global-store";
 import styles from "./page.module.css";
 
 export default function Home() {
-  const [posts, setPosts] = useState<IPost[]>([]);
-  useEffect(() => {
-    setPosts(POSTS);
-  }, []);
+  const articles = useGlobalStore((state) => state.articles);
   return (
     <div className={styles["posts-grid"]}>
-      {posts.map((post) => (
-        <Post post={post} key={post.id} />
+      {articles.map((article) => (
+        <Post post={article} key={article.id} />
       ))}
     </div>
   );

@@ -1,13 +1,13 @@
-interface IPost {
+interface IArticle {
   id: string;
   slug: string;
   title: string;
   description: string;
   content: string;
-  category: string;
+  category: string[];
   featuredImage: string;
   createdAt: Date;
   updatedAt: Date;
 }
 
-export type { IPost };
+export type { IArticle };
