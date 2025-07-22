@@ -26,9 +26,15 @@ const Post = ({ post }: IPostProps) => {
         height={200}
       />
       <div className={styles.content}>
-        <div className={styles.category}>{post.category.name}</div>
-        <h3 className={styles.title}>{post.title}</h3>
-        <p className={styles.description}>{post.description}</p>
+        <div className={styles.category} title={post.category.name}>
+          {post.category.name}
+        </div>
+        <h2 className={styles.title} title={post.title}>
+          {post.title}
+        </h2>
+        <p className={styles.description} title={post.description}>
+          {post.description}
+        </p>
         <div className={styles.divider}></div>
         <div className={styles.createdAt}>
           {dayjs(post.createdAt).format("DD MMMM YYYY")}
