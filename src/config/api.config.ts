@@ -1,1 +1,2 @@
-export const API_URL = "https://cms.simplified.ninja/api";
+export const SERVER_URL = "https://cms.simplified.ninja";
+export const API_URL = `${SERVER_URL}/api`;

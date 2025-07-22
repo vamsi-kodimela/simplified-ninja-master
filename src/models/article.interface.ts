@@ -1,13 +1,20 @@
+import { Dayjs } from "dayjs";
+
 interface IArticle {
   id: string;
   slug: string;
   title: string;
   description: string;
   content: string;
-  category: string[];
-  featuredImage: string;
-  createdAt: Date;
-  updatedAt: Date;
+  category: {
+    id: string;
+    name: string;
+  };
+  featuredImage: {
+    url: string;
+  };
+  createdAt: string;
+  updatedAt: string;
 }
 
 export type { IArticle };
