@@ -40,6 +40,13 @@ const PostPage = ({ params }: PostPageProps) => {
   }
   return (
     <div className={styles.layout}>
+      <h1 className={styles.title}>{article.title}</h1>
+      <div className={styles.metadata}>
+        <div className={styles.category}>{article.category.name}</div>
+        <div className={styles.createdAt}>
+          {dayjs(article.createdAt).format("DD MMMM YYYY")}
+        </div>
+      </div>
       <Image
         src={`${SERVER_URL}${article.featuredImage.url}`}
         alt={article.title}
@@ -47,15 +54,6 @@ const PostPage = ({ params }: PostPageProps) => {
         width={1000}
         height={500}
       />
-
-      <div className={styles.metadata}>
-        <div className={styles.category}>{article.category.name}</div>
-        <div className={styles.createdAt}>
-          {dayjs(article.createdAt).format("DD MMMM YYYY")}
-        </div>
-      </div>
-      <h2 className={styles.title}>{article.title}</h2>
-      <p className={styles.description}>{article.description}</p>
 
       <div>
         <RichTextConverter
