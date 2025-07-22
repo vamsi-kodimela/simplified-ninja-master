@@ -14,6 +14,7 @@
     "predeploy": "npm config set script-shell 'C:\\Program Files\\git\\bin\\bash.exe'"
   },
   "dependencies": {
+    "@payloadcms/richtext-lexical": "^3.48.0",
     "dayjs": "^1.11.13",
     "next": "15.4.1",
     "react": "19.1.0",

@@ -6,6 +6,8 @@ import dayjs from "dayjs";
 import { API_URL, SERVER_URL } from "@/config/api.config";
 import { useEffect, useState } from "react";
 import { IArticle } from "@/models";
+import { RichText as RichTextConverter } from "@payloadcms/richtext-lexical/react";
+import { jsxConverter } from "@/utils/jsx-converter.util";
 
 interface PostPageProps {
   params: Promise<{
@@ -54,10 +56,14 @@ const PostPage = ({ params }: PostPageProps) => {
       </div>
       <h2 className={styles.title}>{article.title}</h2>
       <p className={styles.description}>{article.description}</p>
-      <div
-        className={styles.content}
-        dangerouslySetInnerHTML={{ __html: article.content }}
-      />
+
+      <div>
+        <RichTextConverter
+          className={styles.content}
+          data={article.content}
+          converters={jsxConverter}
+        />
+      </div>
     </div>
   );
 };

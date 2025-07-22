@@ -1,11 +1,11 @@
-import { Dayjs } from "dayjs";
+import { SerializedEditorState } from "@payloadcms/richtext-lexical/lexical";
 
 interface IArticle {
   id: string;
   slug: string;
   title: string;
   description: string;
-  content: string;
+  content: SerializedEditorState;
   category: {
     id: string;
     name: string;
