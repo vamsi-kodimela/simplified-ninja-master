@@ -94,16 +94,31 @@
 }
 
 .category {
-  display: inline-flex;
+  display: inline-block;
   align-self: flex-start;
   font-size: 0.6875rem;
+  font-weight: 500;
+  font-family: var(--font-body);
+  color: var(--neutral-700);
+  background-color: var(--neutral-100);
+  border-radius: 12px;
+  padding: var(--spacing-1) var(--spacing-2);
   margin-bottom: var(--spacing-0-5);
+  cursor: pointer;
+  transition: var(--transition-colors);
+  text-transform: capitalize;
+  line-height: 1;
+}
+
+.category:hover {
+  background-color: var(--neutral-200);
+  color: var(--primary-dark);
 }
 
 .title {
   margin: 0;
   font-family: var(--font-heading);
-  font-size: 0.9375rem;
+  font-size: 1.0625rem; /* Increased from 0.9375rem (15px) to 1.0625rem (17px) */
   font-weight: 600;
   color: var(--primary-dark);
   line-height: 1.4;
@@ -114,7 +129,7 @@
   overflow: hidden;
   transition: var(--transition-colors);
   word-spacing: 0.01em;
-  min-height: 2.6rem; /* Prevent layout shift - 2 lines at 1.4 line-height */
+  min-height: 2.975rem; /* Adjusted for larger font size - 2 lines at 1.4 line-height */
 }
 
 .post:hover .title {
@@ -313,10 +328,10 @@
   }
 
   .title {
-    font-size: 0.9375rem; /* 15px */
+    font-size: 1.0625rem; /* Increased from 15px to 17px */
     line-height: 1.4;
     -webkit-line-clamp: 2;
-    min-height: 2.6rem; /* Prevent layout shift */
+    min-height: 2.975rem; /* Adjusted for larger font size */
   }
 
   .description {
@@ -324,6 +339,11 @@
     line-height: 1.5;
     -webkit-line-clamp: 2;
     min-height: 2.25rem; /* Prevent layout shift */
+  }
+
+  .category {
+    font-size: 0.6875rem; /* 11px - maintain readability */
+    padding: var(--spacing-1) var(--spacing-2);
   }
 
   .footer {
@@ -344,10 +364,10 @@
   }
 
   .title {
-    font-size: 0.875rem; /* 14px */
+    font-size: 1rem; /* Increased from 14px to 16px */
     line-height: 1.4;
     -webkit-line-clamp: 2;
-    min-height: 2.45rem; /* Adjusted for smaller font size */
+    min-height: 2.8rem; /* Adjusted for larger font size */
   }
 
   .description {
@@ -384,9 +404,10 @@
   }
 
   .title {
-    font-size: 0.9375rem; /* 15px */
+    font-size: 1.0625rem; /* Increased from 15px to 17px */
     line-height: 1.4;
     -webkit-line-clamp: 2;
+    min-height: 2.975rem; /* Adjusted for larger font size */
   }
 
   .description {
@@ -438,9 +459,10 @@
   }
 
   .title {
-    font-size: 0.875rem; /* 14px */
+    font-size: 1rem; /* Increased from 14px to 16px */
     line-height: 1.4;
     -webkit-line-clamp: 2;
+    min-height: 2.8rem; /* Adjusted for larger font size */
   }
 
   .description {

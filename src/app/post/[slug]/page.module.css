@@ -1,8 +1,13 @@
 .layout {
-  max-width: 800px;
+  max-width: 900px; /* Increased from 800px to reduce layout shift from home page */
   width: 100%;
   margin: 0 auto;
-  padding: var(--spacing-xl) var(--spacing-lg);
+  padding: var(
+    --container-padding
+  ); /* Use consistent container padding system */
+  transition:
+    max-width 0.3s ease,
+    padding 0.3s ease; /* Smooth layout transitions */
 }
 
 .header {
@@ -118,10 +123,17 @@
   padding: 0;
 }
 
+/* Large Screens */
+@media (min-width: 1280px) {
+  .layout {
+    padding: var(--container-padding-lg); /* Consistent with home page */
+  }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .layout {
-    padding: var(--spacing-lg) var(--spacing-md);
+    padding: var(--container-padding-md); /* Consistent with home page */
   }
 
   .title {
@@ -155,7 +167,7 @@
 
 @media (max-width: 480px) {
   .layout {
-    padding: var(--spacing-md) var(--spacing-sm);
+    padding: var(--container-padding-sm); /* Consistent with home page */
   }
 
   .title {

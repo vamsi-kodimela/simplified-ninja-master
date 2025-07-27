@@ -1,17 +1,22 @@
 .container {
-  max-width: var(--container-xl);
+  max-width: 1000px; /* Reduced from 1280px to minimize layout shift to post page */
   margin: 0 auto;
   padding: var(--container-padding);
   min-height: 100vh;
+  transition:
+    max-width 0.3s ease,
+    padding 0.3s ease; /* Smooth layout transitions */
 }
 
 .categorySection {
-  margin-bottom: var(--section-gap);
+  margin-bottom: var(
+    --spacing-8
+  ); /* Reduced gap for tighter, more focused layout */
 }
 
 .posts-grid {
   display: grid;
-  gap: var(--grid-gap);
+  gap: var(--spacing-6); /* More controlled spacing */
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   padding: 0;
   justify-content: center;
@@ -26,15 +31,17 @@
 @media (min-width: 1280px) {
   .container {
     padding: var(--container-padding-lg);
-    max-width: var(--container-2xl);
+    max-width: 1100px; /* Reduced from 1400px to minimize layout shift */
   }
 
   .categorySection {
-    margin-bottom: var(--section-gap-lg);
+    margin-bottom: var(
+      --spacing-10
+    ); /* Proportional increase for large screens */
   }
 
   .posts-grid {
-    gap: var(--grid-gap-lg);
+    gap: var(--spacing-8); /* Larger but controlled spacing */
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   }
 }
@@ -46,11 +53,11 @@
   }
 
   .categorySection {
-    margin-bottom: var(--section-gap-md);
+    margin-bottom: var(--spacing-6); /* Consistent medium spacing */
   }
 
   .posts-grid {
-    gap: var(--grid-gap-md);
+    gap: var(--spacing-5); /* Medium controlled spacing */
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   }
 }
@@ -62,11 +69,11 @@
   }
 
   .categorySection {
-    margin-bottom: var(--section-gap-sm);
+    margin-bottom: var(--spacing-4); /* Tighter spacing on mobile */
   }
 
   .posts-grid {
-    gap: var(--grid-gap-sm);
+    gap: var(--spacing-4); /* Compact mobile spacing */
     grid-template-columns: 1fr;
   }
 }
@@ -78,10 +85,10 @@
   }
 
   .categorySection {
-    margin-bottom: var(--spacing-4);
+    margin-bottom: var(--spacing-3); /* Minimal spacing on small mobile */
   }
 
   .posts-grid {
-    gap: var(--spacing-3);
+    gap: var(--spacing-3); /* Minimal spacing for small screens */
   }
 }

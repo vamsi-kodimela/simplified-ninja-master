@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import dayjs from "dayjs";
 import { API_URL, SERVER_URL } from "@/config/api.config";
-import { Category } from "../category";
 
 interface IPostProps {
   post: IArticle;
@@ -57,7 +56,9 @@ const Post = ({ post }: IPostProps) => {
 
       <div className={styles.content}>
         <div className={styles.categoryWrapper}>
-          <Category name={post.category.name} onClick={handleCategoryClick} />
+          <span className={styles.category} onClick={handleCategoryClick}>
+            {post.category.name}
+          </span>
         </div>
 
         <h2 className={styles.title} title={post.title}>
