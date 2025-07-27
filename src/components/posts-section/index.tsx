@@ -1,155 +1,123 @@
 "use client";
 import React, { useState, useEffect, useMemo } from "react";
-import { useGlobalStore, LayoutType } from "@/store/global-store";
-import { PostsFilters } from "../posts-filters";
-import { PostVariant } from "../post-variants";
 import styles from "./posts-section.module.css";
+import { Post } from "../post";
+import { PostVariant } from "../post-variants";
+import { PostsFilters } from "../posts-filters";
+import { IArticle } from "../../models";
 
+// Define layout types
+export type LayoutType = "grid" | "list" | "compact";
+
+// Props for the Posts Section
 interface PostsSectionProps {
-  // Display options
-  showFilters?: boolean;
-  showHeader?: boolean;
   title?: string;
-  subtitle?: string;
-  description?: string;
-
-  // Layout and limits
+  posts?: IArticle[];
   maxPosts?: number;
+  showFilters?: boolean;
   defaultLayout?: LayoutType;
-  allowLayoutSwitch?: boolean;
-
-  // Styling
-  className?: string;
-  headerClassName?: string;
-
-  // State
   isLoading?: boolean;
-
-  // Actions
-  onViewAll?: () => void;
-  onRefresh?: () => void;
-
-  // Customization
-  showStats?: boolean;
-  showViewAllButton?: boolean;
-  emptyStateMessage?: string;
-  emptyStateAction?: {
-    label: string;
-    onClick: () => void;
-  };
 }
 
-// Enhanced header component
-const PostsSectionHeader = ({
+// Props for individual Posts Section components
+interface PostsSectionHeaderProps {
+  title: string;
+  showFilters: boolean;
+  layoutType: LayoutType;
+  onLayoutChange: (layout: LayoutType) => void;
+  onToggleFilters: () => void;
+  onRefresh: () => void;
+  isLoading: boolean;
+}
+
+// Header component with controls
+const PostsSectionHeader: React.FC<PostsSectionHeaderProps> = ({
   title,
-  subtitle,
-  description,
-  showStats,
+  showFilters,
+  layoutType,
+  onLayoutChange,
+  onToggleFilters,
   onRefresh,
-  isLoading,
-  className = "",
-  filteredCount,
-  totalCount,
-}: {
-  title?: string;
-  subtitle?: string;
-  description?: string;
-  showStats?: boolean;
-  onRefresh?: () => void;
-  isLoading?: boolean;
-  className?: string;
-  filteredCount: number;
-  totalCount: number;
+  isLoading = false,
 }) => {
-  if (!title && !subtitle && !description && !showStats && !onRefresh) {
-    return null;
-  }
-
   return (
-    <div className={`${styles.sectionHeader} ${className}`}>
-      <div className={styles.headerContent}>
-        <div className={styles.headerText}>
-          {title && <h2 className={styles.sectionTitle}>{title}</h2>}
-          {subtitle && <h3 className={styles.sectionSubtitle}>{subtitle}</h3>}
-          {description && (
-            <p className={styles.sectionDescription}>{description}</p>
-          )}
-        </div>
-
-        <div className={styles.headerActions}>
-          {showStats && (
-            <div className={styles.statsContainer}>
-              <div className={styles.statItem}>
-                <span className={styles.statValue}>{filteredCount}</span>
-                <span className={styles.statLabel}>
-                  {filteredCount === 1 ? "Post" : "Posts"}
-                </span>
-              </div>
-              {filteredCount !== totalCount && (
-                <div className={styles.statItem}>
-                  <span className={styles.statValue}>{totalCount}</span>
-                  <span className={styles.statLabel}>Total</span>
-                </div>
-              )}
-            </div>
-          )}
-
-          {onRefresh && (
-            <button
-              onClick={onRefresh}
-              disabled={isLoading}
-              className={`${styles.refreshButton} ${isLoading ? styles.loading : ""}`}
-              aria-label="Refresh posts"
+    <div className={styles.header}>
+      <h2 className={styles.title}>{title}</h2>
+      <div className={styles.controls}>
+        <button
+          onClick={onRefresh}
+          disabled={isLoading}
+          className={`${styles.refreshButton} ${isLoading ? styles.loading : ""}`}
+        >
+          <svg
+            className={styles.refreshIcon}
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+            />
+          </svg>
+          {isLoading ? "Refreshing..." : "Refresh"}
+        </button>
+        {showFilters && (
+          <button onClick={onToggleFilters} className={styles.filtersToggle}>
+            <svg
+              width="16"
+              height="16"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
             >
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                className={styles.refreshIcon}
-              >
-                <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
-                <path d="M21 3v5h-5" />
-                <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" />
-                <path d="M3 21v-5h5" />
-              </svg>
-              {isLoading ? "Refreshing..." : "Refresh"}
-            </button>
-          )}
-        </div>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
+              />
+            </svg>
+            Filters
+          </button>
+        )}
       </div>
     </div>
   );
 };
 
-// Loading skeleton component
-const LoadingSkeleton = ({
+// Shimmer skeleton component
+const ShimmerSkeleton = ({
   count = 6,
   layout = "grid",
 }: {
-  count?: number;
-  layout?: LayoutType;
+  count: number;
+  layout: LayoutType;
 }) => {
-  const getLoadingClass = () => {
+  const getShimmerClass = () => {
     switch (layout) {
       case "list":
-        return styles.listLayout;
+        return styles.shimmerList;
       case "compact":
-        return styles.compactLayout;
+        return styles.shimmerCompact;
       default:
-        return styles.loadingGrid;
+        return styles.shimmerGrid;
     }
   };
 
   return (
-    <div className={`${styles.loadingContainer} ${getLoadingClass()}`}>
+    <div className={`${styles.shimmerContainer} ${getShimmerClass()}`}>
       {Array.from({ length: count }).map((_, index) => (
-        <div key={index} className={styles.loadingCard}>
-          <div className={styles.loadingImage} />
-          <div className={styles.loadingContent}>
-            <div className={`${styles.loadingLine} ${styles.title}`} />
-            <div className={`${styles.loadingLine} ${styles.subtitle}`} />
-            <div className={`${styles.loadingLine} ${styles.text}`} />
-            <div className={`${styles.loadingLine} ${styles.short}`} />
+        <div key={index} className={styles.shimmerCard}>
+          <div className={styles.shimmerImage} />
+          <div className={styles.shimmerContent}>
+            <div className={`${styles.shimmerLine} ${styles.title}`} />
+            <div className={`${styles.shimmerLine} ${styles.subtitle}`} />
+            <div className={`${styles.shimmerLine} ${styles.text}`} />
+            <div className={`${styles.shimmerLine} ${styles.short}`} />
           </div>
         </div>
       ))}
@@ -157,308 +125,146 @@ const LoadingSkeleton = ({
   );
 };
 
-// Enhanced empty state component
-const EmptyState = ({
-  hasActiveFilters,
-  onClearFilters,
-  onViewAll,
-  customMessage,
-  customAction,
-}: {
-  hasActiveFilters: boolean;
-  onClearFilters: () => void;
-  onViewAll?: () => void;
-  customMessage?: string;
-  customAction?: {
-    label: string;
-    onClick: () => void;
-  };
-}) => {
-  const getEmptyMessage = () => {
-    if (customMessage) return customMessage;
-
-    if (hasActiveFilters) {
-      return "We couldn't find any posts matching your current filters. Try adjusting your search terms or removing some filters.";
-    }
-
-    return "There are no posts to display at the moment. Check back later for new content!";
-  };
-
-  return (
-    <div className={styles.noResults}>
-      <div className={styles.noResultsIcon}>
-        {hasActiveFilters ? (
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <circle cx="11" cy="11" r="8" />
-            <path d="m21 21-4.35-4.35" />
-          </svg>
-        ) : (
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-            <line x1="16" y1="2" x2="16" y2="6" />
-            <line x1="8" y1="2" x2="8" y2="6" />
-            <line x1="3" y1="10" x2="21" y2="10" />
-          </svg>
-        )}
-      </div>
-
-      <h3 className={styles.noResultsTitle}>
-        {hasActiveFilters ? "No posts found" : "No posts available"}
-      </h3>
-
-      <p className={styles.noResultsDescription}>{getEmptyMessage()}</p>
-
-      <div className={styles.noResultsActions}>
-        {hasActiveFilters && (
-          <button onClick={onClearFilters} className={styles.noResultsButton}>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path d="m3 16 4 4 4-4" />
-              <path d="M7 20V4" />
-              <path d="M17 10l4 4-4 4" />
-              <path d="M21 14H9" />
-            </svg>
-            Clear All Filters
-          </button>
-        )}
-
-        {customAction && (
-          <button
-            onClick={customAction.onClick}
-            className={`${styles.noResultsButton} ${styles.secondary}`}
-          >
-            {customAction.label}
-          </button>
-        )}
-
-        {onViewAll && !customAction && (
-          <button
-            onClick={onViewAll}
-            className={`${styles.noResultsButton} ${styles.secondary}`}
-          >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path d="M3 7V5c0-1.1.9-2 2-2h2" />
-              <path d="M17 3h2c1.1 0 2 .9 2 2v2" />
-              <path d="M21 17v2c0 1.1-.9 2-2 2h-2" />
-              <path d="M7 21H5c-1.1 0-2-.9-2-2v-2" />
-            </svg>
-            Browse All Posts
-          </button>
-        )}
-      </div>
-    </div>
-  );
-};
-
-const PostsSection = ({
-  // Display options
+// Main Posts Section Component
+export const PostsSection: React.FC<PostsSectionProps> = ({
+  title = "Latest Posts",
+  posts = [],
+  maxPosts = 6,
   showFilters = true,
-  showHeader = false,
-  title,
-  subtitle,
-  description,
-
-  // Layout and limits
-  maxPosts,
-  defaultLayout,
-  allowLayoutSwitch = true,
-
-  // Styling
-  className = "",
-  headerClassName = "",
-
-  // State
+  defaultLayout = "grid",
   isLoading = false,
-
-  // Actions
-  onViewAll,
-  onRefresh,
-
-  // Customization
-  showStats = false,
-  showViewAllButton = true,
-  emptyStateMessage,
-  emptyStateAction,
-}: PostsSectionProps) => {
-  const {
-    filteredArticles,
-    articles,
-    layoutType,
-    searchQuery,
-    selectedCategories,
-    sortBy,
-    clearFilters,
-    setLayoutType,
-  } = useGlobalStore();
-
+}) => {
+  // State management
+  const [layoutType, setLayoutType] = useState<LayoutType>(defaultLayout);
+  const [showFiltersPanel, setShowFiltersPanel] = useState(false);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [sortBy, setSortBy] = useState<"date" | "popularity">("date");
   const [localLoading, setLocalLoading] = useState(false);
-  const [animationKey, setAnimationKey] = useState(0);
 
-  // Set default layout if provided
-  useEffect(() => {
-    if (defaultLayout && defaultLayout !== layoutType) {
-      setLayoutType(defaultLayout);
-    }
-  }, [defaultLayout, layoutType, setLayoutType]);
-
-  // Trigger animation when filters change
-  useEffect(() => {
-    setAnimationKey((prev) => prev + 1);
-  }, [searchQuery, selectedCategories, sortBy, layoutType]);
-
-  // Apply maxPosts limit if specified
-  const displayedPosts = useMemo(() => {
-    return maxPosts ? filteredArticles.slice(0, maxPosts) : filteredArticles;
-  }, [filteredArticles, maxPosts]);
-
-  const hasActiveFilters = useMemo(() => {
-    return Boolean(
-      searchQuery.trim() ||
-        selectedCategories.length > 0 ||
-        sortBy !== "newest",
-    );
-  }, [searchQuery, selectedCategories, sortBy]);
-
-  const showPagination =
-    showViewAllButton && maxPosts && filteredArticles.length > maxPosts;
-
-  // Generate grid columns based on layout
-  const getGridClass = () => {
-    switch (layoutType) {
-      case "grid":
-        return styles.gridLayout;
-      case "list":
-        return styles.listLayout;
-      case "compact":
-        return styles.compactLayout;
-      default:
-        return styles.gridLayout;
-    }
+  // Handle layout change
+  const handleLayoutChange = (layout: LayoutType) => {
+    setLayoutType(layout);
   };
 
-  // Handle view all button click
-  const handleViewAll = () => {
-    if (onViewAll) {
-      onViewAll();
-    } else {
-      // Default behavior - could navigate to full posts page
-      console.log("Navigate to all posts");
-    }
-  };
-
-  // Handle clear filters
-  const handleClearFilters = () => {
-    setLocalLoading(true);
-    clearFilters();
-
-    // Simulate brief loading for better UX
-    setTimeout(() => {
-      setLocalLoading(false);
-    }, 300);
+  // Handle toggle filters
+  const handleToggleFilters = () => {
+    setShowFiltersPanel((prev) => !prev);
   };
 
   // Handle refresh
-  const handleRefresh = () => {
-    if (onRefresh) {
-      onRefresh();
-    } else {
-      setLocalLoading(true);
-      // Default refresh simulation
-      setTimeout(() => {
-        setLocalLoading(false);
-      }, 1500);
-    }
+  const handleRefresh = async () => {
+    setLocalLoading(true);
+    // Simulate refresh delay
+    setTimeout(() => {
+      setLocalLoading(false);
+    }, 800);
+  };
+
+  // Handle category filter
+  const handleCategoryFilter = (categories: string[]) => {
+    setLocalLoading(true);
+    setSelectedCategories(categories);
+    // Simulate filter delay
+    setTimeout(() => {
+      setLocalLoading(false);
+    }, 500);
   };
 
   const isLoadingState = isLoading || localLoading;
 
+  // Filter and sort posts
+  const filteredAndSortedPosts = useMemo(() => {
+    let filtered = posts;
+
+    // Filter by categories
+    if (selectedCategories.length > 0) {
+      filtered = filtered.filter((post) =>
+        selectedCategories.some((category) =>
+          post.categories?.some((cat) => cat.name === category),
+        ),
+      );
+    }
+
+    // Sort posts
+    filtered.sort((a, b) => {
+      if (sortBy === "date") {
+        return (
+          new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+        );
+      }
+      // For popularity, you might want to use view count, likes, etc.
+      return 0;
+    });
+
+    return filtered.slice(0, maxPosts);
+  }, [posts, selectedCategories, sortBy, maxPosts]);
+
+  // Render posts based on layout
+  const renderPosts = () => {
+    const containerClass = `styles.posts${layoutType.charAt(0).toUpperCase() + layoutType.slice(1)}`;
+
+    return (
+      <div
+        className={
+          styles[
+            `posts${layoutType.charAt(0).toUpperCase() + layoutType.slice(1)}`
+          ]
+        }
+      >
+        {filteredAndSortedPosts.map((post) => {
+          switch (layoutType) {
+            case "list":
+              return <PostVariant key={post.id} post={post} variant="list" />;
+            case "compact":
+              return (
+                <PostVariant key={post.id} post={post} variant="compact" />
+              );
+            default:
+              return <Post key={post.id} {...post} />;
+          }
+        })}
+      </div>
+    );
+  };
+
   return (
-    <section
-      className={`${styles.container} ${className}`}
-      role="region"
-      aria-label={showFilters ? "Posts with filters" : "Posts"}
-    >
-      {/* Custom Header */}
-      {showHeader && (
-        <PostsSectionHeader
-          title={title}
-          subtitle={subtitle}
-          description={description}
-          showStats={showStats}
-          onRefresh={onRefresh ? handleRefresh : undefined}
-          isLoading={isLoadingState}
-          className={headerClassName}
-          filteredCount={filteredArticles.length}
-          totalCount={articles.length}
+    <section className={styles.postsSection}>
+      <PostsSectionHeader
+        title={title}
+        showFilters={showFilters}
+        layoutType={layoutType}
+        onLayoutChange={handleLayoutChange}
+        onToggleFilters={handleToggleFilters}
+        onRefresh={handleRefresh}
+        isLoading={isLoadingState}
+      />
+
+      {showFiltersPanel && (
+        <PostsFilters
+          onCategoryFilter={handleCategoryFilter}
+          onSortChange={setSortBy}
+          onLayoutChange={handleLayoutChange}
+          currentLayout={layoutType}
+          currentSort={sortBy}
+          selectedCategories={selectedCategories}
         />
       )}
 
-      {/* Filters */}
-      {showFilters && <PostsFilters />}
-
       <div className={styles.content}>
-        {/* Loading state */}
+        {/* Shimmer loading state */}
         {isLoadingState && (
-          <LoadingSkeleton count={maxPosts || 6} layout={layoutType} />
+          <ShimmerSkeleton count={maxPosts || 6} layout={layoutType} />
         )}
 
         {/* Content when not loading */}
         {!isLoadingState && (
           <>
-            {/* No results state */}
-            {displayedPosts.length === 0 && (
-              <EmptyState
-                hasActiveFilters={hasActiveFilters}
-                onClearFilters={handleClearFilters}
-                onViewAll={onViewAll}
-                customMessage={emptyStateMessage}
-                customAction={emptyStateAction}
-              />
-            )}
-
-            {/* Posts grid */}
-            {displayedPosts.length > 0 && (
-              <>
-                <div
-                  key={animationKey}
-                  className={`${styles.postsGrid} ${getGridClass()}`}
-                  role="grid"
-                  aria-label={`${displayedPosts.length} posts in ${layoutType} layout`}
-                >
-                  {displayedPosts.map((post, index) => (
-                    <div
-                      key={post.id}
-                      role="gridcell"
-                      aria-label={`Post ${index + 1} of ${displayedPosts.length}`}
-                    >
-                      <PostVariant post={post} layout={layoutType} />
-                    </div>
-                  ))}
-                </div>
-
-                {/* Pagination info */}
-                {showPagination && (
-                  <div
-                    className={styles.showingInfo}
-                    role="status"
-                    aria-live="polite"
-                  >
-                    <p className={styles.showingText}>
-                      Showing {displayedPosts.length} of{" "}
-                      {filteredArticles.length} posts
-                    </p>
-                    <button
-                      className={styles.viewAllButton}
-                      onClick={handleViewAll}
-                      aria-describedby="view-all-description"
-                    >
-                      View all posts
-                    </button>
-                    <span id="view-all-description" className="sr-only">
-                      View all {filteredArticles.length} posts
-                    </span>
-                  </div>
-                )}
-              </>
+            {filteredAndSortedPosts.length === 0 ? (
+              <div className={styles.emptyState}>
+                <p>No posts found matching your criteria.</p>
+              </div>
+            ) : (
+              renderPosts()
             )}
           </>
         )}
@@ -467,91 +273,28 @@ const PostsSection = ({
   );
 };
 
-// Convenience components for specific use cases
-const PostsGrid = (props: Omit<PostsSectionProps, "showFilters">) => (
-  <PostsSection {...props} showFilters={false} defaultLayout="grid" />
-);
-
-const PostsList = (props: Omit<PostsSectionProps, "showFilters">) => (
-  <PostsSection {...props} showFilters={false} defaultLayout="list" />
-);
-
-const PostsWithFilters = (props: PostsSectionProps) => (
-  <PostsSection {...props} showFilters={true} />
-);
-
-// Featured posts section with custom styling
-const FeaturedPosts = (
-  props: Omit<PostsSectionProps, "title" | "showHeader">,
-) => (
-  <PostsSection
-    {...props}
-    showHeader={true}
-    title="Featured Posts"
-    subtitle="Our top picks for you"
-    showStats={true}
-    maxPosts={6}
-    defaultLayout="grid"
-  />
-);
-
-// Latest posts section
-const LatestPosts = (
-  props: Omit<PostsSectionProps, "title" | "showHeader">,
-) => (
-  <PostsSection
-    {...props}
-    showHeader={true}
-    title="Latest Posts"
-    description="Stay up to date with our newest content"
-    showStats={true}
-    defaultLayout="list"
-  />
-);
-
-// Compact posts section for sidebars
-const CompactPosts = (props: Omit<PostsSectionProps, "showFilters">) => (
-  <PostsSection
-    {...props}
-    showFilters={false}
-    defaultLayout="compact"
-    maxPosts={5}
-    showViewAllButton={true}
-  />
-);
-
-// Enhanced posts section with advanced features
-const AdvancedPostsSection = (props: PostsSectionProps) => {
+// Demo component for standalone usage
+export const PostsSectionDemo: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleRefresh = () => {
     setIsLoading(true);
-    // Simulate data refresh
     setTimeout(() => {
       setIsLoading(false);
-    }, 1500);
+    }, 1000);
   };
 
   return (
     <PostsSection
-      {...props}
+      title="Featured Posts"
+      posts={[]} // No demo data - will show empty state
+      maxPosts={6}
+      showFilters={true}
+      defaultLayout="grid"
       isLoading={isLoading}
-      onRefresh={handleRefresh}
-      showHeader={true}
-      title={props.title || "Latest Posts"}
-      showStats={true}
     />
   );
 };
 
-export {
-  PostsSection,
-  PostsGrid,
-  PostsList,
-  PostsWithFilters,
-  FeaturedPosts,
-  LatestPosts,
-  CompactPosts,
-  AdvancedPostsSection,
-  LoadingSkeleton,
-};
+// Export both components
+export { ShimmerSkeleton };

@@ -1,185 +1,225 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { ICategory } from "@/models";
-import { API_URL } from "@/config/api.config";
 import { Category } from "../category";
 import styles from "./category-section.module.css";
 
-type LayoutType = "list" | "grid";
+interface CategoryData {
+  id: string;
+  name: string;
+  icon?: string;
+  count?: number;
+}
 
 interface CategorySectionProps {
-  layout?: LayoutType;
   title?: string;
-  showLayoutToggle?: boolean;
-  onCategoryClick?: (category: ICategory) => void;
-  className?: string;
+  subtitle?: string;
+  categories?: CategoryData[];
+  maxCategories?: number;
+  showViewAll?: boolean;
+  onCategoryClick?: (category: CategoryData) => void;
+  onViewAllClick?: () => void;
 }
 
 const CategorySection: React.FC<CategorySectionProps> = ({
-  layout = "grid",
-  title = "Categories",
-  showLayoutToggle = true,
+  title = "Explore Categories",
+  subtitle = "Discover content across different topics",
+  categories,
+  maxCategories = 8,
+  showViewAll = true,
   onCategoryClick,
-  className = "",
+  onViewAllClick,
 }) => {
-  const [categories, setCategories] = useState<ICategory[]>([]);
-  const [currentLayout, setCurrentLayout] = useState<LayoutType>(layout);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [displayCategories, setDisplayCategories] = useState<CategoryData[]>(
+    [],
+  );
 
   useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        if (categories && categories.length > 0) {
+          // Use provided categories
+          const limitedCategories = categories.slice(0, maxCategories);
+          setDisplayCategories(limitedCategories);
+        } else {
+          // No categories provided - show empty state or fetch from API
+          setDisplayCategories([]);
+        }
+      } catch (err) {
+        setError("Failed to load categories. Please try again.");
+        console.error("Error loading categories:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchCategories();
-  }, []);
+  }, [categories, maxCategories]);
 
-  const fetchCategories = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-
-      const response = await fetch(`${API_URL}/category`);
-
-      if (!response.ok) {
-        throw new Error(`Failed to fetch categories: ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      console.log("API Response:", data); // Debug log
-
-      // Handle different possible response structures
-      let categoriesData: ICategory[] = [];
-
-      if (Array.isArray(data)) {
-        categoriesData = data;
-      } else if (Array.isArray(data.data)) {
-        categoriesData = data.data;
-      } else if (Array.isArray(data.docs)) {
-        categoriesData = data.docs;
-      } else if (Array.isArray(data.categories)) {
-        categoriesData = data.categories;
-      } else {
-        console.warn("Unexpected API response structure:", data);
-        categoriesData = [];
-      }
-
-      console.log("Processed categories:", categoriesData); // Debug log
-      setCategories(categoriesData);
-    } catch (err) {
-      setError(
-        err instanceof Error ? err.message : "Failed to fetch categories",
-      );
-      console.error("Error fetching categories:", err);
-      setCategories([]); // Ensure it's always an array on error
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleCategoryClick = (category: ICategory) => {
+  const handleCategoryClick = (category: CategoryData) => {
     if (onCategoryClick) {
       onCategoryClick(category);
     }
   };
 
-  const handleLayoutChange = (newLayout: LayoutType) => {
-    setCurrentLayout(newLayout);
+  const handleViewAllClick = () => {
+    if (onViewAllClick) {
+      onViewAllClick();
+    } else {
+      // Default behavior when no handler is provided (e.g., from Server Component)
+      console.log("View all categories - default behavior");
+      // Could navigate to a categories page or trigger other default action
+    }
   };
 
-  const renderLayoutToggle = () => {
-    if (!showLayoutToggle) return null;
+  const handleRetry = () => {
+    setError(null);
+    setLoading(true);
+    // Re-trigger the effect
+    setTimeout(() => {
+      if (categories && categories.length > 0) {
+        setDisplayCategories(categories.slice(0, maxCategories));
+      } else {
+        setDisplayCategories([]);
+      }
+      setLoading(false);
+    }, 800);
+  };
 
-    return (
-      <div className={styles.layoutToggle}>
-        <button
-          className={`btn ${styles.layoutButton} ${currentLayout === "grid" ? styles.active : ""}`}
-          onClick={() => handleLayoutChange("grid")}
-          aria-label="Grid layout"
-        >
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-            <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm-8 8A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm8 0A1.5 1.5 0 0 1 10.5 9h3A1.5 1.5 0 0 1 15 10.5v3A1.5 1.5 0 0 1 13.5 15h-3A1.5 1.5 0 0 1 9 13.5v-3z" />
-          </svg>
-        </button>
-        <button
-          className={`btn ${styles.layoutButton} ${currentLayout === "list" ? styles.active : ""}`}
-          onClick={() => handleLayoutChange("list")}
-          aria-label="List layout"
-        >
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-            <path
-              fillRule="evenodd"
-              d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
-            />
-          </svg>
-        </button>
+  const renderShimmerState = () => (
+    <div className={styles.shimmerContainer}>
+      <div className={styles.shimmerGrid}>
+        {Array.from({ length: maxCategories }).map((_, index) => (
+          <div key={index} className={styles.shimmerCategory}>
+            <div className={styles.shimmerIcon} />
+            <div className={styles.shimmerText} />
+          </div>
+        ))}
       </div>
-    );
-  };
-
-  const renderLoadingState = () => (
-    <div className={styles.loadingContainer}>
-      <div className={styles.loadingSpinner}></div>
-      <p className={styles.loadingText}>Loading categories...</p>
+      <p className={styles.shimmerMessage}>Loading categories...</p>
     </div>
   );
 
   const renderErrorState = () => (
     <div className={styles.errorContainer}>
-      <div className={styles.errorIcon}>⚠️</div>
-      <p className={styles.errorText}>{error}</p>
-      <button className="btn btn-primary" onClick={fetchCategories}>
+      <svg
+        className={styles.errorIcon}
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"
+        />
+      </svg>
+      <h3 className={styles.errorTitle}>Unable to Load Categories</h3>
+      <p className={styles.errorMessage}>
+        We&apos;re having trouble loading the categories right now. Please check
+        your connection and try again.
+      </p>
+      <button onClick={handleRetry} className={styles.retryButton}>
+        <svg
+          width="16"
+          height="16"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+          />
+        </svg>
         Try Again
       </button>
     </div>
   );
 
-  const renderEmptyState = () => (
-    <div className={styles.emptyContainer}>
-      <div className={styles.emptyIcon}>📂</div>
-      <p className={styles.emptyText}>No categories found</p>
-    </div>
-  );
-
-  const renderCategories = () => {
-    // Ensure categories is always an array
-    const categoriesArray = Array.isArray(categories) ? categories : [];
-
-    if (categoriesArray.length === 0) {
-      return renderEmptyState();
-    }
-
-    const containerClass =
-      currentLayout === "grid"
-        ? `${styles.categoriesContainer} ${styles.gridLayout}`
-        : `${styles.categoriesContainer} ${styles.listLayout}`;
-
-    return (
-      <div className={containerClass}>
-        {categoriesArray.map((category: ICategory) => (
+  const renderCategories = () => (
+    <div className={styles.categoriesContainer}>
+      <div className={styles.categoriesGrid}>
+        {displayCategories.map((category) => (
           <Category
             key={category.id}
             name={category.name}
             icon={category.icon}
             onClick={() => handleCategoryClick(category)}
-            className={currentLayout === "list" ? styles.listItem : ""}
           />
         ))}
       </div>
-    );
-  };
+    </div>
+  );
+
+  const renderEmptyState = () => (
+    <div className={styles.errorContainer}>
+      <svg
+        className={styles.errorIcon}
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+        />
+      </svg>
+      <h3 className={styles.errorTitle}>No Categories Available</h3>
+      <p className={styles.errorMessage}>
+        Categories will appear here when they become available.
+      </p>
+    </div>
+  );
 
   return (
-    <section className={`${styles.categorySection} ${className}`}>
+    <section className={styles.categorySection}>
       <div className={styles.header}>
-        <h2 className={styles.title}>{title}</h2>
-        {renderLayoutToggle()}
+        <div>
+          <h2 className={styles.title}>{title}</h2>
+          <p className={styles.subtitle}>{subtitle}</p>
+        </div>
+        {showViewAll && !loading && !error && displayCategories.length > 0 && (
+          <button onClick={handleViewAllClick} className={styles.viewAllButton}>
+            View All
+            <svg
+              className={styles.viewAllIcon}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </button>
+        )}
       </div>
 
-      <div className={styles.content}>
-        {loading && renderLoadingState()}
-        {error && !loading && renderErrorState()}
-        {!loading && !error && renderCategories()}
-      </div>
+      {loading && renderShimmerState()}
+      {error && !loading && renderErrorState()}
+      {!loading &&
+        !error &&
+        displayCategories.length === 0 &&
+        renderEmptyState()}
+      {!loading && !error && displayCategories.length > 0 && renderCategories()}
     </section>
   );
 };
 
-export { CategorySection };
+export default CategorySection;

@@ -55,14 +55,10 @@ export const Button: React.FC<ButtonProps> = ({
 
   return (
     <button className={buttonClasses} disabled={isDisabled} {...props}>
-      {loading && <span className={styles.spinner} aria-hidden="true" />}
-
       {!loading && iconLeft && (
         <span className={styles.iconLeft}>{iconLeft}</span>
       )}
-
       {children && <span className={styles.content}>{children}</span>}
-
       {!loading && iconRight && (
         <span className={styles.iconRight}>{iconRight}</span>
       )}

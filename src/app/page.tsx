@@ -1,5 +1,5 @@
 import { Post } from "@/components/post";
-import { CategorySection } from "@/components/category-section";
+import CategorySection from "@/components/category-section";
 import styles from "./page.module.css";
 import { API_URL } from "@/config/api.config";
 import { IArticle, ICategory } from "@/models";
@@ -24,9 +24,8 @@ export default async function Home() {
     <div className={`bg-primary-light ${styles.container}`}>
       <CategorySection
         title="Browse by Category"
-        layout="grid"
-        showLayoutToggle={true}
-        className={styles.categorySection}
+        subtitle="Discover content across different topics"
+        showViewAll={true}
       />
 
       <div className={styles["posts-grid"]}>

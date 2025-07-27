@@ -921,3 +921,96 @@
 .transition-colors {
   transition: var(--transition-colors);
 }
+
+/* ===========================
+   MINIMAL SHIMMER EFFECTS
+   =========================== */
+
+/* Base shimmer animation */
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+/* Shimmer utility classes */
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--neutral-100) 25%,
+    var(--neutral-50) 50%,
+    var(--neutral-100) 75%
+  );
+  background-size: 200px 100%;
+  animation: shimmer 1.8s infinite ease-in-out;
+}
+
+.shimmer-dark {
+  background: linear-gradient(
+    90deg,
+    var(--neutral-200) 25%,
+    var(--neutral-100) 50%,
+    var(--neutral-200) 75%
+  );
+  background-size: 200px 100%;
+  animation: shimmer 1.8s infinite ease-in-out;
+}
+
+.shimmer-subtle {
+  background: linear-gradient(
+    90deg,
+    var(--neutral-50) 25%,
+    var(--primary-light) 50%,
+    var(--neutral-50) 75%
+  );
+  background-size: 200px 100%;
+  animation: shimmer 2s infinite ease-in-out;
+}
+
+/* Shimmer variants for different elements */
+.shimmer-text {
+  height: 1em;
+  border-radius: var(--radius-sm);
+}
+
+.shimmer-text-sm {
+  height: 0.875em;
+  border-radius: var(--radius-sm);
+}
+
+.shimmer-text-lg {
+  height: 1.25em;
+  border-radius: var(--radius-sm);
+}
+
+.shimmer-rect {
+  border-radius: var(--radius-md);
+}
+
+.shimmer-circle {
+  border-radius: var(--radius-full);
+  aspect-ratio: 1;
+}
+
+.shimmer-button {
+  height: var(--btn-height-md);
+  border-radius: var(--radius-md);
+}
+
+.shimmer-card {
+  border-radius: var(--card-radius);
+  min-height: 200px;
+}
+
+/* Pulse alternative for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .shimmer,
+  .shimmer-dark,
+  .shimmer-subtle {
+    animation: none;
+    background: var(--neutral-100);
+  }
+}
