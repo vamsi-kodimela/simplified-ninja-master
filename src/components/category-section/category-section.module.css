@@ -95,7 +95,7 @@
 }
 
 /* ===============================
-   CATEGORIES GRID
+   CATEGORIES LAYOUT
    =============================== */
 
 .categoriesContainer {
@@ -103,13 +103,25 @@
 }
 
 .categoriesGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--content-gap);
+  width: 100%;
+  max-width: var(--content-width-wide);
+  margin: 0 auto;
+  padding: 0;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+/* Shimmer Grid - Keep as grid for consistent loading layout */
+.shimmerGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: var(--content-gap);
   width: 100%;
   max-width: var(--content-width-wide);
   margin: 0 auto;
-  padding: 0;
 }
 
 /* ===============================
@@ -193,7 +205,6 @@
 
   .categoriesGrid {
     gap: var(--content-gap-lg);
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   }
 
   .errorContainer {
@@ -219,7 +230,6 @@
 
   .categoriesGrid {
     gap: var(--content-gap-md);
-    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
   }
 
   .errorContainer {
@@ -245,7 +255,6 @@
 
   .categoriesGrid {
     gap: var(--content-gap-sm);
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   }
 
   .errorContainer {
@@ -271,7 +280,6 @@
 
   .categoriesGrid {
     gap: var(--spacing-2);
-    grid-template-columns: repeat(2, 1fr);
   }
 
   .shimmerCategory {
