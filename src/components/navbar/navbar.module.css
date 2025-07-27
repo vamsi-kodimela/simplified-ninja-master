@@ -10,12 +10,7 @@
   justify-content: space-between;
   align-items: center;
   padding: var(--spacing-3) var(--container-padding);
-  transition: box-shadow 0.2s ease;
   border-bottom: 1px solid var(--neutral-200);
-}
-
-.navbar:hover {
-  box-shadow: var(--shadow-md);
 }
 
 .logo {
