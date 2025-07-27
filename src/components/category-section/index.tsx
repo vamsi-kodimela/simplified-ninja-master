@@ -13,7 +13,7 @@ interface CategorySectionProps {
 
 const CategorySection: React.FC<CategorySectionProps> = ({
   categories,
-  maxCategories = 8,
+  maxCategories = 6 /* Reduced from 8 to 6 for cleaner loading state */,
   onCategoryClick,
 }) => {
   const [loading, setLoading] = useState(true);

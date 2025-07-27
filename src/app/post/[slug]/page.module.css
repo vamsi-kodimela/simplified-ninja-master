@@ -35,11 +35,25 @@
 
 .category {
   font-size: var(--text-sm);
-  font-weight: 500;
-  padding: var(--spacing-xs) var(--spacing-md);
-  border-radius: var(--radius-md);
-  border: 1px solid var(--secondary-light);
-  color: var(--primary-dark);
+  font-weight: 600; /* Slightly bolder for better readability without background */
+  padding: 0; /* Remove padding for minimal appearance */
+  color: var(--neutral-700); /* Subtle color that works without background */
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  display: inline;
+  background: none; /* Explicitly no background */
+  border: none; /* Remove border */
+}
+
+.category:hover {
+  color: var(--accent); /* Simple color change on hover */
+}
+
+.category:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  color: var(--accent);
 }
 
 .createdAt {
@@ -175,7 +189,17 @@
   }
 
   .category {
-    font-size: var(--text-xs);
-    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--text-xs); /* Smaller text on mobile */
+    padding: 0; /* Consistent minimal approach */
+  }
+}
+
+/* ===========================
+   REDUCED MOTION SUPPORT
+   =========================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .category {
+    transition: none; /* Disable transitions for reduced motion */
   }
 }
