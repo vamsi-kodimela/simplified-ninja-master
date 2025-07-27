@@ -5,7 +5,7 @@
   max-width: 320px;
   overflow: hidden;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: box-shadow 0.2s ease;
   padding: 0;
   position: relative;
   border-radius: var(--radius-lg);
@@ -15,34 +15,10 @@
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
-.post::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: var(--radius-lg);
-  background: linear-gradient(
-    135deg,
-    rgba(0, 122, 255, 0.05),
-    rgba(0, 122, 255, 0.02)
-  );
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-  z-index: 1;
-}
-
 .post:hover {
-  transform: translateY(-8px) scale(1.02);
   box-shadow:
-    0 25px 50px -12px rgba(0, 0, 0, 0.25),
+    0 8px 16px -4px rgba(0, 0, 0, 0.15),
     0 0 0 1px rgba(0, 122, 255, 0.1);
-}
-
-.post:hover::before {
-  opacity: 1;
 }
 
 .post:focus-visible {
@@ -56,15 +32,10 @@
   object-fit: cover;
   position: relative;
   z-index: 2;
-  transition: transform 0.3s ease;
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
   display: block;
   margin: 0;
   padding: 0;
-}
-
-.post:hover .image {
-  transform: scale(1.05);
 }
 
 .imageContainer {
@@ -73,27 +44,6 @@
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
   display: block;
   line-height: 0;
-}
-
-.imageContainer::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0.05) 50%,
-    rgba(0, 0, 0, 0.1) 100%
-  );
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}
-
-.post:hover .imageContainer::after {
-  opacity: 0.7;
 }
 
 .content {
@@ -126,12 +76,8 @@
   -webkit-line-clamp: 2;
   line-clamp: 2;
   -webkit-box-orient: vertical;
-  transition: color 0.2s ease;
-  letter-spacing: var(--tracking-tight);
-}
 
-.post:hover .title {
-  color: var(--accent-blue);
+  letter-spacing: var(--tracking-tight);
 }
 
 .description {
@@ -179,9 +125,8 @@
   color: var(--accent-blue);
   font-weight: 600;
   font-family: var(--font-body);
-  opacity: 0;
-  transform: translateX(-10px);
-  transition: all 0.3s ease;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
   display: flex;
   align-items: center;
   gap: var(--spacing-xs);
@@ -189,16 +134,10 @@
 
 .readMore::after {
   content: "→";
-  transition: transform 0.3s ease;
 }
 
 .post:hover .readMore {
   opacity: 1;
-  transform: translateX(0);
-}
-
-.post:hover .readMore::after {
-  transform: translateX(4px);
 }
 
 /* Accessibility improvements */
@@ -231,8 +170,8 @@
 
   .post:hover {
     box-shadow:
-      0 25px 50px -12px rgba(0, 0, 0, 0.5),
-      0 0 0 1px rgba(0, 122, 255, 0.3);
+      0 8px 16px -4px rgba(0, 0, 0, 0.3),
+      0 0 0 1px rgba(0, 122, 255, 0.2);
   }
 
   .title {
@@ -272,7 +211,9 @@
 
 @media (max-width: 480px) {
   .post:hover {
-    transform: translateY(-4px) scale(1.01);
+    box-shadow:
+      0 6px 12px -2px rgba(0, 0, 0, 0.1),
+      0 0 0 1px rgba(0, 122, 255, 0.08);
   }
 
   .title {
