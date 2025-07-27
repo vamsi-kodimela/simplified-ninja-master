@@ -9,13 +9,12 @@
   max-width: 320px;
   overflow: hidden;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: var(--transition-colors);
   padding: 0;
 }
 
 .postGrid:hover {
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-2px);
+  box-shadow: var(--shadow-base);
 }
 
 .gridImage {
@@ -51,7 +50,7 @@
   margin: 0;
   padding: 0;
   font-size: 0.875rem;
-  color: var(--secondary-medium);
+  color: var(--neutral-600);
   font-family: var(--font-body);
   text-overflow: ellipsis;
   overflow: hidden;
@@ -66,12 +65,12 @@
   margin-top: var(--spacing-xs);
   width: 100%;
   height: 1px;
-  background-color: var(--secondary-light);
+  background-color: var(--neutral-200);
 }
 
 .gridDate {
   font-size: 0.875rem;
-  color: var(--secondary-medium);
+  color: var(--neutral-600);
   font-family: var(--font-body);
 }
 
@@ -83,13 +82,12 @@
   gap: var(--spacing-lg);
   width: 100%;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: var(--transition-colors);
   margin-bottom: var(--spacing-md);
 }
 
 .postList:hover {
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-1px);
+  box-shadow: var(--shadow-base);
 }
 
 .listImageContainer {
@@ -110,82 +108,91 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-sm);
-}
-
-.listHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--spacing-md);
-  margin-bottom: var(--spacing-xs);
-}
-
-.listDate {
-  font-size: 0.875rem;
-  color: var(--secondary-medium);
-  font-family: var(--font-body);
-  white-space: nowrap;
+  padding: var(--spacing-sm) 0;
 }
 
 .listTitle {
   margin: 0;
   font-family: var(--font-heading);
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 600;
   color: var(--primary-dark);
   line-height: 1.3;
   display: -webkit-box;
-  text-overflow: ellipsis;
-  overflow: hidden;
   -webkit-line-clamp: 2;
-  line-clamp: 2;
   -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .listDescription {
   margin: 0;
-  font-size: 1rem;
-  color: var(--secondary-medium);
-  font-family: var(--font-body);
-  line-height: 1.6;
-  display: -webkit-box;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
-  -webkit-box-orient: vertical;
-  flex: 1;
-}
-
-.listFooter {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  margin-top: auto;
-}
-
-.readMore {
   font-size: 0.875rem;
-  color: var(--accent-blue);
-  font-weight: 500;
+  color: var(--neutral-600);
   font-family: var(--font-body);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: auto;
 }
 
-/* ===============================
-   COMPACT LAYOUT (Minimal)
-   =============================== */
-.postCompact {
+.listMeta {
   display: flex;
   align-items: center;
   gap: var(--spacing-md);
-  width: 100%;
+  margin-top: auto;
+}
+
+.listDate {
+  font-size: 0.75rem;
+  color: var(--neutral-600);
+  font-family: var(--font-body);
+}
+
+.listReadTime {
+  font-size: 0.75rem;
+  color: var(--neutral-600);
+  font-family: var(--font-body);
+}
+
+.listCategory {
+  font-size: 0.75rem;
+  color: var(--accent);
+  font-family: var(--font-body);
+  font-weight: 500;
+}
+
+/* ===============================
+   COMPACT LAYOUT
+   =============================== */
+.postCompact {
+  display: flex;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  background-color: var(--neutral-50);
+  border-radius: var(--radius-md);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: var(--transition-colors);
   margin-bottom: var(--spacing-sm);
 }
 
 .postCompact:hover {
-  background-color: var(--secondary-light);
+  background-color: var(--neutral-100);
+}
+
+.compactImageContainer {
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.compactImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .compactContent {
@@ -195,144 +202,58 @@
   gap: var(--spacing-xs);
 }
 
-.compactHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--spacing-sm);
-  margin-bottom: var(--spacing-xs);
-}
-
-.compactDate {
-  font-size: 0.75rem;
-  color: var(--secondary-medium);
-  font-family: var(--font-body);
-  white-space: nowrap;
-}
-
 .compactTitle {
   margin: 0;
   font-family: var(--font-heading);
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--primary-dark);
-  line-height: 1.4;
+  line-height: 1.3;
   display: -webkit-box;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  -webkit-line-clamp: 1;
-  line-clamp: 1;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .compactDescription {
   margin: 0;
-  font-size: 0.875rem;
-  color: var(--secondary-medium);
+  font-size: 0.75rem;
+  color: var(--neutral-600);
   font-family: var(--font-body);
   line-height: 1.4;
   display: -webkit-box;
-  text-overflow: ellipsis;
-  overflow: hidden;
   -webkit-line-clamp: 2;
-  line-clamp: 2;
   -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-.compactImageContainer {
-  flex-shrink: 0;
+.compactMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-top: auto;
 }
 
-.compactImage {
-  width: 80px;
-  height: 60px;
-  object-fit: cover;
-  border-radius: var(--radius-sm);
+.compactDate {
+  font-size: 0.625rem;
+  color: var(--neutral-600);
+  font-family: var(--font-body);
 }
 
 /* ===============================
    RESPONSIVE DESIGN
    =============================== */
-
-/* Tablet */
 @media (max-width: 768px) {
-  .postList {
-    flex-direction: column;
-    gap: var(--spacing-md);
-  }
-
-  .listImageContainer {
-    align-self: center;
-  }
-
   .listImage {
-    width: 100%;
-    max-width: 300px;
-    height: 200px;
-  }
-
-  .listHeader {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--spacing-xs);
-  }
-
-  .listTitle {
-    font-size: 1.25rem;
-  }
-
-  .compactImage {
-    width: 100px;
-    height: 75px;
-  }
-}
-
-/* Mobile */
-@media (max-width: 480px) {
-  .postGrid {
-    max-width: 100%;
-  }
-
-  .postList {
-    padding: var(--spacing-md);
-  }
-
-  .listImage {
-    height: 150px;
+    width: 120px;
+    height: 100px;
   }
 
   .listTitle {
     font-size: 1.125rem;
   }
 
-  .compactContent {
-    gap: 2px;
-  }
-
-  .compactTitle {
-    font-size: 0.9rem;
-  }
-
-  .compactDescription {
-    font-size: 0.8rem;
-    -webkit-line-clamp: 1;
-    line-clamp: 1;
-  }
-
-  .compactImage {
-    width: 60px;
-    height: 45px;
-  }
-}
-
-/* Dark mode enhancements */
-@media (prefers-color-scheme: dark) {
-  .postGrid:hover,
-  .postList:hover {
-    box-shadow: 0 10px 25px -3px rgba(255, 255, 255, 0.1);
-  }
-
-  .postCompact:hover {
-    background-color: var(--secondary-dark);
+  .postCompact {
+    padding: var(--spacing-sm);
   }
 }

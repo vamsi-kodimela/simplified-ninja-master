@@ -1,0 +1,99 @@
+/* ===========================
+   BASE CARD - MINIMAL
+   =========================== */
+
+.card {
+  background-color: var(--primary-light);
+  border-radius: var(--card-radius);
+  transition: var(--transition-colors);
+  position: relative;
+}
+
+/* ===========================
+   MINIMAL VARIANTS
+   =========================== */
+
+.variant-default {
+  box-shadow: var(--card-shadow);
+  border: none;
+}
+
+.variant-bordered {
+  border: 1px solid var(--neutral-200);
+  box-shadow: none;
+}
+
+.variant-elevated {
+  box-shadow: var(--shadow-base);
+  border: none;
+}
+
+.variant-flat {
+  box-shadow: none;
+  border: none;
+  background-color: var(--neutral-50);
+}
+
+/* ===========================
+   PADDING VARIANTS
+   =========================== */
+
+.padding-none {
+  padding: 0;
+}
+
+.padding-sm {
+  padding: var(--spacing-4);
+}
+
+.padding-md {
+  padding: var(--card-padding);
+}
+
+.padding-lg {
+  padding: var(--spacing-8);
+}
+
+/* ===========================
+   MINIMAL CLICKABLE STATE
+   =========================== */
+
+.clickable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.clickable:hover {
+  /* No transform animations - just subtle color changes */
+}
+
+.clickable.variant-default:hover {
+  box-shadow: var(--shadow-base);
+}
+
+.clickable.variant-bordered:hover {
+  border-color: var(--neutral-300);
+}
+
+.clickable.variant-elevated:hover {
+  box-shadow: var(--shadow-base);
+}
+
+.clickable.variant-flat:hover {
+  background-color: var(--neutral-100);
+}
+
+.clickable:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* ===========================
+   RESPONSIVE ADJUSTMENTS
+   =========================== */
+
+@media (max-width: 768px) {
+  .padding-lg {
+    padding: var(--spacing-6);
+  }
+}

@@ -4,19 +4,18 @@
   gap: var(--spacing-sm);
   padding: var(--spacing-sm) var(--spacing-md);
   border-radius: 20px;
-  background-color: var(--secondary-light);
+  background-color: var(--neutral-50);
   font-family: var(--font-body);
   font-size: 0.875rem;
   font-weight: 500;
   color: var(--primary-dark);
-  transition: all 0.2s ease;
+  transition: var(--transition-colors);
   cursor: pointer;
 }
 
 .category:hover {
-  background-color: var(--secondary-medium);
-  color: var(--primary-light);
-  transform: translateY(-1px);
+  background-color: var(--neutral-100);
+  color: var(--primary-dark);
 }
 
 .iconWrapper {
@@ -26,7 +25,7 @@
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background-color: var(--accent-blue);
+  background-color: var(--neutral-600);
   color: var(--primary-light);
   font-size: 0.75rem;
   font-weight: 600;
@@ -48,29 +47,29 @@
   margin: 0;
 }
 
-/* Color variants for letter fallbacks */
+/* Minimal color variants using neutral grays */
 .iconWrapper.colorVariant1 {
-  background-color: var(--accent-blue);
+  background-color: var(--neutral-600);
 }
 .iconWrapper.colorVariant2 {
-  background-color: var(--semantic-success);
+  background-color: var(--neutral-700);
 }
 .iconWrapper.colorVariant3 {
-  background-color: var(--semantic-error);
+  background-color: var(--neutral-800);
 }
 .iconWrapper.colorVariant4 {
-  background-color: var(--semantic-warning);
-  color: var(--primary-dark);
+  background-color: var(--neutral-500);
 }
 .iconWrapper.colorVariant5 {
-  background-color: var(--secondary-dark);
+  background-color: var(--neutral-900);
 }
 .iconWrapper.colorVariant6 {
-  background-color: var(--accent-red);
+  background-color: var(--neutral-400);
+  color: var(--primary-dark);
 }
 .iconWrapper.colorVariant7 {
-  background-color: var(--semantic-success);
+  background-color: var(--accent);
 }
 .iconWrapper.colorVariant8 {
-  background-color: var(--accent-blue);
+  background-color: var(--primary-dark);
 }
