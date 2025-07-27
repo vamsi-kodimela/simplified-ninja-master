@@ -4,7 +4,7 @@ import styles from "./category.module.css";
 interface CategoryProps {
   name: string;
   icon?: string;
-  onClick?: () => void;
+  onClick?: (e?: React.MouseEvent) => void;
   className?: string;
 }
 
@@ -29,7 +29,14 @@ const Category: React.FC<CategoryProps> = ({
   const colorVariant = getColorVariant(name);
 
   return (
-    <div className={`${styles.category} ${className}`} onClick={onClick}>
+    <div
+      className={`${styles.category} ${className}`}
+      onClick={(e) => {
+        if (onClick) {
+          onClick(e);
+        }
+      }}
+    >
       <div className={`${styles.iconWrapper} ${styles[colorVariant]}`}>
         {icon ? (
           <img
