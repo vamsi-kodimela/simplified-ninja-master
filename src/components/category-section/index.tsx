@@ -129,7 +129,6 @@ const CategorySection: React.FC<CategorySectionProps> = ({
           </div>
         ))}
       </div>
-      <p className={styles.shimmerMessage}>Loading categories...</p>
     </div>
   );
 

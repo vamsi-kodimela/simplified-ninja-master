@@ -174,7 +174,7 @@ export const ComponentShowcase: React.FC = () => {
                 Button States
               </h3>
               <Stack direction="row" spacing="md" wrap>
-                <Button loading>Loading</Button>
+                <Button loading></Button>
                 <Button disabled>Disabled</Button>
                 <Button iconLeft={<span>→</span>}>With Icon</Button>
                 <Button fullWidth>Full Width Button</Button>
