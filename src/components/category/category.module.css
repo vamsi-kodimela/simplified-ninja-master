@@ -1,0 +1,76 @@
+.category {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background-color: #f5f5f5;
+  font-family: "Open Sans", sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #333;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.category:hover {
+  background-color: #e8e8e8;
+  border-color: #ddd;
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #007acc;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.title {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin: 0;
+}
+
+/* Color variants for letter fallbacks */
+.iconWrapper.colorVariant1 {
+  background-color: #007acc;
+}
+.iconWrapper.colorVariant2 {
+  background-color: #28a745;
+}
+.iconWrapper.colorVariant3 {
+  background-color: #dc3545;
+}
+.iconWrapper.colorVariant4 {
+  background-color: #ffc107;
+  color: #333;
+}
+.iconWrapper.colorVariant5 {
+  background-color: #6f42c1;
+}
+.iconWrapper.colorVariant6 {
+  background-color: #fd7e14;
+}
+.iconWrapper.colorVariant7 {
+  background-color: #20c997;
+}
+.iconWrapper.colorVariant8 {
+  background-color: #e83e8c;
+}

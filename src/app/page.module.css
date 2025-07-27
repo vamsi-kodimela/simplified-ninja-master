@@ -1,8 +1,28 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.categorySection {
+  margin-bottom: 40px;
+}
+
 .posts-grid {
   display: grid;
   gap: 20px;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  padding: 20px;
+  padding: 0;
   justify-content: center;
   align-items: start;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+
+  .categorySection {
+    margin-bottom: 30px;
+  }
 }

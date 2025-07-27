@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import dayjs from "dayjs";
 import { API_URL, SERVER_URL } from "@/config/api.config";
+import { Category } from "../category";
 
 interface IPostProps {
   post: IArticle;
@@ -26,9 +27,13 @@ const Post = ({ post }: IPostProps) => {
         height={200}
       />
       <div className={styles.content}>
-        <div className={styles.category} title={post.category.name}>
-          {post.category.name}
-        </div>
+        <Category
+          name={post.category.name}
+          onClick={() => {
+            // You can add category navigation logic here
+            // Note: This prevents the post click due to event bubbling
+          }}
+        />
         <h2 className={styles.title} title={post.title}>
           {post.title}
         </h2>

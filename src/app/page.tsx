@@ -1,7 +1,8 @@
 import { Post } from "@/components/post";
+import { CategorySection } from "@/components/category-section";
 import styles from "./page.module.css";
 import { API_URL } from "@/config/api.config";
-import { IArticle } from "@/models";
+import { IArticle, ICategory } from "@/models";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -16,12 +17,22 @@ export default async function Home() {
     const { docs } = await response.json();
     return docs;
   };
+
   const articles = await fetchArticles();
 
   return (
-    <div className={styles["posts-grid"]}>
-      {articles &&
-        articles.map((article) => <Post post={article} key={article.id} />)}
+    <div className={styles.container}>
+      <CategorySection
+        title="Browse by Category"
+        layout="grid"
+        showLayoutToggle={true}
+        className={styles.categorySection}
+      />
+
+      <div className={styles["posts-grid"]}>
+        {articles &&
+          articles.map((article) => <Post post={article} key={article.id} />)}
+      </div>
     </div>
   );
 }
