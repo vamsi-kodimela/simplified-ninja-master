@@ -8,17 +8,11 @@ export { Post } from "./post";
 // POSTS COMPONENTS
 // ===========================
 export { PostsFilters } from "./posts-filters";
-export { PostVariant, PostGrid, PostList, PostCompact } from "./post-variants";
+export { PostVariant, PostGrid, PostCompact } from "./post-variants";
 export {
   PostsSection,
-  PostsGrid,
-  PostsList,
-  PostsWithFilters,
-  FeaturedPosts,
-  LatestPosts,
-  CompactPosts,
-  AdvancedPostsSection,
-  LoadingSkeleton,
+  PostsSectionDemo,
+  ShimmerSkeleton,
 } from "./posts-section";
 
 // ===========================

@@ -150,21 +150,6 @@ const PostsFilters = () => {
               </svg>
             </button>
             <button
-              onClick={() => handleLayoutChange("list")}
-              className={`${styles.layoutButton} ${layoutType === "list" ? styles.active : ""}`}
-              aria-label="List layout"
-              title="List layout"
-            >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <line x1="8" y1="6" x2="21" y2="6" />
-                <line x1="8" y1="12" x2="21" y2="12" />
-                <line x1="8" y1="18" x2="21" y2="18" />
-                <line x1="3" y1="6" x2="3.01" y2="6" />
-                <line x1="3" y1="12" x2="3.01" y2="12" />
-                <line x1="3" y1="18" x2="3.01" y2="18" />
-              </svg>
-            </button>
-            <button
               onClick={() => handleLayoutChange("compact")}
               className={`${styles.layoutButton} ${layoutType === "compact" ? styles.active : ""}`}
               aria-label="Compact layout"

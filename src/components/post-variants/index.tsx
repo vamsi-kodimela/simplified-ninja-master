@@ -10,7 +10,7 @@ import { Category } from "../category";
 
 interface IPostProps {
   post: IArticle;
-  layout?: "grid" | "list" | "compact";
+  layout?: "grid" | "compact";
 }
 
 // Original grid layout (unchanged, but moved here)
@@ -45,50 +45,6 @@ const PostGrid = ({ post }: { post: IArticle }) => {
         <div className={styles.gridDivider}></div>
         <div className={styles.gridDate}>
           {dayjs(post.createdAt).format("DD MMMM YYYY")}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// List layout - horizontal layout with larger content area
-const PostList = ({ post }: { post: IArticle }) => {
-  const router = useRouter();
-  const handleClick = () => {
-    router.push(`/post/${post.slug}`);
-  };
-
-  return (
-    <div className={`card ${styles.postList}`} onClick={handleClick}>
-      <div className={styles.listImageContainer}>
-        <Image
-          src={`${SERVER_URL}${post.featuredImage.url}`}
-          alt={post.title}
-          className={styles.listImage}
-          width={200}
-          height={150}
-        />
-      </div>
-      <div className={styles.listContent}>
-        <div className={styles.listHeader}>
-          <Category
-            name={post.category.name}
-            onClick={() => {
-              // Prevent navigation to category - could add category filtering here
-            }}
-          />
-          <span className={styles.listDate}>
-            {dayjs(post.createdAt).format("DD MMM YYYY")}
-          </span>
-        </div>
-        <h2 className={styles.listTitle} title={post.title}>
-          {post.title}
-        </h2>
-        <p className={styles.listDescription} title={post.description}>
-          {post.description}
-        </p>
-        <div className={styles.listFooter}>
-          <span className={styles.readMore}>Read more →</span>
         </div>
       </div>
     </div>
@@ -139,8 +95,6 @@ const PostCompact = ({ post }: { post: IArticle }) => {
 // Main component that switches between layouts
 const PostVariant = ({ post, layout = "grid" }: IPostProps) => {
   switch (layout) {
-    case "list":
-      return <PostList post={post} />;
     case "compact":
       return <PostCompact post={post} />;
     case "grid":
@@ -149,4 +103,4 @@ const PostVariant = ({ post, layout = "grid" }: IPostProps) => {
   }
 };
 
-export { PostVariant, PostGrid, PostList, PostCompact };
+export { PostVariant, PostGrid, PostCompact };

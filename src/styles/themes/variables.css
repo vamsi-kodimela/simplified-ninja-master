@@ -148,22 +148,62 @@
   --spacing-xxl: var(--spacing-12);
 
   /* ===========================
+     OPTIMIZED LAYOUT SPACING
+     =========================== */
+
+  /* Container Spacing */
+  --container-padding: var(--spacing-6); /* Desktop: 24px */
+  --container-padding-lg: var(--spacing-8); /* Large screens: 32px */
+  --container-padding-md: var(--spacing-4); /* Tablet: 16px */
+  --container-padding-sm: var(--spacing-3); /* Mobile: 12px */
+
+  /* Section Spacing */
+  --section-gap: var(--spacing-12); /* Between major sections: 48px */
+  --section-gap-lg: var(--spacing-16); /* Large screens: 64px */
+  --section-gap-md: var(--spacing-8); /* Tablet: 32px */
+  --section-gap-sm: var(--spacing-6); /* Mobile: 24px */
+
+  /* Component Spacing */
+  --component-gap: var(--spacing-6); /* Between components: 24px */
+  --component-gap-lg: var(--spacing-8); /* Large screens: 32px */
+  --component-gap-md: var(--spacing-4); /* Tablet: 16px */
+  --component-gap-sm: var(--spacing-3); /* Mobile: 12px */
+
+  /* Content Spacing */
+  --content-gap: var(--spacing-4); /* Within components: 16px */
+  --content-gap-lg: var(--spacing-5); /* Large screens: 20px */
+  --content-gap-md: var(--spacing-3); /* Tablet: 12px */
+  --content-gap-sm: var(--spacing-2); /* Mobile: 8px */
+
+  /* Grid Gaps */
+  --grid-gap: var(--spacing-6); /* Main grids: 24px */
+  --grid-gap-lg: var(--spacing-8); /* Large screens: 32px */
+  --grid-gap-md: var(--spacing-4); /* Tablet: 16px */
+  --grid-gap-sm: var(--spacing-3); /* Mobile: 12px */
+
+  /* ===========================
      LAYOUT & SIZING
      =========================== */
 
-  /* Breakpoints */
+  /* Responsive Breakpoints */
   --breakpoint-sm: 640px;
   --breakpoint-md: 768px;
   --breakpoint-lg: 1024px;
   --breakpoint-xl: 1280px;
   --breakpoint-2xl: 1536px;
 
-  /* Container Sizes */
+  /* Optimized Container Sizes */
   --container-sm: 640px;
   --container-md: 768px;
   --container-lg: 1024px;
   --container-xl: 1280px;
-  --container-2xl: 1536px;
+  --container-2xl: 1400px; /* Slightly reduced for better readability */
+  --container-max: 1600px; /* Maximum container width */
+
+  /* Content Width Constraints */
+  --content-width-narrow: 600px; /* For focused content */
+  --content-width-medium: 800px; /* For standard content */
+  --content-width-wide: 1000px; /* For wider layouts */
 
   /* Border Radius */
   --radius-none: 0;

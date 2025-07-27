@@ -22,11 +22,7 @@ export default async function Home() {
 
   return (
     <div className={`bg-primary-light ${styles.container}`}>
-      <CategorySection
-        title="Browse by Category"
-        subtitle="Discover content across different topics"
-        showViewAll={true}
-      />
+      <CategorySection />
 
       <div className={styles["posts-grid"]}>
         {articles &&

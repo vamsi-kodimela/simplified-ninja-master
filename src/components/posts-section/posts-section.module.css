@@ -4,16 +4,16 @@
 
 .postsSection {
   width: 100%;
-  padding: var(--spacing-6) 0;
+  padding: var(--section-gap) 0;
 }
 
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: var(--spacing-6);
+  margin-bottom: var(--component-gap);
   flex-wrap: wrap;
-  gap: var(--spacing-4);
+  gap: var(--content-gap);
 }
 
 .title {
@@ -28,7 +28,7 @@
 .controls {
   display: flex;
   align-items: center;
-  gap: var(--spacing-4);
+  gap: var(--content-gap);
   flex-wrap: wrap;
 }
 
@@ -98,75 +98,61 @@
 
 .content {
   position: relative;
+  min-height: 300px;
+}
+
+.emptyState {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-12) var(--spacing-4);
+  text-align: center;
+  color: var(--neutral-600);
+  font-size: var(--text-lg);
 }
 
 /* ===============================
-   SHIMMER LOADING STATE
+   SHIMMER LOADING
    =============================== */
 
 .shimmerContainer {
-  display: grid;
-  gap: var(--spacing-6);
   width: 100%;
 }
 
 .shimmerGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: var(--spacing-6);
-}
-
-.shimmerList {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-4);
-}
-
-.shimmerCompact {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: var(--spacing-3);
+  gap: var(--grid-gap);
+  width: 100%;
 }
 
 .shimmerCard {
-  background-color: var(--primary-light);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
-  overflow: hidden;
-  transition: var(--transition-colors);
-}
-
-.shimmerCard:hover {
-  box-shadow: var(--shadow-base);
-}
-
-/* Grid Layout Shimmer */
-.shimmerGrid .shimmerCard {
   display: flex;
   flex-direction: column;
-  max-width: 320px;
+  background-color: var(--primary-light);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--neutral-200);
 }
 
 .shimmerImage {
   width: 100%;
-  aspect-ratio: 3/2;
+  height: 200px;
   background: linear-gradient(
     90deg,
     var(--neutral-100) 25%,
     var(--neutral-50) 50%,
     var(--neutral-100) 75%
   );
-  background-size: 200px 100%;
-  animation: shimmer 1.8s infinite ease-in-out;
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
 }
 
 .shimmerContent {
-  padding: var(--spacing-md) var(--spacing-lg);
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
-  flex: 1;
+  gap: var(--content-gap-sm);
+  padding: var(--content-gap);
 }
 
 .shimmerLine {
@@ -176,157 +162,129 @@
     var(--neutral-50) 50%,
     var(--neutral-100) 75%
   );
-  background-size: 200px 100%;
-  animation: shimmer 1.8s infinite ease-in-out;
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
   border-radius: var(--radius-sm);
 }
 
 .shimmerLine.title {
-  height: 1.25rem;
+  height: 1.5rem;
   width: 85%;
-  margin-bottom: var(--spacing-xs);
 }
 
 .shimmerLine.subtitle {
-  height: 0.875rem;
-  width: 100%;
+  height: 1rem;
+  width: 95%;
 }
 
 .shimmerLine.text {
-  height: 0.875rem;
-  width: 90%;
+  height: 1rem;
+  width: 100%;
 }
 
 .shimmerLine.short {
   height: 0.75rem;
   width: 60%;
-  margin-top: var(--spacing-sm);
+  margin-top: var(--content-gap-sm);
 }
 
-/* List Layout Shimmer */
-.shimmerList .shimmerCard {
-  display: flex;
-  gap: var(--spacing-lg);
-  padding: var(--spacing-lg);
-}
-
-.shimmerList .shimmerImage {
-  width: 200px;
-  height: 150px;
-  flex-shrink: 0;
-  border-radius: var(--radius-md);
-  aspect-ratio: auto;
-}
-
-.shimmerList .shimmerContent {
-  flex: 1;
-  padding: 0;
-  justify-content: center;
-}
-
-.shimmerList .shimmerLine.title {
-  height: 1.5rem;
-  width: 75%;
-}
-
-.shimmerList .shimmerLine.subtitle {
-  height: 1rem;
-  width: 100%;
-}
-
-.shimmerList .shimmerLine.text {
-  height: 1rem;
-  width: 85%;
-}
-
-/* Compact Layout Shimmer */
-.shimmerCompact .shimmerCard {
-  display: flex;
-  gap: var(--spacing-md);
-  padding: var(--spacing-md);
-  background-color: var(--neutral-50);
-}
-
-.shimmerCompact .shimmerImage {
-  width: 80px;
-  height: 80px;
-  flex-shrink: 0;
-  border-radius: var(--radius-md);
-  aspect-ratio: 1;
-}
-
-.shimmerCompact .shimmerContent {
-  flex: 1;
-  padding: 0;
-  gap: var(--spacing-xs);
-}
-
-.shimmerCompact .shimmerLine.title {
-  height: 0.875rem;
-  width: 80%;
-}
-
-.shimmerCompact .shimmerLine.subtitle {
-  height: 0.75rem;
-  width: 100%;
-}
-
-.shimmerCompact .shimmerLine.text {
-  height: 0.75rem;
-  width: 65%;
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 /* ===============================
-   POSTS GRID LAYOUT
+   GRID LAYOUT
    =============================== */
 
 .postsGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: var(--spacing-6);
+  gap: var(--grid-gap);
   width: 100%;
 }
 
-.postsList {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-4);
-  width: 100%;
+/* ===========================
+   RESPONSIVE OPTIMIZATIONS
+   =========================== */
+
+/* Large Screens */
+@media (min-width: 1280px) {
+  .postsSection {
+    padding: var(--section-gap-lg) 0;
+  }
+
+  .header {
+    margin-bottom: var(--component-gap-lg);
+    gap: var(--content-gap-lg);
+  }
+
+  .controls {
+    gap: var(--content-gap-lg);
+  }
+
+  .postsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--grid-gap-lg);
+  }
+
+  .shimmerGrid {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--grid-gap-lg);
+  }
+
+  .shimmerContent {
+    gap: var(--content-gap);
+    padding: var(--content-gap-lg);
+  }
 }
 
-.postsCompact {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: var(--spacing-3);
-  width: 100%;
-}
+/* Tablet */
+@media (max-width: 1023px) and (min-width: 768px) {
+  .postsSection {
+    padding: var(--section-gap-md) 0;
+  }
 
-/* ===============================
-   RESPONSIVE DESIGN
-   =============================== */
+  .header {
+    margin-bottom: var(--component-gap-md);
+    gap: var(--content-gap-md);
+  }
 
-@media (max-width: 1024px) {
+  .controls {
+    gap: var(--content-gap-md);
+  }
+
   .postsGrid {
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: var(--spacing-5);
+    gap: var(--grid-gap-md);
   }
 
   .shimmerGrid {
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: var(--spacing-5);
+    gap: var(--grid-gap-md);
+  }
+
+  .shimmerContent {
+    gap: var(--content-gap-sm);
+    padding: var(--content-gap-md);
   }
 }
 
-@media (max-width: 768px) {
+/* Mobile */
+@media (max-width: 767px) {
   .postsSection {
-    padding: var(--spacing-4) 0;
+    padding: var(--section-gap-sm) 0;
   }
 
   .header {
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--spacing-3);
-    margin-bottom: var(--spacing-4);
+    gap: var(--content-gap-sm);
+    margin-bottom: var(--component-gap-sm);
   }
 
   .title {
@@ -336,41 +294,50 @@
   .controls {
     width: 100%;
     justify-content: space-between;
+    gap: var(--content-gap-sm);
   }
 
   .postsGrid {
     grid-template-columns: 1fr;
-    gap: var(--spacing-4);
+    gap: var(--grid-gap-sm);
   }
 
   .shimmerGrid {
     grid-template-columns: 1fr;
-    gap: var(--spacing-4);
+    gap: var(--grid-gap-sm);
   }
 
-  .shimmerList .shimmerCard {
-    flex-direction: column;
-    gap: var(--spacing-md);
-  }
-
-  .shimmerList .shimmerImage {
-    width: 100%;
-    height: 200px;
-  }
-
-  .shimmerCompact {
-    grid-template-columns: 1fr;
+  .shimmerContent {
+    gap: var(--spacing-1);
+    padding: var(--content-gap-sm);
   }
 }
 
-@media (max-width: 480px) {
-  .shimmerCompact .shimmerCard {
-    padding: var(--spacing-sm);
+/* Small Mobile */
+@media (max-width: 479px) {
+  .postsSection {
+    padding: var(--spacing-4) 0;
   }
 
-  .shimmerCompact .shimmerImage {
-    width: 60px;
-    height: 60px;
+  .header {
+    gap: var(--spacing-2);
+    margin-bottom: var(--spacing-3);
+  }
+
+  .controls {
+    gap: var(--spacing-2);
+  }
+
+  .postsGrid {
+    gap: var(--spacing-3);
+  }
+
+  .shimmerGrid {
+    gap: var(--spacing-3);
+  }
+
+  .shimmerContent {
+    padding: var(--spacing-3);
   }
 }
 

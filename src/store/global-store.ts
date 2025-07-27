@@ -1,7 +1,7 @@
 import { IArticle, ICategory } from "@/models";
 import { create } from "zustand";
 
-export type LayoutType = "grid" | "list" | "compact";
+export type LayoutType = "grid" | "compact";
 export type SortType = "newest" | "oldest" | "title-asc" | "title-desc";
 
 type IGlobalStore = {

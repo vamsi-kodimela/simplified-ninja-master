@@ -2,12 +2,8 @@
 import React, { useState, useEffect, useMemo } from "react";
 import styles from "./posts-section.module.css";
 import { Post } from "../post";
-import { PostVariant } from "../post-variants";
 import { PostsFilters } from "../posts-filters";
 import { IArticle } from "../../models";
-
-// Define layout types
-export type LayoutType = "grid" | "list" | "compact";
 
 // Props for the Posts Section
 interface PostsSectionProps {
@@ -15,27 +11,22 @@ interface PostsSectionProps {
   posts?: IArticle[];
   maxPosts?: number;
   showFilters?: boolean;
-  defaultLayout?: LayoutType;
   isLoading?: boolean;
 }
 
-// Props for individual Posts Section components
+// Props for Posts Section Header
 interface PostsSectionHeaderProps {
   title: string;
   showFilters: boolean;
-  layoutType: LayoutType;
-  onLayoutChange: (layout: LayoutType) => void;
   onToggleFilters: () => void;
   onRefresh: () => void;
   isLoading: boolean;
 }
 
-// Header component with controls
+// Header component
 const PostsSectionHeader: React.FC<PostsSectionHeaderProps> = ({
   title,
   showFilters,
-  layoutType,
-  onLayoutChange,
   onToggleFilters,
   onRefresh,
   isLoading = false,
@@ -89,38 +80,23 @@ const PostsSectionHeader: React.FC<PostsSectionHeaderProps> = ({
   );
 };
 
-// Shimmer skeleton component
-const ShimmerSkeleton = ({
-  count = 6,
-  layout = "grid",
-}: {
-  count: number;
-  layout: LayoutType;
-}) => {
-  const getShimmerClass = () => {
-    switch (layout) {
-      case "list":
-        return styles.shimmerList;
-      case "compact":
-        return styles.shimmerCompact;
-      default:
-        return styles.shimmerGrid;
-    }
-  };
-
+// Grid shimmer skeleton component
+const ShimmerSkeleton = ({ count = 6 }: { count: number }) => {
   return (
-    <div className={`${styles.shimmerContainer} ${getShimmerClass()}`}>
-      {Array.from({ length: count }).map((_, index) => (
-        <div key={index} className={styles.shimmerCard}>
-          <div className={styles.shimmerImage} />
-          <div className={styles.shimmerContent}>
-            <div className={`${styles.shimmerLine} ${styles.title}`} />
-            <div className={`${styles.shimmerLine} ${styles.subtitle}`} />
-            <div className={`${styles.shimmerLine} ${styles.text}`} />
-            <div className={`${styles.shimmerLine} ${styles.short}`} />
+    <div className={styles.shimmerContainer}>
+      <div className={styles.shimmerGrid}>
+        {Array.from({ length: count }).map((_, index) => (
+          <div key={index} className={styles.shimmerCard}>
+            <div className={styles.shimmerImage} />
+            <div className={styles.shimmerContent}>
+              <div className={`${styles.shimmerLine} ${styles.title}`} />
+              <div className={`${styles.shimmerLine} ${styles.subtitle}`} />
+              <div className={`${styles.shimmerLine} ${styles.text}`} />
+              <div className={`${styles.shimmerLine} ${styles.short}`} />
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };
@@ -131,45 +107,33 @@ export const PostsSection: React.FC<PostsSectionProps> = ({
   posts = [],
   maxPosts = 6,
   showFilters = true,
-  defaultLayout = "grid",
   isLoading = false,
 }) => {
   // State management
-  const [layoutType, setLayoutType] = useState<LayoutType>(defaultLayout);
   const [showFiltersPanel, setShowFiltersPanel] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState<"date" | "popularity">("date");
   const [localLoading, setLocalLoading] = useState(false);
 
-  // Handle layout change
-  const handleLayoutChange = (layout: LayoutType) => {
-    setLayoutType(layout);
-  };
-
   // Handle toggle filters
   const handleToggleFilters = () => {
-    setShowFiltersPanel((prev) => !prev);
+    setShowFiltersPanel(!showFiltersPanel);
   };
 
   // Handle refresh
-  const handleRefresh = async () => {
+  const handleRefresh = () => {
     setLocalLoading(true);
-    // Simulate refresh delay
     setTimeout(() => {
       setLocalLoading(false);
-    }, 800);
+    }, 1000);
   };
 
   // Handle category filter
   const handleCategoryFilter = (categories: string[]) => {
-    setLocalLoading(true);
     setSelectedCategories(categories);
-    // Simulate filter delay
-    setTimeout(() => {
-      setLocalLoading(false);
-    }, 500);
   };
 
+  // Check if in loading state
   const isLoadingState = isLoading || localLoading;
 
   // Filter and sort posts
@@ -179,50 +143,36 @@ export const PostsSection: React.FC<PostsSectionProps> = ({
     // Filter by categories
     if (selectedCategories.length > 0) {
       filtered = filtered.filter((post) =>
-        selectedCategories.some((category) =>
-          post.categories?.some((cat) => cat.name === category),
+        selectedCategories.some((categoryName) =>
+          post.category?.name
+            ?.toLowerCase()
+            .includes(categoryName.toLowerCase()),
         ),
       );
     }
 
     // Sort posts
-    filtered.sort((a, b) => {
+    const sorted = [...filtered].sort((a, b) => {
       if (sortBy === "date") {
-        return (
-          new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-        );
+        const dateA = new Date(a.createdAt || "");
+        const dateB = new Date(b.createdAt || "");
+        return dateB.getTime() - dateA.getTime();
       }
-      // For popularity, you might want to use view count, likes, etc.
+      // Add popularity sorting logic here if needed
       return 0;
     });
 
-    return filtered.slice(0, maxPosts);
+    // Apply max posts limit
+    return sorted.slice(0, maxPosts);
   }, [posts, selectedCategories, sortBy, maxPosts]);
 
-  // Render posts based on layout
+  // Render posts in grid layout
   const renderPosts = () => {
-    const containerClass = `styles.posts${layoutType.charAt(0).toUpperCase() + layoutType.slice(1)}`;
-
     return (
-      <div
-        className={
-          styles[
-            `posts${layoutType.charAt(0).toUpperCase() + layoutType.slice(1)}`
-          ]
-        }
-      >
-        {filteredAndSortedPosts.map((post) => {
-          switch (layoutType) {
-            case "list":
-              return <PostVariant key={post.id} post={post} variant="list" />;
-            case "compact":
-              return (
-                <PostVariant key={post.id} post={post} variant="compact" />
-              );
-            default:
-              return <Post key={post.id} {...post} />;
-          }
-        })}
+      <div className={styles.postsGrid}>
+        {filteredAndSortedPosts.map((post) => (
+          <Post key={post.id} post={post} />
+        ))}
       </div>
     );
   };
@@ -232,29 +182,16 @@ export const PostsSection: React.FC<PostsSectionProps> = ({
       <PostsSectionHeader
         title={title}
         showFilters={showFilters}
-        layoutType={layoutType}
-        onLayoutChange={handleLayoutChange}
         onToggleFilters={handleToggleFilters}
         onRefresh={handleRefresh}
         isLoading={isLoadingState}
       />
 
-      {showFiltersPanel && (
-        <PostsFilters
-          onCategoryFilter={handleCategoryFilter}
-          onSortChange={setSortBy}
-          onLayoutChange={handleLayoutChange}
-          currentLayout={layoutType}
-          currentSort={sortBy}
-          selectedCategories={selectedCategories}
-        />
-      )}
+      {showFiltersPanel && <PostsFilters />}
 
       <div className={styles.content}>
         {/* Shimmer loading state */}
-        {isLoadingState && (
-          <ShimmerSkeleton count={maxPosts || 6} layout={layoutType} />
-        )}
+        {isLoadingState && <ShimmerSkeleton count={maxPosts || 6} />}
 
         {/* Content when not loading */}
         {!isLoadingState && (
@@ -290,11 +227,10 @@ export const PostsSectionDemo: React.FC = () => {
       posts={[]} // No demo data - will show empty state
       maxPosts={6}
       showFilters={true}
-      defaultLayout="grid"
       isLoading={isLoading}
     />
   );
 };
 
-// Export both components
+// Export components
 export { ShimmerSkeleton };

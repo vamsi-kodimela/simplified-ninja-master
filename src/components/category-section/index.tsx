@@ -6,23 +6,15 @@ import { API_URL } from "../../config/api.config";
 import styles from "./category-section.module.css";
 
 interface CategorySectionProps {
-  title?: string;
-  subtitle?: string;
   categories?: ICategory[];
   maxCategories?: number;
-  showViewAll?: boolean;
   onCategoryClick?: (category: ICategory) => void;
-  onViewAllClick?: () => void;
 }
 
 const CategorySection: React.FC<CategorySectionProps> = ({
-  title = "Explore Categories",
-  subtitle = "Discover content across different topics",
   categories,
   maxCategories = 8,
-  showViewAll = true,
   onCategoryClick,
-  onViewAllClick,
 }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -100,16 +92,6 @@ const CategorySection: React.FC<CategorySectionProps> = ({
     } else {
       // Default behavior - could navigate to category page
       console.log("Category clicked:", category.name);
-    }
-  };
-
-  const handleViewAllClick = () => {
-    if (onViewAllClick) {
-      onViewAllClick();
-    } else {
-      // Default behavior when no handler is provided (e.g., from Server Component)
-      console.log("View all categories - default behavior");
-      // Could navigate to a categories page or trigger other default action
     }
   };
 
@@ -232,32 +214,6 @@ const CategorySection: React.FC<CategorySectionProps> = ({
 
   return (
     <section className={styles.categorySection}>
-      <div className={styles.header}>
-        <div>
-          <h2 className={styles.title}>{title}</h2>
-          <p className={styles.subtitle}>{subtitle}</p>
-        </div>
-        {showViewAll && !loading && !error && displayCategories.length > 0 && (
-          <button onClick={handleViewAllClick} className={styles.viewAllButton}>
-            View All
-            <svg
-              className={styles.viewAllIcon}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
-          </button>
-        )}
-      </div>
-
       {loading && renderShimmerState()}
       {error && !loading && renderErrorState()}
       {!loading &&

@@ -59,10 +59,9 @@
 }
 
 .title {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
   margin: 0;
+  word-break: break-word;
+  hyphens: auto;
 }
 
 /* Minimal color variants using neutral grays */
