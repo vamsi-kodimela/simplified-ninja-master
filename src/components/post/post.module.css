@@ -10,23 +10,34 @@
   position: relative;
   border-radius: var(--radius-lg);
   background: var(--primary-light);
-  box-shadow: var(--shadow-sm);
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.06),
+    0 1px 4px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.02);
 }
 
 .post:hover {
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.1),
+    0 4px 12px rgba(0, 0, 0, 0.06);
   transform: var(--hover-lift);
+  border-color: rgba(0, 0, 0, 0.04);
 }
 
 .post:active {
   transform: var(--active-scale);
-  box-shadow: var(--shadow-sm);
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.08),
+    0 1px 4px rgba(0, 0, 0, 0.06);
 }
 
 .post:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
   transform: var(--focus-scale);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.1),
+    0 4px 12px rgba(0, 0, 0, 0.06);
 }
 
 .image {
@@ -275,7 +286,9 @@
   /* Disable hover effects on mobile */
   .post:hover {
     transform: none;
-    box-shadow: var(--shadow-base);
+    box-shadow:
+      0 2px 8px rgba(0, 0, 0, 0.06),
+      0 1px 4px rgba(0, 0, 0, 0.04);
   }
 
   .post:hover .image {
@@ -330,7 +343,9 @@
   .post:active,
   .post:focus-visible {
     transform: none;
-    box-shadow: var(--shadow-base);
+    box-shadow:
+      0 2px 8px rgba(0, 0, 0, 0.06),
+      0 1px 4px rgba(0, 0, 0, 0.04);
   }
 
   .post:hover .image {
