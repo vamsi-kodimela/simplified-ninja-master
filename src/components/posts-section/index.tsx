@@ -6,12 +6,120 @@ import { PostVariant } from "../post-variants";
 import styles from "./posts-section.module.css";
 
 interface PostsSectionProps {
+  // Display options
   showFilters?: boolean;
+  showHeader?: boolean;
+  title?: string;
+  subtitle?: string;
+  description?: string;
+
+  // Layout and limits
   maxPosts?: number;
+  defaultLayout?: LayoutType;
+  allowLayoutSwitch?: boolean;
+
+  // Styling
   className?: string;
+  headerClassName?: string;
+
+  // State
   isLoading?: boolean;
+
+  // Actions
   onViewAll?: () => void;
+  onRefresh?: () => void;
+
+  // Customization
+  showStats?: boolean;
+  showViewAllButton?: boolean;
+  emptyStateMessage?: string;
+  emptyStateAction?: {
+    label: string;
+    onClick: () => void;
+  };
 }
+
+// Enhanced header component
+const PostsSectionHeader = ({
+  title,
+  subtitle,
+  description,
+  showStats,
+  onRefresh,
+  isLoading,
+  className = "",
+  filteredCount,
+  totalCount,
+}: {
+  title?: string;
+  subtitle?: string;
+  description?: string;
+  showStats?: boolean;
+  onRefresh?: () => void;
+  isLoading?: boolean;
+  className?: string;
+  filteredCount: number;
+  totalCount: number;
+}) => {
+  if (!title && !subtitle && !description && !showStats && !onRefresh) {
+    return null;
+  }
+
+  return (
+    <div className={`${styles.sectionHeader} ${className}`}>
+      <div className={styles.headerContent}>
+        <div className={styles.headerText}>
+          {title && <h2 className={styles.sectionTitle}>{title}</h2>}
+          {subtitle && <h3 className={styles.sectionSubtitle}>{subtitle}</h3>}
+          {description && (
+            <p className={styles.sectionDescription}>{description}</p>
+          )}
+        </div>
+
+        <div className={styles.headerActions}>
+          {showStats && (
+            <div className={styles.statsContainer}>
+              <div className={styles.statItem}>
+                <span className={styles.statValue}>{filteredCount}</span>
+                <span className={styles.statLabel}>
+                  {filteredCount === 1 ? "Post" : "Posts"}
+                </span>
+              </div>
+              {filteredCount !== totalCount && (
+                <div className={styles.statItem}>
+                  <span className={styles.statValue}>{totalCount}</span>
+                  <span className={styles.statLabel}>Total</span>
+                </div>
+              )}
+            </div>
+          )}
+
+          {onRefresh && (
+            <button
+              onClick={onRefresh}
+              disabled={isLoading}
+              className={`${styles.refreshButton} ${isLoading ? styles.loading : ""}`}
+              aria-label="Refresh posts"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                className={styles.refreshIcon}
+              >
+                <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
+                <path d="M21 3v5h-5" />
+                <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" />
+                <path d="M3 21v-5h5" />
+              </svg>
+              {isLoading ? "Refreshing..." : "Refresh"}
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 // Loading skeleton component
 const LoadingSkeleton = ({
@@ -54,11 +162,28 @@ const EmptyState = ({
   hasActiveFilters,
   onClearFilters,
   onViewAll,
+  customMessage,
+  customAction,
 }: {
   hasActiveFilters: boolean;
   onClearFilters: () => void;
   onViewAll?: () => void;
+  customMessage?: string;
+  customAction?: {
+    label: string;
+    onClick: () => void;
+  };
 }) => {
+  const getEmptyMessage = () => {
+    if (customMessage) return customMessage;
+
+    if (hasActiveFilters) {
+      return "We couldn't find any posts matching your current filters. Try adjusting your search terms or removing some filters.";
+    }
+
+    return "There are no posts to display at the moment. Check back later for new content!";
+  };
+
   return (
     <div className={styles.noResults}>
       <div className={styles.noResultsIcon}>
@@ -81,11 +206,7 @@ const EmptyState = ({
         {hasActiveFilters ? "No posts found" : "No posts available"}
       </h3>
 
-      <p className={styles.noResultsDescription}>
-        {hasActiveFilters
-          ? "We couldn't find any posts matching your current filters. Try adjusting your search terms or removing some filters."
-          : "There are no posts to display at the moment. Check back later for new content!"}
-      </p>
+      <p className={styles.noResultsDescription}>{getEmptyMessage()}</p>
 
       <div className={styles.noResultsActions}>
         {hasActiveFilters && (
@@ -100,7 +221,16 @@ const EmptyState = ({
           </button>
         )}
 
-        {onViewAll && (
+        {customAction && (
+          <button
+            onClick={customAction.onClick}
+            className={`${styles.noResultsButton} ${styles.secondary}`}
+          >
+            {customAction.label}
+          </button>
+        )}
+
+        {onViewAll && !customAction && (
           <button
             onClick={onViewAll}
             className={`${styles.noResultsButton} ${styles.secondary}`}
@@ -120,23 +250,55 @@ const EmptyState = ({
 };
 
 const PostsSection = ({
+  // Display options
   showFilters = true,
+  showHeader = false,
+  title,
+  subtitle,
+  description,
+
+  // Layout and limits
   maxPosts,
+  defaultLayout,
+  allowLayoutSwitch = true,
+
+  // Styling
   className = "",
+  headerClassName = "",
+
+  // State
   isLoading = false,
+
+  // Actions
   onViewAll,
+  onRefresh,
+
+  // Customization
+  showStats = false,
+  showViewAllButton = true,
+  emptyStateMessage,
+  emptyStateAction,
 }: PostsSectionProps) => {
   const {
     filteredArticles,
+    articles,
     layoutType,
     searchQuery,
     selectedCategories,
     sortBy,
     clearFilters,
+    setLayoutType,
   } = useGlobalStore();
 
   const [localLoading, setLocalLoading] = useState(false);
   const [animationKey, setAnimationKey] = useState(0);
+
+  // Set default layout if provided
+  useEffect(() => {
+    if (defaultLayout && defaultLayout !== layoutType) {
+      setLayoutType(defaultLayout);
+    }
+  }, [defaultLayout, layoutType, setLayoutType]);
 
   // Trigger animation when filters change
   useEffect(() => {
@@ -156,7 +318,8 @@ const PostsSection = ({
     );
   }, [searchQuery, selectedCategories, sortBy]);
 
-  const showPagination = maxPosts && filteredArticles.length > maxPosts;
+  const showPagination =
+    showViewAllButton && maxPosts && filteredArticles.length > maxPosts;
 
   // Generate grid columns based on layout
   const getGridClass = () => {
@@ -193,6 +356,19 @@ const PostsSection = ({
     }, 300);
   };
 
+  // Handle refresh
+  const handleRefresh = () => {
+    if (onRefresh) {
+      onRefresh();
+    } else {
+      setLocalLoading(true);
+      // Default refresh simulation
+      setTimeout(() => {
+        setLocalLoading(false);
+      }, 1500);
+    }
+  };
+
   const isLoadingState = isLoading || localLoading;
 
   return (
@@ -201,6 +377,22 @@ const PostsSection = ({
       role="region"
       aria-label={showFilters ? "Posts with filters" : "Posts"}
     >
+      {/* Custom Header */}
+      {showHeader && (
+        <PostsSectionHeader
+          title={title}
+          subtitle={subtitle}
+          description={description}
+          showStats={showStats}
+          onRefresh={onRefresh ? handleRefresh : undefined}
+          isLoading={isLoadingState}
+          className={headerClassName}
+          filteredCount={filteredArticles.length}
+          totalCount={articles.length}
+        />
+      )}
+
+      {/* Filters */}
       {showFilters && <PostsFilters />}
 
       <div className={styles.content}>
@@ -218,6 +410,8 @@ const PostsSection = ({
                 hasActiveFilters={hasActiveFilters}
                 onClearFilters={handleClearFilters}
                 onViewAll={onViewAll}
+                customMessage={emptyStateMessage}
+                customAction={emptyStateAction}
               />
             )}
 
@@ -275,11 +469,55 @@ const PostsSection = ({
 
 // Convenience components for specific use cases
 const PostsGrid = (props: Omit<PostsSectionProps, "showFilters">) => (
-  <PostsSection {...props} showFilters={false} />
+  <PostsSection {...props} showFilters={false} defaultLayout="grid" />
+);
+
+const PostsList = (props: Omit<PostsSectionProps, "showFilters">) => (
+  <PostsSection {...props} showFilters={false} defaultLayout="list" />
 );
 
 const PostsWithFilters = (props: PostsSectionProps) => (
   <PostsSection {...props} showFilters={true} />
+);
+
+// Featured posts section with custom styling
+const FeaturedPosts = (
+  props: Omit<PostsSectionProps, "title" | "showHeader">,
+) => (
+  <PostsSection
+    {...props}
+    showHeader={true}
+    title="Featured Posts"
+    subtitle="Our top picks for you"
+    showStats={true}
+    maxPosts={6}
+    defaultLayout="grid"
+  />
+);
+
+// Latest posts section
+const LatestPosts = (
+  props: Omit<PostsSectionProps, "title" | "showHeader">,
+) => (
+  <PostsSection
+    {...props}
+    showHeader={true}
+    title="Latest Posts"
+    description="Stay up to date with our newest content"
+    showStats={true}
+    defaultLayout="list"
+  />
+);
+
+// Compact posts section for sidebars
+const CompactPosts = (props: Omit<PostsSectionProps, "showFilters">) => (
+  <PostsSection
+    {...props}
+    showFilters={false}
+    defaultLayout="compact"
+    maxPosts={5}
+    showViewAllButton={true}
+  />
 );
 
 // Enhanced posts section with advanced features
@@ -295,52 +533,25 @@ const AdvancedPostsSection = (props: PostsSectionProps) => {
   };
 
   return (
-    <div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: "var(--spacing-lg)",
-        }}
-      >
-        <h2
-          style={{
-            margin: 0,
-            fontFamily: "var(--font-heading)",
-            fontSize: "var(--text-2xl)",
-            fontWeight: "700",
-            color: "var(--primary-dark)",
-          }}
-        >
-          Latest Posts
-        </h2>
-        <button
-          onClick={handleRefresh}
-          disabled={isLoading}
-          style={{
-            padding: "var(--spacing-sm) var(--spacing-md)",
-            background: "var(--accent-blue)",
-            color: "var(--primary-light)",
-            border: "none",
-            borderRadius: "var(--radius-md)",
-            cursor: isLoading ? "not-allowed" : "pointer",
-            opacity: isLoading ? 0.6 : 1,
-            transition: "all 0.2s ease",
-          }}
-        >
-          {isLoading ? "Refreshing..." : "Refresh"}
-        </button>
-      </div>
-      <PostsSection {...props} isLoading={isLoading} />
-    </div>
+    <PostsSection
+      {...props}
+      isLoading={isLoading}
+      onRefresh={handleRefresh}
+      showHeader={true}
+      title={props.title || "Latest Posts"}
+      showStats={true}
+    />
   );
 };
 
 export {
   PostsSection,
   PostsGrid,
+  PostsList,
   PostsWithFilters,
+  FeaturedPosts,
+  LatestPosts,
+  CompactPosts,
   AdvancedPostsSection,
   LoadingSkeleton,
 };

@@ -8,7 +8,11 @@ export { PostVariant, PostGrid, PostList, PostCompact } from "./post-variants";
 export {
   PostsSection,
   PostsGrid,
+  PostsList,
   PostsWithFilters,
+  FeaturedPosts,
+  LatestPosts,
+  CompactPosts,
   AdvancedPostsSection,
   LoadingSkeleton,
 } from "./posts-section";
