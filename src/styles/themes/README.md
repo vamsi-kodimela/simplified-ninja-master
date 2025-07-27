@@ -121,6 +121,7 @@ const example = "enhanced readability";</code></pre>
 - **Text measures**: Content constrained to 65 characters for optimal readability
 - **Proper spacing**: Generous margins between paragraphs and sections
 - **Font smoothing**: Anti-aliased fonts for crisp rendering
+- **Borderless design**: Zero visual clutter from borders or outlines
 
 ### Typography Hierarchy
 
@@ -139,10 +140,39 @@ const example = "enhanced readability";</code></pre>
 ### Content Elements
 
 - **Lead paragraphs**: Larger text for article introductions
-- **Blockquotes**: Styled quotes with proper attribution
-- **Code elements**: Both inline and block code styling
+- **Blockquotes**: Background-based styling with rounded corners (no borders)
+- **Code elements**: Clean inline and block code styling (completely borderless)
 - **Lists**: Properly spaced and indented lists
-- **Links**: Subtle hover effects with focus accessibility
+- **Links**: Background-based focus states (no underlines or outlines)
+- **Cards**: Completely borderless design with subtle shadows
+- **Forms**: Background-based input styling (no input borders)
+- **Navigation**: Clean section separation without divider lines
+
+## Borderless Design Philosophy
+
+This theme system embraces a completely borderless approach for ultra-modern aesthetics:
+
+### Visual Hierarchy Through
+
+- **Background colors**: Different shades create visual separation
+- **Shadows**: Subtle depth instead of hard borders
+- **Spacing**: Generous whitespace for content separation
+- **Typography**: Clear hierarchy through font sizes and weights
+
+### Interactive States
+
+- **Hover effects**: Background color changes and subtle transforms
+- **Focus states**: Background highlighting instead of outline rings
+- **Active states**: Enhanced background contrast
+- **Loading indicators**: CSS gradient-based spinners (no border animations)
+
+### Benefits
+
+- **Ultra-clean aesthetic**: Modern, minimalist appearance
+- **Content-focused**: Removes visual noise and distractions
+- **Better accessibility**: Focus states remain clear without outline clutter
+- **Performance**: Fewer CSS properties and smoother animations
+- **Future-proof**: Aligns with current design trends
 
 ## Adding New Themes
 
@@ -209,4 +239,6 @@ Add new utility classes to `utilities.css`:
 7. **Blog-Optimized Typography**: Enhanced readability with proper hierarchy and spacing
 8. **Typography Scale**: Consistent font sizing with optimal reading measures
 9. **Responsive Typography**: Fluid scaling across all device sizes
-10. **Accessibility**: Focus states, proper contrast, and semantic markup
+10. **Borderless Design**: Completely border-free interface for ultra-modern aesthetics
+11. **Background-Based Focus**: Clean focus states using background colors instead of outlines
+12. **Accessibility**: Maintained navigation cues while eliminating visual clutter

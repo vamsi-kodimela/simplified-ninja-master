@@ -187,6 +187,16 @@
   text-decoration: none;
 }
 
+/* Focus Utilities */
+.focus-clean {
+  outline: none;
+}
+
+.focus-clean:focus-visible {
+  background-color: rgba(0, 122, 255, 0.1);
+  border-radius: var(--radius-sm);
+}
+
 /* Text Overflow Utilities */
 .truncate {
   overflow: hidden;

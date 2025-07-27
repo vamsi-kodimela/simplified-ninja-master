@@ -48,9 +48,8 @@
   justify-content: center;
   padding: var(--spacing-xxl) var(--spacing-lg);
   text-align: center;
-  background-color: var(--primary-light);
+  background-color: var(--secondary-light);
   border-radius: var(--radius-lg);
-  border: 2px dashed var(--secondary-light);
   margin: var(--spacing-xl) 0;
 }
 
@@ -249,10 +248,6 @@
 
 /* Dark mode enhancements */
 @media (prefers-color-scheme: dark) {
-  .noResults {
-    border-color: var(--secondary-dark);
-  }
-
   .showingInfo {
     background-color: var(--secondary-dark);
   }
@@ -260,14 +255,7 @@
 
 /* High contrast mode support */
 @media (prefers-contrast: high) {
-  .noResults {
-    border-width: 3px;
-    border-color: var(--primary-dark);
-  }
-
-  .viewAllButton {
-    border: 2px solid var(--primary-light);
-  }
+  /* All elements now borderless for clean design */
 }
 
 /* Reduced motion support */

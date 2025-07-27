@@ -12,7 +12,6 @@
 
 .post:hover {
   box-shadow: var(--shadow-lg);
-  border-color: var(--secondary-medium);
   transform: translateY(-2px);
 }
 

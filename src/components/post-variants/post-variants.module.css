@@ -15,7 +15,6 @@
 
 .postGrid:hover {
   box-shadow: var(--shadow-lg);
-  border-color: var(--secondary-medium);
   transform: translateY(-2px);
 }
 
@@ -90,7 +89,6 @@
 
 .postList:hover {
   box-shadow: var(--shadow-lg);
-  border-color: var(--secondary-medium);
   transform: translateY(-1px);
 }
 
@@ -188,7 +186,6 @@
 
 .postCompact:hover {
   background-color: var(--secondary-light);
-  border-color: var(--secondary-medium);
 }
 
 .compactContent {

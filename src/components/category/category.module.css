@@ -11,15 +11,12 @@
   color: var(--primary-dark);
   transition: all 0.2s ease;
   cursor: pointer;
-  border: 1px solid transparent;
 }
 
 .category:hover {
   background-color: var(--secondary-medium);
   color: var(--primary-light);
-  border-color: var(--secondary-medium);
   transform: translateY(-1px);
-  box-shadow: var(--shadow-sm);
 }
 
 .iconWrapper {

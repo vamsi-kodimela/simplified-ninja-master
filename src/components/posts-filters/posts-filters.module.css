@@ -78,7 +78,6 @@
 
 /* Categories Row */
 .categoriesRow {
-  border-top: 1px solid var(--secondary-light);
   padding-top: var(--spacing-lg);
 }
 
@@ -108,7 +107,6 @@
   transition: all 0.2s ease;
   border-radius: var(--radius-md);
   padding: var(--spacing-xs);
-  border: 2px solid transparent;
 }
 
 .categoryItem:hover {
@@ -116,8 +114,7 @@
 }
 
 .categoryItem.active {
-  background-color: rgba(0, 122, 255, 0.1);
-  border-color: var(--accent-blue);
+  background-color: rgba(0, 122, 255, 0.2);
 }
 
 /* Bottom Row - Sort and Layout */
@@ -126,7 +123,6 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--spacing-lg);
-  border-top: 1px solid var(--secondary-light);
   padding-top: var(--spacing-lg);
   flex-wrap: wrap;
 }

@@ -136,19 +136,20 @@ p {
 a {
   color: var(--accent-blue);
   text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: all 0.2s ease;
+  transition: color 0.2s ease;
 }
 
 a:hover {
   color: var(--primary-dark);
-  border-bottom-color: var(--accent-blue);
 }
 
 a:focus {
-  outline: 2px solid var(--accent-blue);
-  outline-offset: 2px;
-  border-radius: 2px;
+  outline: none;
+  color: var(--primary-dark);
+  background-color: rgba(0, 122, 255, 0.1);
+  border-radius: var(--radius-sm);
+  padding: 0.125rem 0.25rem;
+  margin: -0.125rem -0.25rem;
 }
 
 /* ===============================
@@ -182,7 +183,6 @@ code {
   padding: 0.125rem 0.375rem;
   border-radius: var(--radius-sm);
   font-weight: 500;
-  border: 1px solid var(--secondary-medium);
 }
 
 /* ===============================
@@ -221,9 +221,8 @@ ol ol {
 blockquote {
   margin: var(--spacing-xl) 0;
   padding: var(--spacing-lg) var(--spacing-xl);
-  border-left: 4px solid var(--accent-blue);
   background-color: var(--secondary-light);
-  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  border-radius: var(--radius-md);
   font-style: italic;
   font-size: var(--text-lg);
   line-height: var(--leading-relaxed);
@@ -258,7 +257,6 @@ blockquote cite:before {
 
 pre {
   background-color: var(--secondary-light);
-  border: 1px solid var(--secondary-medium);
   border-radius: var(--radius-lg);
   padding: var(--spacing-lg);
   overflow-x: auto;
