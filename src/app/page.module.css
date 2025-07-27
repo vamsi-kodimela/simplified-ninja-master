@@ -1,16 +1,17 @@
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
+  padding: var(--spacing-xl);
+  background-color: var(--primary-light);
 }
 
 .categorySection {
-  margin-bottom: 40px;
+  margin-bottom: var(--spacing-xxl);
 }
 
 .posts-grid {
   display: grid;
-  gap: 20px;
+  gap: var(--spacing-xl);
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   padding: 0;
   justify-content: center;
@@ -19,10 +20,15 @@
 
 @media (max-width: 768px) {
   .container {
-    padding: 15px;
+    padding: var(--spacing-lg);
   }
 
   .categorySection {
-    margin-bottom: 30px;
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .posts-grid {
+    gap: var(--spacing-lg);
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   }
 }
