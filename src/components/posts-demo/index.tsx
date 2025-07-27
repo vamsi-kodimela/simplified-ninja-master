@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect } from "react";
 import { useGlobalStore } from "@/store/global-store";
-import { PostsWithFilters, PostsGrid } from "../posts-section";
+import { PostsSection } from "../posts-section";
 import { IArticle, ICategory } from "@/models";
 import { SerializedEditorState } from "@payloadcms/richtext-lexical/lexical";
 
@@ -138,7 +138,7 @@ export const PostsDemo = () => {
         >
           Posts with Filters
         </h2>
-        <PostsWithFilters />
+        <PostsSection title="Latest Posts" showFilters={true} maxPosts={6} />
       </section>
 
       {/* Posts grid without filters (for homepage preview) */}
@@ -153,7 +153,7 @@ export const PostsDemo = () => {
         >
           Recent Posts (Preview)
         </h2>
-        <PostsGrid maxPosts={3} />
+        <PostsSection title="Recent Posts" showFilters={false} maxPosts={3} />
       </section>
     </div>
   );
