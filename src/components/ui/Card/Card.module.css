@@ -5,7 +5,7 @@
 .card {
   background-color: var(--primary-light);
   border-radius: var(--card-radius);
-  transition: var(--transition-colors);
+  transition: var(--transition-all);
   position: relative;
 }
 
@@ -55,7 +55,7 @@
 }
 
 /* ===========================
-   MINIMAL CLICKABLE STATE
+   SUBTLE CLICKABLE STATES
    =========================== */
 
 .clickable {
@@ -64,28 +64,35 @@
 }
 
 .clickable:hover {
-  /* No transform animations - just subtle color changes */
+  transform: var(--hover-lift);
 }
 
 .clickable.variant-default:hover {
-  box-shadow: var(--shadow-base);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
 }
 
 .clickable.variant-bordered:hover {
   border-color: var(--neutral-300);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .clickable.variant-elevated:hover {
-  box-shadow: var(--shadow-base);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
 }
 
 .clickable.variant-flat:hover {
   background-color: var(--neutral-100);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.clickable:active {
+  transform: var(--active-scale);
 }
 
 .clickable:focus-visible {
   outline: var(--focus-ring-width) solid var(--focus-ring-color);
   outline-offset: var(--focus-ring-offset);
+  transform: var(--focus-scale);
 }
 
 /* ===========================
@@ -95,5 +102,34 @@
 @media (max-width: 768px) {
   .padding-lg {
     padding: var(--spacing-6);
+  }
+
+  /* Reduced hover effects on mobile */
+  .clickable:hover {
+    transform: none;
+  }
+
+  .clickable.variant-default:hover {
+    box-shadow: var(--shadow-base);
+  }
+
+  .clickable.variant-elevated:hover {
+    box-shadow: var(--shadow-base);
+  }
+}
+
+/* ===========================
+   REDUCED MOTION SUPPORT
+   =========================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: var(--transition-colors);
+  }
+
+  .clickable:hover,
+  .clickable:active,
+  .clickable:focus-visible {
+    transform: none;
   }
 }

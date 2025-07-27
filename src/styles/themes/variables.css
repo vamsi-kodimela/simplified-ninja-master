@@ -207,6 +207,18 @@
     background-color var(--duration-150) var(--ease-in-out),
     border-color var(--duration-150) var(--ease-in-out);
 
+  /* Subtle Interactive Effects */
+  --transition-all: all var(--duration-200) var(--ease-out);
+  --transition-transform: transform var(--duration-200) var(--ease-out);
+  --transition-shadow: box-shadow var(--duration-200) var(--ease-out);
+  --transition-opacity: opacity var(--duration-150) var(--ease-in-out);
+
+  /* Micro-interaction Values */
+  --hover-lift: translateY(-1px);
+  --hover-scale: scale(1.02);
+  --active-scale: scale(0.98);
+  --focus-scale: scale(1.01);
+
   /* ===========================
      Z-INDEX SCALE
      =========================== */

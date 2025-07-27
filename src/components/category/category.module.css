@@ -9,13 +9,26 @@
   font-size: 0.875rem;
   font-weight: 500;
   color: var(--primary-dark);
-  transition: var(--transition-colors);
+  transition: var(--transition-all);
   cursor: pointer;
 }
 
 .category:hover {
   background-color: var(--neutral-100);
   color: var(--primary-dark);
+  transform: var(--hover-lift);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.category:active {
+  transform: var(--active-scale);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+.category:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+  transform: var(--focus-scale);
 }
 
 .iconWrapper {
@@ -31,6 +44,11 @@
   font-weight: 600;
   text-transform: uppercase;
   flex-shrink: 0;
+  transition: var(--transition-transform);
+}
+
+.category:hover .iconWrapper {
+  transform: var(--hover-scale);
 }
 
 .icon {
@@ -72,4 +90,42 @@
 }
 .iconWrapper.colorVariant8 {
   background-color: var(--primary-dark);
+}
+
+/* ===========================
+   RESPONSIVE ADJUSTMENTS
+   =========================== */
+
+@media (max-width: 768px) {
+  /* Reduced hover effects on mobile */
+  .category:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .category:hover .iconWrapper {
+    transform: none;
+  }
+}
+
+/* ===========================
+   REDUCED MOTION SUPPORT
+   =========================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .category,
+  .iconWrapper {
+    transition: var(--transition-colors);
+  }
+
+  .category:hover,
+  .category:active,
+  .category:focus-visible {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .category:hover .iconWrapper {
+    transform: none;
+  }
 }

@@ -922,6 +922,78 @@
   transition: var(--transition-colors);
 }
 
+.transition-all {
+  transition: var(--transition-all);
+}
+
+.transition-transform {
+  transition: var(--transition-transform);
+}
+
+.transition-shadow {
+  transition: var(--transition-shadow);
+}
+
+.transition-opacity {
+  transition: var(--transition-opacity);
+}
+
+/* ===========================
+   SUBTLE INTERACTIVE UTILITIES
+   =========================== */
+
+.hover-lift:hover {
+  transform: var(--hover-lift);
+}
+
+.hover-scale:hover {
+  transform: var(--hover-scale);
+}
+
+.hover-shadow:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.hover-bg-neutral:hover {
+  background-color: var(--neutral-100);
+}
+
+.hover-text-accent:hover {
+  color: var(--accent);
+}
+
+.active-scale:active {
+  transform: var(--active-scale);
+}
+
+.focus-scale:focus {
+  transform: var(--focus-scale);
+}
+
+/* ===========================
+   INTERACTIVE LINK UTILITIES
+   =========================== */
+
+.link-subtle {
+  color: var(--neutral-700);
+  text-decoration: none;
+  transition: var(--transition-colors);
+}
+
+.link-subtle:hover {
+  color: var(--accent);
+}
+
+.link-accent {
+  color: var(--accent);
+  text-decoration: none;
+  transition: var(--transition-colors);
+}
+
+.link-accent:hover {
+  color: var(--primary-dark);
+}
+
 /* ===========================
    MINIMAL SHIMMER EFFECTS
    =========================== */
@@ -1005,6 +1077,10 @@
   min-height: 200px;
 }
 
+/* ===========================
+   REDUCED MOTION SUPPORT
+   =========================== */
+
 /* Pulse alternative for reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .shimmer,
@@ -1012,5 +1088,16 @@
   .shimmer-subtle {
     animation: none;
     background: var(--neutral-100);
+  }
+
+  .hover-lift:hover,
+  .hover-scale:hover,
+  .active-scale:active,
+  .focus-scale:focus {
+    transform: none;
+  }
+
+  .hover-shadow:hover {
+    box-shadow: none;
   }
 }

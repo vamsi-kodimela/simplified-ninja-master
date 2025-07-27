@@ -16,7 +16,7 @@
   border: none;
   border-radius: var(--radius-md);
   cursor: pointer;
-  transition: var(--transition-colors);
+  transition: var(--transition-all);
   text-decoration: none;
   user-select: none;
   white-space: nowrap;
@@ -33,10 +33,11 @@
 .button:focus-visible {
   outline: var(--focus-ring-width) solid var(--focus-ring-color);
   outline-offset: var(--focus-ring-offset);
+  transform: var(--focus-scale);
 }
 
 /* ===========================
-   MINIMAL VARIANTS
+   MINIMAL VARIANTS WITH SUBTLE EFFECTS
    =========================== */
 
 .variant-primary {
@@ -46,10 +47,14 @@
 
 .variant-primary:hover:not(:disabled) {
   background-color: var(--neutral-800);
+  transform: var(--hover-lift);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .variant-primary:active:not(:disabled) {
   background-color: var(--neutral-900);
+  transform: var(--active-scale);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .variant-secondary {
@@ -61,10 +66,14 @@
 .variant-secondary:hover:not(:disabled) {
   background-color: var(--neutral-50);
   border-color: var(--neutral-400);
+  transform: var(--hover-lift);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .variant-secondary:active:not(:disabled) {
   background-color: var(--neutral-100);
+  transform: var(--active-scale);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .variant-ghost {
@@ -74,10 +83,12 @@
 
 .variant-ghost:hover:not(:disabled) {
   background-color: var(--neutral-100);
+  transform: var(--hover-scale);
 }
 
 .variant-ghost:active:not(:disabled) {
   background-color: var(--neutral-200);
+  transform: var(--active-scale);
 }
 
 /* ===========================
@@ -190,6 +201,11 @@
     height: var(--btn-height-md);
     font-size: var(--text-sm);
   }
+
+  /* Reduced hover effects on mobile */
+  .button:hover:not(:disabled) {
+    transform: none;
+  }
 }
 
 /* ===========================
@@ -197,6 +213,16 @@
    =========================== */
 
 @media (prefers-reduced-motion: reduce) {
+  .button {
+    transition: var(--transition-colors);
+  }
+
+  .button:hover:not(:disabled),
+  .button:active:not(:disabled),
+  .button:focus-visible {
+    transform: none;
+  }
+
   .loading::before {
     animation: none;
     background: rgba(255, 255, 255, 0.1);

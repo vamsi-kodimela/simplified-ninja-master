@@ -1,22 +1,17 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { Category } from "../category";
+import { ICategory } from "../../models";
+import { API_URL } from "../../config/api.config";
 import styles from "./category-section.module.css";
-
-interface CategoryData {
-  id: string;
-  name: string;
-  icon?: string;
-  count?: number;
-}
 
 interface CategorySectionProps {
   title?: string;
   subtitle?: string;
-  categories?: CategoryData[];
+  categories?: ICategory[];
   maxCategories?: number;
   showViewAll?: boolean;
-  onCategoryClick?: (category: CategoryData) => void;
+  onCategoryClick?: (category: ICategory) => void;
   onViewAllClick?: () => void;
 }
 
@@ -31,38 +26,80 @@ const CategorySection: React.FC<CategorySectionProps> = ({
 }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [displayCategories, setDisplayCategories] = useState<CategoryData[]>(
-    [],
-  );
+  const [displayCategories, setDisplayCategories] = useState<ICategory[]>([]);
+
+  const fetchCategories = async (): Promise<ICategory[]> => {
+    try {
+      const response = await fetch(`${API_URL}/category`);
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch categories: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      console.log("Categories API Response:", data); // Debug log
+
+      // Handle different possible response structures
+      let categoriesData: ICategory[] = [];
+
+      if (Array.isArray(data)) {
+        categoriesData = data;
+      } else if (Array.isArray(data.docs)) {
+        categoriesData = data.docs;
+      } else if (Array.isArray(data.data)) {
+        categoriesData = data.data;
+      } else if (Array.isArray(data.categories)) {
+        categoriesData = data.categories;
+      } else {
+        console.warn("Unexpected API response structure:", data);
+        categoriesData = [];
+      }
+
+      console.log("Processed categories:", categoriesData); // Debug log
+      return categoriesData;
+    } catch (err) {
+      console.error("Error fetching categories:", err);
+      throw err;
+    }
+  };
 
   useEffect(() => {
-    const fetchCategories = async () => {
+    const loadCategories = async () => {
       try {
         setLoading(true);
         setError(null);
 
+        let categoriesToDisplay: ICategory[] = [];
+
         if (categories && categories.length > 0) {
-          // Use provided categories
-          const limitedCategories = categories.slice(0, maxCategories);
-          setDisplayCategories(limitedCategories);
+          // Use provided categories if available
+          categoriesToDisplay = categories;
         } else {
-          // No categories provided - show empty state or fetch from API
-          setDisplayCategories([]);
+          // Fetch categories from API
+          categoriesToDisplay = await fetchCategories();
         }
+
+        // Apply maxCategories limit
+        const limitedCategories = categoriesToDisplay.slice(0, maxCategories);
+        setDisplayCategories(limitedCategories);
       } catch (err) {
         setError("Failed to load categories. Please try again.");
         console.error("Error loading categories:", err);
+        setDisplayCategories([]);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchCategories();
+    loadCategories();
   }, [categories, maxCategories]);
 
-  const handleCategoryClick = (category: CategoryData) => {
+  const handleCategoryClick = (category: ICategory) => {
     if (onCategoryClick) {
       onCategoryClick(category);
+    } else {
+      // Default behavior - could navigate to category page
+      console.log("Category clicked:", category.name);
     }
   };
 
@@ -76,18 +113,28 @@ const CategorySection: React.FC<CategorySectionProps> = ({
     }
   };
 
-  const handleRetry = () => {
+  const handleRetry = async () => {
     setError(null);
     setLoading(true);
-    // Re-trigger the effect
-    setTimeout(() => {
+
+    try {
+      let categoriesToDisplay: ICategory[] = [];
+
       if (categories && categories.length > 0) {
-        setDisplayCategories(categories.slice(0, maxCategories));
+        categoriesToDisplay = categories;
       } else {
-        setDisplayCategories([]);
+        categoriesToDisplay = await fetchCategories();
       }
+
+      const limitedCategories = categoriesToDisplay.slice(0, maxCategories);
+      setDisplayCategories(limitedCategories);
+    } catch (err) {
+      setError("Failed to load categories. Please try again.");
+      console.error("Error loading categories:", err);
+      setDisplayCategories([]);
+    } finally {
       setLoading(false);
-    }, 800);
+    }
   };
 
   const renderShimmerState = () => (
