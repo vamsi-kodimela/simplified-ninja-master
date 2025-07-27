@@ -85,8 +85,12 @@
 .content {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-2);
-  padding: var(--spacing-3);
+  gap: var(
+    --spacing-2-5
+  ); /* Increased from spacing-2 for better breathing room */
+  padding: var(
+    --spacing-4
+  ); /* Increased from spacing-3 for more comfortable spacing */
   flex: 1;
   position: relative;
   z-index: 1;
@@ -102,8 +106,8 @@
   color: var(--neutral-700);
   background-color: var(--neutral-100);
   border-radius: 12px;
-  padding: var(--spacing-1) var(--spacing-2);
-  margin-bottom: var(--spacing-0-5);
+  padding: var(--spacing-1-5) var(--spacing-2-5); /* Increased for better touch target */
+  margin: 0; /* Removed bottom margin - gap in content handles spacing */
   cursor: pointer;
   transition: var(--transition-colors);
   text-transform: capitalize;
@@ -132,10 +136,6 @@
   min-height: 2.975rem; /* Adjusted for larger font size - 2 lines at 1.4 line-height */
 }
 
-.post:hover .title {
-  color: var(--accent);
-}
-
 .description {
   margin: 0;
   font-size: 0.75rem;
@@ -161,18 +161,19 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--spacing-2);
-  padding: 0;
+  padding: var(--spacing-1-5) 0 0 0; /* Added top padding for better separation */
   margin-top: auto;
   font-size: 0.625rem;
   color: var(--neutral-600);
   position: relative;
   z-index: 3;
+  border-top: 1px solid var(--neutral-100); /* Subtle separator */
 }
 
 .authorInfo {
   display: flex;
   align-items: center;
-  gap: var(--spacing-1);
+  gap: var(--spacing-1-5); /* Increased for better visual separation */
   flex: 1;
 }
 
@@ -196,7 +197,7 @@
 .stats {
   display: flex;
   align-items: center;
-  gap: var(--spacing-2);
+  gap: var(--spacing-1-5); /* Reduced for more compact stats display */
 }
 
 .stat {
@@ -223,12 +224,14 @@
 .tags {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--spacing-0-5);
-  margin-top: var(--spacing-1);
+  gap: var(
+    --spacing-1
+  ); /* Increased for better visual separation between tags */
+  margin: 0; /* Removed margin - gap in content handles spacing */
 }
 
 .tag {
-  padding: var(--spacing-0-5) var(--spacing-1);
+  padding: var(--spacing-1) var(--spacing-1-5); /* Increased for better touch target and visual balance */
   background-color: var(--neutral-100);
   color: var(--neutral-700);
   border-radius: var(--radius-full);
@@ -257,8 +260,10 @@
   }
 
   .content {
-    gap: var(--spacing-3);
-    padding: var(--spacing-4);
+    gap: var(--spacing-3); /* More generous spacing on large screens */
+    padding: var(
+      --spacing-5
+    ); /* Increased padding for better proportions on large screens */
   }
 
   .title {
@@ -323,8 +328,8 @@
   }
 
   .content {
-    gap: var(--spacing-2);
-    padding: var(--spacing-3);
+    gap: var(--spacing-2-5); /* Consistent with base spacing */
+    padding: var(--spacing-4); /* Consistent with base padding */
   }
 
   .title {
@@ -359,8 +364,8 @@
   }
 
   .content {
-    gap: var(--spacing-2);
-    padding: var(--spacing-3);
+    gap: var(--spacing-2); /* Slightly tighter on smaller screens */
+    padding: var(--spacing-3-5); /* Balanced padding for tablet */
   }
 
   .title {
@@ -399,8 +404,8 @@
   }
 
   .content {
-    gap: var(--spacing-2);
-    padding: var(--spacing-3);
+    gap: var(--spacing-2); /* Compact spacing for smaller screens */
+    padding: var(--spacing-3); /* Standard mobile padding */
   }
 
   .title {
@@ -436,10 +441,6 @@
 
   .post:hover .image {
     transform: none;
-  }
-
-  .post:hover .title {
-    color: var(--primary-dark);
   }
 
   .tag:hover {
@@ -485,8 +486,7 @@
   }
 
   .tags {
-    gap: var(--spacing-0-5);
-    margin-top: var(--spacing-1);
+    gap: var(--spacing-1); /* Consistent with base tags spacing */
   }
 
   .tag {
@@ -507,10 +507,6 @@
     transform: none;
   }
 
-  .post:hover .title {
-    color: var(--primary-dark);
-  }
-
   .tag:hover {
     transform: none;
   }
@@ -529,14 +525,13 @@
 
   .category {
     font-size: 0.625rem; /* 10px */
-    margin-bottom: var(--spacing-0-5);
+    padding: var(--spacing-1) var(--spacing-2); /* Adjusted padding for smaller screen */
   }
 
   .title {
     font-size: 0.8125rem; /* 13px */
     line-height: 1.4;
     -webkit-line-clamp: 2;
-    margin-bottom: var(--spacing-0-5);
   }
 
   .description {
@@ -546,7 +541,7 @@
   }
 
   .divider {
-    margin: var(--spacing-1) 0;
+    display: none; /* Hidden for minimal design - consistent with base */
   }
 
   .footer {
@@ -554,10 +549,12 @@
     font-size: 0.5rem; /* 8px */
     flex-direction: column;
     align-items: flex-start;
+    padding-top: var(--spacing-1); /* Consistent footer padding */
+    border-top: 1px solid var(--neutral-100); /* Consistent separator */
   }
 
   .authorInfo {
-    gap: var(--spacing-0-5);
+    gap: var(--spacing-1); /* Increased for better readability */
     width: 100%;
   }
 
@@ -580,12 +577,11 @@
   }
 
   .tags {
-    gap: var(--spacing-0-5);
-    margin-top: var(--spacing-0-5);
+    gap: var(--spacing-1); /* Consistent with base tags spacing */
   }
 
   .tag {
-    padding: var(--spacing-0-5) var(--spacing-1);
+    padding: var(--spacing-0-5) var(--spacing-1); /* Compact padding for small screens */
     font-size: 0.4375rem; /* 7px */
   }
 
@@ -600,10 +596,6 @@
 
   .post:hover .image {
     transform: none;
-  }
-
-  .post:hover .title {
-    color: var(--primary-dark);
   }
 
   .tag:hover {
