@@ -198,8 +198,7 @@
   }
 
   .gridLayout {
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 12px;
+    gap: 10px;
   }
 
   .layoutToggle {
@@ -218,8 +217,8 @@
   }
 
   .gridLayout {
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 10px;
+    gap: 8px;
+    justify-content: flex-start;
   }
 
   .title {
