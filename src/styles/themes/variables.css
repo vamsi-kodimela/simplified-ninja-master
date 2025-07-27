@@ -1,0 +1,73 @@
+:root {
+  /* Primary Colors */
+  --primary-dark: #1a1a1a;
+  --primary-light: #ffffff;
+
+  /* Secondary Colors */
+  --secondary-light: #f5f5f7;
+  --secondary-medium: #8e8e93;
+  --secondary-dark: #3a3a3c;
+
+  /* Accent Colors */
+  --accent-blue: #007aff;
+  --accent-red: #d92626;
+
+  /* Semantic Colors */
+  --semantic-success: #34c759;
+  --semantic-warning: #ff9500;
+  --semantic-error: #ff3b30;
+
+  /* Font Families */
+  --font-heading: "Montserrat", sans-serif;
+  --font-body: "Open Sans", sans-serif;
+  --font-mono: "Monaco", "Menlo", "Ubuntu Mono", "Consolas", monospace;
+
+  /* Typography Scale */
+  --text-xs: 0.75rem; /* 12px */
+  --text-sm: 0.875rem; /* 14px */
+  --text-base: 1rem; /* 16px */
+  --text-lg: 1.125rem; /* 18px */
+  --text-xl: 1.25rem; /* 20px */
+  --text-2xl: 1.5rem; /* 24px */
+  --text-3xl: 1.875rem; /* 30px */
+  --text-4xl: 2.25rem; /* 36px */
+  --text-5xl: 3rem; /* 48px */
+
+  /* Line Heights */
+  --leading-none: 1;
+  --leading-tight: 1.25;
+  --leading-snug: 1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  --leading-loose: 2;
+
+  /* Letter Spacing */
+  --tracking-tighter: -0.05em;
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0em;
+  --tracking-wide: 0.025em;
+  --tracking-wider: 0.05em;
+
+  /* Text Measures (optimal reading widths) */
+  --measure-narrow: 45ch; /* For narrow content */
+  --measure-base: 65ch; /* Optimal reading width */
+  --measure-wide: 75ch; /* For wider content */
+
+  /* Common Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-xxl: 3rem;
+
+  /* Border Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(26, 26, 26, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(26, 26, 26, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(26, 26, 26, 0.1);
+}

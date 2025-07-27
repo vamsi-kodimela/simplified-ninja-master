@@ -37,8 +37,10 @@ const PostPage = async ({ params }: PostPageProps) => {
     <div className={styles.layout}>
       <h1 className={styles.title}>{article.title}</h1>
       <div className={styles.metadata}>
-        <Category name={article.category.name} />
-        <div className={styles.createdAt}>
+        <span className={`text-accent-blue ${styles.category}`}>
+          <Category name={article.category.name} />
+        </span>
+        <div className={`text-secondary-medium ${styles.createdAt}`}>
           {dayjs(article.createdAt).format("DD MMMM YYYY")}
         </div>
       </div>
@@ -50,13 +52,13 @@ const PostPage = async ({ params }: PostPageProps) => {
         height={640}
       />
 
-      <div>
+      <article>
         <RichTextConverter
-          className={styles.content}
+          className={`blog-content ${styles.content}`}
           data={article.content}
           converters={jsxConverter}
         />
-      </div>
+      </article>
     </div>
   );
 };

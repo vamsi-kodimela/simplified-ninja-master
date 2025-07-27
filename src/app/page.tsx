@@ -21,7 +21,7 @@ export default async function Home() {
   const articles = await fetchArticles();
 
   return (
-    <div className={styles.container}>
+    <div className={`bg-primary-light ${styles.container}`}>
       <CategorySection
         title="Browse by Category"
         layout="grid"

@@ -35,7 +35,7 @@ const PostsFilters = () => {
     searchQuery.trim() || selectedCategories.length > 0 || sortBy !== "newest";
 
   return (
-    <div className={styles.container}>
+    <div className={`card ${styles.container}`}>
       {/* Top Row - Search and Results Count */}
       <div className={styles.topRow}>
         <div className={styles.searchContainer}>
@@ -54,7 +54,7 @@ const PostsFilters = () => {
               placeholder="Search posts..."
               value={searchQuery}
               onChange={handleSearchChange}
-              className={styles.searchInput}
+              className={`form-input ${styles.searchInput}`}
             />
             {searchQuery && (
               <button
@@ -110,7 +110,7 @@ const PostsFilters = () => {
               id="sort-select"
               value={sortBy}
               onChange={handleSortChange}
-              className={styles.sortSelect}
+              className={`form-input ${styles.sortSelect}`}
             >
               <option value="newest">Newest First</option>
               <option value="oldest">Oldest First</option>
@@ -120,7 +120,10 @@ const PostsFilters = () => {
           </div>
 
           {hasActiveFilters && (
-            <button onClick={clearFilters} className={styles.clearFilters}>
+            <button
+              onClick={clearFilters}
+              className={`btn btn-secondary ${styles.clearFilters}`}
+            >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <line x1="18" y1="6" x2="6" y2="18" />
                 <line x1="6" y1="6" x2="18" y2="18" />

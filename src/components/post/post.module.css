@@ -4,13 +4,10 @@
   gap: var(--spacing-sm);
   width: 100%;
   max-width: 320px;
-  border-radius: var(--radius-lg);
-  background-color: var(--primary-light);
-  box-shadow: var(--shadow-md);
-  border: 1px solid var(--secondary-light);
   overflow: hidden;
   cursor: pointer;
   transition: all 0.2s ease;
+  padding: 0;
 }
 
 .post:hover {

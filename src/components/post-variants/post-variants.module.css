@@ -7,13 +7,10 @@
   gap: var(--spacing-sm);
   width: 100%;
   max-width: 320px;
-  border-radius: var(--radius-lg);
-  background-color: var(--primary-light);
-  box-shadow: var(--shadow-md);
-  border: 1px solid var(--secondary-light);
   overflow: hidden;
   cursor: pointer;
   transition: all 0.2s ease;
+  padding: 0;
 }
 
 .postGrid:hover {
@@ -86,11 +83,6 @@
   display: flex;
   gap: var(--spacing-lg);
   width: 100%;
-  padding: var(--spacing-lg);
-  border-radius: var(--radius-lg);
-  background-color: var(--primary-light);
-  box-shadow: var(--shadow-md);
-  border: 1px solid var(--secondary-light);
   cursor: pointer;
   transition: all 0.2s ease;
   margin-bottom: var(--spacing-md);
@@ -189,10 +181,6 @@
   align-items: center;
   gap: var(--spacing-md);
   width: 100%;
-  padding: var(--spacing-md);
-  border-radius: var(--radius-md);
-  background-color: var(--primary-light);
-  border: 1px solid var(--secondary-light);
   cursor: pointer;
   transition: all 0.2s ease;
   margin-bottom: var(--spacing-sm);

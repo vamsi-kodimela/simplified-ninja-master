@@ -18,7 +18,7 @@ const Post = ({ post }: IPostProps) => {
     router.push(`/post/${post.slug}`);
   };
   return (
-    <div className={styles.post} onClick={handleClick}>
+    <div className={`card ${styles.post}`} onClick={handleClick}>
       <Image
         src={`${SERVER_URL}${post.featuredImage.url}`}
         alt={post.title}

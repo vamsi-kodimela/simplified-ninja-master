@@ -21,7 +21,7 @@ const PostGrid = ({ post }: { post: IArticle }) => {
   };
 
   return (
-    <div className={styles.postGrid} onClick={handleClick}>
+    <div className={`card ${styles.postGrid}`} onClick={handleClick}>
       <Image
         src={`${SERVER_URL}${post.featuredImage.url}`}
         alt={post.title}
@@ -59,7 +59,7 @@ const PostList = ({ post }: { post: IArticle }) => {
   };
 
   return (
-    <div className={styles.postList} onClick={handleClick}>
+    <div className={`card ${styles.postList}`} onClick={handleClick}>
       <div className={styles.listImageContainer}>
         <Image
           src={`${SERVER_URL}${post.featuredImage.url}`}
@@ -103,7 +103,7 @@ const PostCompact = ({ post }: { post: IArticle }) => {
   };
 
   return (
-    <div className={styles.postCompact} onClick={handleClick}>
+    <div className={`card ${styles.postCompact}`} onClick={handleClick}>
       <div className={styles.compactContent}>
         <div className={styles.compactHeader}>
           <Category

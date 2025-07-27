@@ -90,7 +90,7 @@ const CategorySection: React.FC<CategorySectionProps> = ({
     return (
       <div className={styles.layoutToggle}>
         <button
-          className={`${styles.layoutButton} ${currentLayout === "grid" ? styles.active : ""}`}
+          className={`btn ${styles.layoutButton} ${currentLayout === "grid" ? styles.active : ""}`}
           onClick={() => handleLayoutChange("grid")}
           aria-label="Grid layout"
         >
@@ -99,7 +99,7 @@ const CategorySection: React.FC<CategorySectionProps> = ({
           </svg>
         </button>
         <button
-          className={`${styles.layoutButton} ${currentLayout === "list" ? styles.active : ""}`}
+          className={`btn ${styles.layoutButton} ${currentLayout === "list" ? styles.active : ""}`}
           onClick={() => handleLayoutChange("list")}
           aria-label="List layout"
         >
@@ -125,7 +125,7 @@ const CategorySection: React.FC<CategorySectionProps> = ({
     <div className={styles.errorContainer}>
       <div className={styles.errorIcon}>⚠️</div>
       <p className={styles.errorText}>{error}</p>
-      <button className={styles.retryButton} onClick={fetchCategories}>
+      <button className="btn btn-primary" onClick={fetchCategories}>
         Try Again
       </button>
     </div>
