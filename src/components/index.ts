@@ -5,7 +5,13 @@ export { Post } from "./post";
 // New posts components
 export { PostsFilters } from "./posts-filters";
 export { PostVariant, PostGrid, PostList, PostCompact } from "./post-variants";
-export { PostsSection, PostsGrid, PostsWithFilters } from "./posts-section";
+export {
+  PostsSection,
+  PostsGrid,
+  PostsWithFilters,
+  AdvancedPostsSection,
+  LoadingSkeleton,
+} from "./posts-section";
 
 // Re-export types from store for convenience
 export type { LayoutType, SortType } from "../store/global-store";
