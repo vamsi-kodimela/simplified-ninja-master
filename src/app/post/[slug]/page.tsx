@@ -35,30 +35,38 @@ const PostPage = async ({ params }: PostPageProps) => {
 
   return (
     <div className={styles.layout}>
-      <h1 className={styles.title}>{article.title}</h1>
-      <div className={styles.metadata}>
-        <span className={`text-accent-blue ${styles.category}`}>
-          <Category name={article.category.name} />
-        </span>
-        <div className={`text-secondary-medium ${styles.createdAt}`}>
-          {dayjs(article.createdAt).format("DD MMMM YYYY")}
+      <header className={styles.header}>
+        <h1 className={styles.title}>{article.title}</h1>
+        <div className={styles.metadata}>
+          <span className={styles.category}>
+            <Category name={article.category.name} />
+          </span>
+          <div className={styles.createdAt}>
+            {dayjs(article.createdAt).format("DD MMMM YYYY")}
+          </div>
         </div>
-      </div>
-      <Image
-        src={`${SERVER_URL}${article.featuredImage.url}`}
-        alt={article.title}
-        className={styles.featuredImage}
-        width={1000}
-        height={640}
-      />
+      </header>
 
-      <article>
-        <RichTextConverter
-          className={`blog-content ${styles.content}`}
-          data={article.content}
-          converters={jsxConverter}
+      <div className={styles.imageContainer}>
+        <Image
+          src={`${SERVER_URL}${article.featuredImage.url}`}
+          alt={article.title}
+          className={styles.featuredImage}
+          width={1200}
+          height={675}
+          priority
         />
-      </article>
+      </div>
+
+      <div className={styles.articleContent}>
+        <article>
+          <RichTextConverter
+            className={`blog-content ${styles.content}`}
+            data={article.content}
+            converters={jsxConverter}
+          />
+        </article>
+      </div>
     </div>
   );
 };
