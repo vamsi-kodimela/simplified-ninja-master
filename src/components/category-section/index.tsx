@@ -28,6 +28,11 @@ const CategorySection: React.FC<CategorySectionProps> = ({
         throw new Error(`Failed to fetch categories: ${response.statusText}`);
       }
 
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        throw new Error("API did not return JSON data");
+      }
+
       const data = await response.json();
       console.log("Categories API Response:", data); // Debug log
 

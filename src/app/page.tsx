@@ -13,9 +13,28 @@ export const metadata: Metadata = {
 
 export default async function Home() {
   const fetchArticles = async (): Promise<IArticle[]> => {
-    const response = await fetch(`${API_URL}/article`);
-    const { docs } = await response.json();
-    return docs;
+    try {
+      const response = await fetch(`${API_URL}/article`);
+
+      if (!response.ok) {
+        console.error(
+          `Failed to fetch articles: ${response.status} ${response.statusText}`,
+        );
+        return [];
+      }
+
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        console.error("API did not return JSON data");
+        return [];
+      }
+
+      const data = await response.json();
+      return data.docs || [];
+    } catch (error) {
+      console.error("Error fetching articles:", error);
+      return [];
+    }
   };
 
   const articles = await fetchArticles();

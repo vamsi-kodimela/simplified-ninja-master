@@ -21,7 +21,32 @@ export const metadata: Metadata = {
 };
 
 const PostPage = async ({ params }: PostPageProps) => {
-  const { docs } = await fetch(`${API_URL}/article`).then((res) => res.json());
+  const fetchArticles = async (): Promise<IArticle[]> => {
+    try {
+      const response = await fetch(`${API_URL}/article`);
+
+      if (!response.ok) {
+        console.error(
+          `Failed to fetch articles: ${response.status} ${response.statusText}`,
+        );
+        return [];
+      }
+
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        console.error("API did not return JSON data");
+        return [];
+      }
+
+      const data = await response.json();
+      return data.docs || [];
+    } catch (error) {
+      console.error("Error fetching articles:", error);
+      return [];
+    }
+  };
+
+  const docs = await fetchArticles();
   const slug = (await params).slug;
   const article = docs?.find((article: IArticle) => article.slug === slug);
 
