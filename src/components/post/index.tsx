@@ -5,7 +5,7 @@ import styles from "./post.module.css";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import dayjs from "dayjs";
-import { API_URL, SERVER_URL } from "@/config/api.config";
+import { SERVER_URL } from "@/config/api.config";
 
 interface IPostProps {
   post: IArticle;

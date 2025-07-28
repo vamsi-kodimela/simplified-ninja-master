@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Image from "next/image";
 import styles from "./category.module.css";
 
 interface CategoryProps {
@@ -40,7 +41,7 @@ const Category: React.FC<CategoryProps> = ({
     >
       <div className={`${styles.iconWrapper} ${styles[colorVariant]}`}>
         {icon ? (
-          <img
+          <Image
             src={icon}
             alt={`${name} icon`}
             className={styles.icon}

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import styles from "./posts-section.module.css";
 import { Post } from "../post";
 import { PostsFilters } from "../posts-filters";
@@ -111,8 +111,8 @@ export const PostsSection: React.FC<PostsSectionProps> = ({
 }) => {
   // State management
   const [showFiltersPanel, setShowFiltersPanel] = useState(false);
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [sortBy, setSortBy] = useState<"date" | "popularity">("date");
+  const [selectedCategories] = useState<string[]>([]);
+  const [sortBy] = useState<"date" | "popularity">("date");
   const [localLoading, setLocalLoading] = useState(false);
 
   // Handle toggle filters
@@ -129,9 +129,9 @@ export const PostsSection: React.FC<PostsSectionProps> = ({
   };
 
   // Handle category filter
-  const handleCategoryFilter = (categories: string[]) => {
-    setSelectedCategories(categories);
-  };
+  // const handleCategoryFilter = (categories: string[]) => {
+  //   setSelectedCategories(categories);
+  // };
 
   // Check if in loading state
   const isLoadingState = isLoading || localLoading;
@@ -212,14 +212,14 @@ export const PostsSection: React.FC<PostsSectionProps> = ({
 
 // Demo component for standalone usage
 export const PostsSectionDemo: React.FC = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading] = useState(false);
 
-  const handleRefresh = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-  };
+  // const handleRefresh = () => {
+  //   setIsLoading(true);
+  //   setTimeout(() => {
+  //     setIsLoading(false);
+  //   }, 1000);
+  // };
 
   return (
     <PostsSection

@@ -2,7 +2,7 @@ import { Post } from "@/components/post";
 import CategorySection from "@/components/category-section";
 import styles from "./page.module.css";
 import { API_URL } from "@/config/api.config";
-import { IArticle, ICategory } from "@/models";
+import { IArticle } from "@/models";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
