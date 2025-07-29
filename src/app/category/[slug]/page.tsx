@@ -35,9 +35,11 @@ export async function generateStaticParams() {
       categoriesData = data.categories;
     }
 
-    return categoriesData.map((category) => ({
-      slug: category.slug,
-    }));
+    return categoriesData
+      .filter((category) => category.slug) // Only include categories with slugs
+      .map((category) => ({
+        slug: category.slug,
+      }));
   } catch (error) {
     console.error("Error generating static params:", error);
     return [];
@@ -182,7 +184,9 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                 <Image
                   src={category.icon}
                   alt={`${category.name} icon`}
-                  style={{ width: "40px", height: "40px", objectFit: "cover" }}
+                  width={40}
+                  height={40}
+                  style={{ objectFit: "cover" }}
                 />
               ) : (
                 category.name.charAt(0).toUpperCase()

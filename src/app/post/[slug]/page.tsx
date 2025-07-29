@@ -27,9 +27,11 @@ export async function generateStaticParams() {
     const data = await response.json();
     const articles = data.docs || [];
 
-    return articles.map((article: IArticle) => ({
-      slug: article.slug,
-    }));
+    return articles
+      .filter((article: IArticle) => article.slug) // Only include articles with slugs
+      .map((article: IArticle) => ({
+        slug: article.slug,
+      }));
   } catch (error) {
     console.error("Error generating static params:", error);
     return [];
@@ -67,7 +69,7 @@ export async function generateMetadata({
       title: `${article.title} | Simplified Ninja`,
       description: article.description,
     };
-  } catch (_) {
+  } catch {
     return {
       title: "Simplified Ninja | Your Simplified Guide to Code",
       description:
