@@ -30,6 +30,8 @@ export default async function Home() {
       }
 
       const data = await response.json();
+      console.log(data);
+      console.log("Data Received!");
       return data.docs || [];
     } catch (error) {
       console.error("Error fetching articles:", error);
