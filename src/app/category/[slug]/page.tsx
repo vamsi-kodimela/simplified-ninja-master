@@ -4,6 +4,7 @@ import { Container } from "@/components/ui";
 import { Post } from "@/components/post";
 import { IArticle, ICategory } from "@/models";
 import { API_URL } from "@/config/api.config";
+import Image from "next/image";
 
 interface CategoryPageProps {
   params: Promise<{
@@ -178,7 +179,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               }}
             >
               {category.icon ? (
-                <img
+                <Image
                   src={category.icon}
                   alt={`${category.name} icon`}
                   style={{ width: "40px", height: "40px", objectFit: "cover" }}

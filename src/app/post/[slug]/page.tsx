@@ -67,7 +67,7 @@ export async function generateMetadata({
       title: `${article.title} | Simplified Ninja`,
       description: article.description,
     };
-  } catch (error) {
+  } catch (_) {
     return {
       title: "Simplified Ninja | Your Simplified Guide to Code",
       description:
