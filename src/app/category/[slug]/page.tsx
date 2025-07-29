@@ -6,15 +6,16 @@ import { IArticle, ICategory } from "@/models";
 import { API_URL } from "@/config/api.config";
 
 interface CategoryPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export async function generateMetadata({
   params,
 }: CategoryPageProps): Promise<Metadata> {
-  const category = await fetchCategory(params.slug);
+  const { slug } = await params;
+  const category = await fetchCategory(slug);
 
   if (!category) {
     return {
@@ -93,7 +94,8 @@ async function fetchArticlesByCategory(
 }
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
-  const category = await fetchCategory(params.slug);
+  const { slug } = await params;
+  const category = await fetchCategory(slug);
 
   if (!category) {
     notFound();
