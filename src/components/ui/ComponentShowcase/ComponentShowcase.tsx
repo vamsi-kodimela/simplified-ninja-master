@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { Button, Input, Container, Stack, Card } from "../index";
 import styles from "./ComponentShowcase.module.css";

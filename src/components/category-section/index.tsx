@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { Category } from "../category";
 import { ICategory } from "../../models";
 import { API_URL } from "../../config/api.config";
@@ -19,6 +20,7 @@ const CategorySection: React.FC<CategorySectionProps> = ({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [displayCategories, setDisplayCategories] = useState<ICategory[]>([]);
+  const router = useRouter();
 
   const fetchCategories = async (): Promise<ICategory[]> => {
     try {
@@ -95,8 +97,9 @@ const CategorySection: React.FC<CategorySectionProps> = ({
     if (onCategoryClick) {
       onCategoryClick(category);
     } else {
-      // Default behavior - could navigate to category page
-      console.log("Category clicked:", category.name);
+      // Default behavior - navigate to category page
+      const categorySlug = category.slug || category.id;
+      router.push(`/category/${categorySlug}`);
     }
   };
 

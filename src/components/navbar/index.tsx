@@ -16,6 +16,12 @@ const Navbar = () => {
           />
         </Link>
       </div>
+
+      <div className={styles.navLinks}>
+        <Link href="/categories" className={styles.navLink}>
+          Categories
+        </Link>
+      </div>
     </nav>
   );
 };
