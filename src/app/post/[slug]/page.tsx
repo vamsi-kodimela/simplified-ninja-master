@@ -14,16 +14,74 @@ interface PostPageProps {
   }>;
 }
 
-export const metadata: Metadata = {
-  title: "Simplfiied Ninja | Your Simplified Guide to Code",
-  description:
-    "Learn to code by building projects. Get deeper understanding through case studies, discussions, and more.",
-};
+export async function generateStaticParams() {
+  try {
+    const response = await fetch(`${API_URL}/article`, {
+      next: { revalidate: 3600 },
+    });
+
+    if (!response.ok) {
+      return [];
+    }
+
+    const data = await response.json();
+    const articles = data.docs || [];
+
+    return articles.map((article: IArticle) => ({
+      slug: article.slug,
+    }));
+  } catch (error) {
+    console.error("Error generating static params:", error);
+    return [];
+  }
+}
+
+export async function generateMetadata({
+  params,
+}: PostPageProps): Promise<Metadata> {
+  try {
+    const { slug } = await params;
+    const response = await fetch(`${API_URL}/article`, {
+      next: { revalidate: 3600 },
+    });
+
+    if (!response.ok) {
+      return {
+        title: "Post Not Found | Simplified Ninja",
+        description: "The requested post could not be found.",
+      };
+    }
+
+    const data = await response.json();
+    const articles = data.docs || [];
+    const article = articles.find((a: IArticle) => a.slug === slug);
+
+    if (!article) {
+      return {
+        title: "Post Not Found | Simplified Ninja",
+        description: "The requested post could not be found.",
+      };
+    }
+
+    return {
+      title: `${article.title} | Simplified Ninja`,
+      description: article.description,
+    };
+  } catch (error) {
+    return {
+      title: "Simplified Ninja | Your Simplified Guide to Code",
+      description:
+        "Learn to code by building projects. Get deeper understanding through case studies, discussions, and more.",
+    };
+  }
+}
 
 const PostPage = async ({ params }: PostPageProps) => {
   const fetchArticles = async (): Promise<IArticle[]> => {
     try {
-      const response = await fetch(`${API_URL}/article`);
+      const response = await fetch(`${API_URL}/article`, {
+        next: { revalidate: 3600 },
+      });
 
       if (!response.ok) {
         console.error(
@@ -53,10 +111,6 @@ const PostPage = async ({ params }: PostPageProps) => {
   if (!article) {
     return <div>Post not found</div>;
   }
-
-  metadata.title = `${article.title} | Simplfiied Ninja`;
-
-  metadata.description = article.description;
 
   return (
     <div className={styles.layout}>

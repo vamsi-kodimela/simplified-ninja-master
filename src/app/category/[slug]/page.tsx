@@ -11,6 +11,38 @@ interface CategoryPageProps {
   }>;
 }
 
+export async function generateStaticParams() {
+  try {
+    const response = await fetch(`${API_URL}/category`, {
+      next: { revalidate: 3600 },
+    });
+
+    if (!response.ok) {
+      return [];
+    }
+
+    const data = await response.json();
+    let categoriesData: ICategory[] = [];
+
+    if (Array.isArray(data)) {
+      categoriesData = data;
+    } else if (Array.isArray(data.docs)) {
+      categoriesData = data.docs;
+    } else if (Array.isArray(data.data)) {
+      categoriesData = data.data;
+    } else if (Array.isArray(data.categories)) {
+      categoriesData = data.categories;
+    }
+
+    return categoriesData.map((category) => ({
+      slug: category.slug,
+    }));
+  } catch (error) {
+    console.error("Error generating static params:", error);
+    return [];
+  }
+}
+
 export async function generateMetadata({
   params,
 }: CategoryPageProps): Promise<Metadata> {
@@ -35,7 +67,7 @@ export async function generateMetadata({
 async function fetchCategory(slug: string): Promise<ICategory | null> {
   try {
     const response = await fetch(`${API_URL}/category`, {
-      cache: "no-store",
+      next: { revalidate: 3600 }, // Cache for 1 hour
     });
 
     if (!response.ok) {
@@ -75,7 +107,7 @@ async function fetchArticlesByCategory(
   try {
     // Try to fetch articles filtered by category
     const response = await fetch(`${API_URL}/article?category=${categoryId}`, {
-      cache: "no-store",
+      next: { revalidate: 3600 }, // Cache for 1 hour
     });
 
     if (!response.ok) {

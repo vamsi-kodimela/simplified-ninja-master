@@ -14,7 +14,7 @@ export default async function CategoriesPage() {
   const fetchCategories = async (): Promise<ICategory[]> => {
     try {
       const response = await fetch(`${API_URL}/category`, {
-        cache: "no-store", // Ensure fresh data for categories page
+        next: { revalidate: 3600 }, // Cache for 1 hour
       });
 
       if (!response.ok) {
