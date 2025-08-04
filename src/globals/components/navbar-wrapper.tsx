@@ -19,41 +19,19 @@ const NavbarWrapper: React.FC = () => {
       isActive: true,
     },
     {
+      id: "articles",
+      label: "Articles",
+      href: "/article",
+    },
+    {
+      id: "categories",
+      label: "Categories",
+      href: "/category",
+    },
+    {
       id: "about",
       label: "About",
       href: "/about",
-    },
-    {
-      id: "services",
-      label: "Services",
-      href: "#",
-      children: [
-        {
-          id: "web-dev",
-          label: "Web Development",
-          href: "/services/web-development",
-        },
-        {
-          id: "mobile-dev",
-          label: "Mobile Apps",
-          href: "/services/mobile-development",
-        },
-        {
-          id: "ui-design",
-          label: "UI/UX Design",
-          href: "/services/ui-design",
-        },
-        {
-          id: "consulting",
-          label: "Consulting",
-          href: "/services/consulting",
-        },
-      ],
-    },
-    {
-      id: "portfolio",
-      label: "Portfolio",
-      href: "/portfolio",
     },
     {
       id: "contact",
@@ -65,15 +43,15 @@ const NavbarWrapper: React.FC = () => {
   // CTA buttons configuration
   const ctaButtons: CTAButton[] = [
     {
-      id: "get-quote",
-      label: "Get Quote",
-      href: "/quote",
+      id: "all-articles",
+      label: "All Articles",
+      href: "/article",
       variant: "secondary",
     },
     {
-      id: "get-started",
-      label: "Get Started",
-      href: "/get-started",
+      id: "subscribe",
+      label: "Subscribe",
+      href: "#subscribe",
       variant: "primary",
     },
   ];
@@ -81,7 +59,7 @@ const NavbarWrapper: React.FC = () => {
   // Search configuration
   const searchConfig = {
     isEnabled: true,
-    placeholder: "Search services, projects...",
+    placeholder: "Search articles, categories...",
     onSearch: (query: string) => {
       console.log("Search query:", query);
       // Implement search functionality

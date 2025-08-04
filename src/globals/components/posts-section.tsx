@@ -74,13 +74,7 @@ const PostsSection: React.FC<PostsSectionProps> = ({
                 animationDelay: `${index * 0.1}s`,
               }}
             >
-              <PostCard
-                post={post}
-                size="md"
-                variant={post.featured ? "featured" : "default"}
-                showCategory={true}
-                showReadTime={true}
-              />
+              <PostCard post={post} />
             </div>
           ))}
         </div>

@@ -1,11 +1,11 @@
-import { API_URL } from "@/config/api.config";
-import { IArticle } from "@/models";
+import { API_URL, SERVER_URL } from "@/config/api.config";
+import { IArticle, ICategory } from "@/models";
 import { Hero, CategoriesSection, PostsSection } from "@/globals/components";
 import { CategoryType, Post } from "@/globals/components";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Simplfiied Ninja | Your Simplified Guide to Code",
+  title: "Simplified Ninja | Your Simplified Guide to Code",
   description:
     "Learn to code by building projects. Get deeper understanding through case studies, discussions, and more.",
 };
@@ -13,7 +13,9 @@ export const metadata: Metadata = {
 export default async function Home() {
   const fetchArticles = async (): Promise<IArticle[]> => {
     try {
-      const response = await fetch(`${API_URL}/article`);
+      const response = await fetch(`${API_URL}/article`, {
+        next: { revalidate: 3600 }, // Revalidate every hour
+      });
 
       if (!response.ok) {
         console.error(
@@ -29,8 +31,6 @@ export default async function Home() {
       }
 
       const data = await response.json();
-      console.log(data);
-      console.log("Data Received!");
       return data.docs || [];
     } catch (error) {
       console.error("Error fetching articles:", error);
@@ -38,144 +38,78 @@ export default async function Home() {
     }
   };
 
-  // Sample categories data
-  const categories: CategoryType[] = [
-    {
-      id: "web-development",
-      title: "Web Development",
-      description: "Modern web technologies, frameworks, and best practices",
-      imageUrl:
-        "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=300&fit=crop",
-      href: "/categories/web-development",
-      count: 24,
-      isFeatured: true,
-    },
-    {
-      id: "mobile-development",
-      title: "Mobile Development",
-      description: "iOS, Android, and cross-platform mobile app development",
-      // No image - will show "M" letter avatar
-      href: "/categories/mobile-development",
-      count: 18,
-      isNew: true,
-    },
-    {
-      id: "data-science",
-      title: "Data Science",
-      description: "Machine learning, AI, and data analysis techniques",
-      imageUrl:
-        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop",
-      href: "/categories/data-science",
-      count: 31,
-    },
-    {
-      id: "cloud-computing",
-      title: "Cloud Computing",
-      description: "AWS, Azure, GCP, and cloud architecture patterns",
-      // No image - will show "C" letter avatar
-      href: "/categories/cloud-computing",
-      count: 15,
-    },
-    {
-      id: "devops",
-      title: "DevOps & Infrastructure",
-      description: "CI/CD, containerization, and deployment strategies",
-      imageUrl:
-        "https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?w=400&h=300&fit=crop",
-      href: "/categories/devops",
-      count: 22,
-    },
-    {
-      id: "ui-ux-design",
-      title: "UI/UX Design",
-      description: "User interface design, user experience, and design systems",
-      // No image - will show "U" letter avatar
-      href: "/categories/ui-ux-design",
-      count: 19,
-      isFeatured: true,
-    },
-  ];
+  const fetchCategories = async (): Promise<ICategory[]> => {
+    try {
+      const response = await fetch(`${API_URL}/category`, {
+        next: { revalidate: 3600 }, // Revalidate every hour
+      });
 
-  // Sample posts data
-  const posts: Post[] = [
-    {
-      id: "1",
-      title: "Building Modern Web Applications with Next.js 15",
-      description:
-        "Learn how to leverage the latest features in Next.js 15 to create fast, scalable web applications with improved performance and developer experience.",
-      imageUrl:
-        "https://images.unsplash.com/photo-1627398242454-45a1465c2479?w=600",
-      category: { name: "Technology", slug: "technology" },
-      readCount: 1247,
-      publishedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000), // 2 days ago
-      href: "/posts/nextjs-15-guide",
-      readTime: 8,
-      featured: true,
-    },
-    {
-      id: "2",
-      title: "The Future of UI Design: Trends for 2024",
-      description:
-        "Explore the emerging design trends that will shape user interfaces in 2024, from glass morphism to micro-interactions.",
-      imageUrl:
-        "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600",
-      category: { name: "Design", slug: "design" },
-      readCount: 856,
-      publishedAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000), // 1 week ago
-      href: "/posts/ui-trends-2024",
-      readTime: 6,
-    },
-    {
-      id: "3",
-      title: "Startup Success: From Idea to IPO",
-      description:
-        "A comprehensive guide to building a successful startup, covering everything from initial concept validation to going public.",
-      category: { name: "Business", slug: "business" },
-      readCount: 2103,
-      publishedAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000), // 3 days ago
-      href: "/posts/startup-success-guide",
-      readTime: 12,
-    },
-    {
-      id: "4",
-      title: "Mastering TypeScript: Advanced Patterns",
-      description:
-        "Deep dive into advanced TypeScript patterns and techniques that will make your code more robust and maintainable.",
-      imageUrl:
-        "https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?w=600",
-      category: { name: "Tutorial", slug: "tutorial" },
-      readCount: 543,
-      publishedAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000), // 5 days ago
-      href: "/posts/typescript-advanced",
-      readTime: 15,
-    },
-    {
-      id: "5",
-      title: "AI Revolution: Latest Breakthroughs in 2024",
-      description:
-        "Stay updated with the most significant AI breakthroughs and innovations that are reshaping industries worldwide.",
-      imageUrl:
-        "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600",
-      category: { name: "News", slug: "news" },
-      readCount: 1876,
-      publishedAt: new Date(Date.now() - 12 * 60 * 60 * 1000), // 12 hours ago
-      href: "/posts/ai-breakthroughs-2024",
-      readTime: 7,
-    },
-    {
-      id: "6",
-      title: "Complete Guide to Cloud Architecture",
-      description:
-        "Everything you need to know about designing scalable, secure, and cost-effective cloud architectures for modern applications.",
-      category: { name: "Guide", slug: "guide" },
-      readCount: 987,
-      publishedAt: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000), // 6 days ago
-      href: "/posts/cloud-architecture-guide",
-      readTime: 20,
-    },
-  ];
+      if (!response.ok) {
+        console.error(
+          `Failed to fetch categories: ${response.status} ${response.statusText}`,
+        );
+        return [];
+      }
 
-  // const articles = await fetchArticles();
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        console.error("API did not return JSON data");
+        return [];
+      }
+
+      const data = await response.json();
+      return data.docs || [];
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+      return [];
+    }
+  };
+
+  // Transform article data to match Post interface
+  const transformArticleToPost = (article: IArticle): Post => ({
+    id: article.id,
+    title: article.title,
+    description: article.description,
+    imageUrl: article.featuredImage?.url
+      ? `${SERVER_URL}${article.featuredImage.url}`
+      : undefined,
+    category: {
+      name: article.category.name,
+      slug: article.category.name.toLowerCase().replace(/\s+/g, "-"),
+    },
+    readCount: Math.floor(Math.random() * 2000) + 100, // Random read count for now
+    publishedAt: new Date(article.createdAt),
+    href: `/post/${article.slug}`,
+    readTime: Math.ceil(article.description.length / 200), // Estimate based on description length
+    featured: Math.random() > 0.7, // Random featured status
+  });
+
+  // Transform category data to match CategoryType interface
+  const transformCategoryToType = (
+    category: ICategory,
+    index: number,
+  ): CategoryType => ({
+    id: category.id,
+    title: category.name,
+    description: category.description || `Explore ${category.name} content`,
+    imageUrl: category.icon ? `${SERVER_URL}${category.icon}` : undefined,
+    href: `/category/${category.slug || category.name.toLowerCase().replace(/\s+/g, "-")}`,
+    count: Math.floor(Math.random() * 50) + 5, // Random count for now
+    isNew: index < 2, // Mark first 2 as new
+    isFeatured: index % 3 === 0, // Mark every 3rd as featured
+  });
+
+  // Fetch data from APIs
+  const [articlesData, categoriesData] = await Promise.all([
+    fetchArticles(),
+    fetchCategories(),
+  ]);
+
+  // Transform data to match component interfaces
+  const posts: Post[] = articlesData.map(transformArticleToPost);
+  const categories: CategoryType[] = categoriesData.map(
+    transformCategoryToType,
+  );
 
   return (
     <div>
@@ -186,7 +120,7 @@ export default async function Home() {
         subtitle="Discover content organized by topics that matter to you"
         categories={categories}
         showViewAll={true}
-        viewAllHref="/categories"
+        viewAllHref="/category"
       />
 
       <PostsSection
@@ -195,14 +129,8 @@ export default async function Home() {
         posts={posts}
         columns={3}
         showViewAll={true}
-        viewAllHref="/posts"
+        viewAllHref="/article"
       />
-
-      {/* Future content sections */}
-      {/* <div className={styles["posts-grid"]}>
-        {articles &&
-          articles.map((article) => <Post post={article} key={article.id} />)}
-      </div> */}
     </div>
   );
 }
