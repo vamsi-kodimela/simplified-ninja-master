@@ -107,7 +107,6 @@ export default async function Home() {
         title="Explore Categories"
         subtitle="Discover content organized by topics that matter to you"
         categories={categories}
-        columns={3}
         showViewAll={true}
         viewAllHref="/categories"
       />

@@ -26,7 +26,6 @@ export interface CategoriesSectionProps {
   title?: string;
   subtitle?: string;
   categories: Category[];
-  columns?: 2 | 3 | 4 | 6;
   showViewAll?: boolean;
   viewAllHref?: string;
   onViewAll?: () => void;

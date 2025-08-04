@@ -6,14 +6,13 @@ import { CategoriesSectionProps } from "./category.types";
 
 /* ================================
    CATEGORIES SECTION COMPONENT
-   Main section containing category grid
+   Main section containing category pills
    ================================ */
 
 const CategoriesSection: React.FC<CategoriesSectionProps> = ({
   title = "Explore Categories",
   subtitle = "Discover content organized by topics that matter to you",
   categories,
-  columns = 3,
   showViewAll = true,
   viewAllHref = "/categories",
   onViewAll,
@@ -26,10 +25,6 @@ const CategoriesSection: React.FC<CategoriesSectionProps> = ({
       window.location.href = viewAllHref;
     }
   };
-
-  const gridClasses = ["categories-grid", `categories-grid-${columns}`].join(
-    " ",
-  );
 
   return (
     <section className={`categories-section ${className}`}>
@@ -57,22 +52,19 @@ const CategoriesSection: React.FC<CategoriesSectionProps> = ({
           </div>
         </div>
 
-        {/* Categories Grid */}
-        <div className={gridClasses}>
+        {/* Categories Pills */}
+        <div className="categories-pills-container">
           {categories.map((category, index) => (
-            <div
+            <Category
               key={category.id}
-              className="categories-grid-item"
+              category={category}
+              size="md"
+              variant={category.isFeatured ? "featured" : "default"}
+              className="categories-pill-item"
               style={{
-                animationDelay: `${index * 0.1}s`,
+                animationDelay: `${index * 0.05}s`,
               }}
-            >
-              <Category
-                category={category}
-                size="md"
-                variant={category.isFeatured ? "featured" : "default"}
-              />
-            </div>
+            />
           ))}
         </div>
 
