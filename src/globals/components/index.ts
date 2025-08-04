@@ -3,12 +3,6 @@
    Export all components from this module
    ================================ */
 
-// Main navbar component
-export { default as Navbar } from "./navbar";
-
-// Navbar wrapper for layout
-export { default as NavbarWrapper } from "./navbar-wrapper";
-
 // Hero component
 export { default as Hero } from "./hero";
 
@@ -16,33 +10,17 @@ export { default as Hero } from "./hero";
 export { default as Category } from "./category";
 export { default as CategoriesSection } from "./categories-section";
 
-// Example implementations
-export {
-  BasicNavbar,
-  MinimalNavbar,
-  FeatureRichNavbar,
-  LightNavbar,
-  EcommerceNavbar,
-  LoadingNavbar,
-} from "./navbar.example";
+// Post components
+export { default as PostCard } from "./post-card";
+export { default as PostsSection } from "./posts-section";
 
 // Types
-export type {
-  NavItem,
-  CTAButton,
-  SearchConfig,
-  LogoConfig,
-  NavbarConfig,
-  NavbarProps,
-  DropdownProps,
-  MobileMenuProps,
-} from "./navbar.types";
-
 export type {
   Category as CategoryType,
   CategoryProps,
   CategoriesSectionProps,
 } from "./category.types";
 
-// Re-export for convenience
-export type { default as NavbarComponent } from "./navbar";
+export type { Post, PostCardProps, PostsSectionProps } from "./post-card.types";
+
+// Clean exports for navigation-free components
