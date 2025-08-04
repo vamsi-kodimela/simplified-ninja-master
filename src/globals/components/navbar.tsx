@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { NavbarProps, NavLink, CTAButton } from "./navbar.types";
+import { NavbarProps } from "./navbar.types";
+import Image from "next/image";
 
 /* ================================
    MODERN NAVBAR COMPONENT
@@ -63,10 +64,12 @@ const Navbar: React.FC<NavbarProps> = ({
   const renderLogo = () => (
     <div className="navbar-logo">
       {logo.imageUrl ? (
-        <img
+        <Image
           src={logo.imageUrl}
           alt={logo.text}
           className="navbar-logo-image"
+          width={32}
+          height={32}
         />
       ) : (
         <div className="navbar-logo-icon">{logo.text.charAt(0)}</div>

@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { PostCardProps } from "./post-card.types";
-
+import Image from "next/image";
 const PostCard: React.FC<PostCardProps> = ({ post, className = "", style }) => {
   const [imageError, setImageError] = useState(false);
 
@@ -59,12 +59,14 @@ const PostCard: React.FC<PostCardProps> = ({ post, className = "", style }) => {
       {/* Image Container */}
       <div className="post-card-image-container">
         {!imageError && post.imageUrl ? (
-          <img
+          <Image
             src={post.imageUrl}
             alt={post.title}
             className="post-card-image"
             onError={handleImageError}
             loading="lazy"
+            width={100}
+            height={100}
           />
         ) : (
           <div className="post-card-gradient-placeholder">
