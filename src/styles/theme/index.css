@@ -1,0 +1,68 @@
+/* ================================
+   THEME INDEX - SIMPLIFIED NINJA
+   Main entry point for all theme styles
+   ================================ */
+
+/* Import all theme modules in order */
+@import "./variables.css";
+@import "./base.css";
+@import "./components.css";
+@import "./navbar.css";
+@import "./mobile.css";
+@import "./animations.css";
+@import "./utilities.css";
+
+/* ================================
+   THEME SYSTEM DOCUMENTATION
+   ================================
+   
+   This theme system provides:
+   
+   🎨 DESIGN TOKENS
+   - CSS custom properties for colors, spacing, typography
+   - Light/dark mode support via [data-theme] attribute
+   - Consistent design language across components
+   
+   🧩 COMPONENT STYLES
+   - Navbar with glass morphism effects
+   - Buttons with multiple variants
+   - Cards with elevation system
+   - Forms with focus states
+   - Badges and utility components
+   
+   📱 RESPONSIVE DESIGN
+   - Mobile-first approach
+   - Breakpoints: 480px, 768px, 1024px
+   - Touch-friendly interactions
+   - Slide-out mobile menu
+   
+   ⚡ ANIMATIONS
+   - Smooth micro-interactions
+   - Entrance animations
+   - Hover effects
+   - Loading states
+   - Respects prefers-reduced-motion
+   
+   🛠️ UTILITY CLASSES
+   - Spacing (margin, padding)
+   - Typography (size, weight, color)
+   - Layout (flex, grid, positioning)
+   - Colors and backgrounds
+   - Borders and shadows
+   
+   ♿ ACCESSIBILITY
+   - Focus indicators
+   - Screen reader support
+   - High contrast mode
+   - Keyboard navigation
+   - Touch targets (44px minimum)
+   
+   USAGE:
+   Import this file in your main CSS or globals.css:
+   @import './styles/theme/index.css';
+   
+   Or import individual modules as needed:
+   @import './styles/theme/navbar.css';
+   @import './styles/theme/components.css';
+   
+   ================================ */

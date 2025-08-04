@@ -2,4 +2,4 @@
 @import "./fonts.css";
 
 /* Import theme system */
-@import "./colors.css";
+@import "./theme/index.css";
