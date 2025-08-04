@@ -10,7 +10,8 @@
 @import "./navbar.css";
 @import "./hero.css";
 @import "./categories.css";
-@import "./posts.css";
+@import "./posts-clean.css";
+@import "./post-page.css";
 @import "./animations.css";
 @import "./utilities.css";
 

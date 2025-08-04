@@ -46,13 +46,6 @@
   background: none;
   border: none;
   cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.navbar-logo:hover,
-.navbar-logo-link:hover,
-.navbar-logo-button:hover {
-  transform: translateY(-1px);
 }
 
 .navbar-logo-image {
@@ -65,7 +58,7 @@
 .navbar-logo-icon {
   width: 40px;
   height: 40px;
-  background: linear-gradient(135deg, var(--primary-accent) 0%, #0066cc 100%);
+  background: var(--primary-accent);
   border-radius: 0.5rem;
   display: flex;
   align-items: center;
@@ -73,7 +66,6 @@
   color: white;
   font-weight: 700;
   font-size: 1.25rem;
-  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
 }
 
 .navbar-logo-text {
@@ -108,15 +100,12 @@
   border-radius: 24px;
   color: var(--text-primary);
   font-size: 0.875rem;
-  transition: all 0.3s ease;
   backdrop-filter: blur(10px);
 }
 
 .navbar-search-input:focus {
   outline: none;
-  background: rgba(255, 255, 255, 0.08);
   border-color: var(--primary-accent);
-  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
 }
 
 .navbar-search-input::placeholder {
@@ -139,12 +128,10 @@
   cursor: pointer;
   padding: 0.25rem;
   border-radius: 0.25rem;
-  transition: all 0.2s ease;
 }
 
 .navbar-search-clear:hover {
   color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.1);
 }
 
 /* ================================
@@ -178,14 +165,11 @@
   font-size: 0.875rem;
   font-weight: 500;
   border-radius: 0.5rem;
-  transition: all 0.3s ease;
   white-space: nowrap;
 }
 
 .navbar-nav-link:hover {
   color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.05);
-  transform: translateY(-1px);
 }
 
 .navbar-nav-link.active {
@@ -205,10 +189,6 @@
   border-radius: 50%;
 }
 
-.navbar-dropdown-icon {
-  transition: transform 0.3s ease;
-}
-
 .navbar-dropdown-icon.open {
   transform: rotate(180deg);
 }
@@ -225,22 +205,16 @@
   min-width: 200px;
   background: rgba(30, 30, 30, 0.95);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 0.75rem;
   padding: 0.5rem;
   opacity: 0;
   visibility: hidden;
-  transform: translateX(-50%) translateY(-10px);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow:
-    0 12px 32px rgba(0, 0, 0, 0.3),
-    0 0 0 1px rgba(255, 255, 255, 0.05);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
 }
 
 .navbar-dropdown.open {
   opacity: 1;
   visibility: visible;
-  transform: translateX(-50%) translateY(0);
 }
 
 .navbar-dropdown-link {
@@ -250,13 +224,11 @@
   text-decoration: none;
   font-size: 0.875rem;
   border-radius: 0.5rem;
-  transition: all 0.2s ease;
 }
 
 .navbar-dropdown-link:hover {
   color: var(--text-primary);
   background: rgba(255, 255, 255, 0.08);
-  transform: translateX(2px);
 }
 
 /* ================================
@@ -270,51 +242,38 @@
 }
 
 .navbar-cta-button {
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 500;
   text-decoration: none;
   border: none;
   cursor: pointer;
-  transition: all 0.3s ease;
   white-space: nowrap;
-  position: relative;
-  overflow: hidden;
+  background: transparent;
 }
 
 .navbar-cta-primary {
-  background: linear-gradient(135deg, var(--primary-accent) 0%, #0066cc 100%);
-  color: white;
-  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+  color: var(--primary-accent);
 }
 
 .navbar-cta-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 122, 255, 0.4);
+  color: var(--primary-accent-dark);
 }
 
 .navbar-cta-secondary {
-  background: rgba(255, 255, 255, 0.05);
   color: var(--text-primary);
-  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .navbar-cta-secondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: var(--primary-accent);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.2);
+  color: var(--primary-accent);
 }
 
 .navbar-cta-ghost {
-  background: transparent;
   color: var(--text-secondary);
 }
 
 .navbar-cta-ghost:hover {
   color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.05);
 }
 
 /* ================================
@@ -329,12 +288,10 @@
   cursor: pointer;
   padding: 0.5rem;
   border-radius: 0.5rem;
-  transition: all 0.2s ease;
 }
 
 .navbar-mobile-toggle:hover {
   color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.05);
 }
 
 .navbar-mobile {
@@ -346,15 +303,12 @@
   backdrop-filter: blur(24px);
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-20px);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
 .navbar-mobile.open {
   opacity: 1;
   visibility: visible;
-  transform: translateY(0);
 }
 
 .navbar-mobile-content {
@@ -379,7 +333,6 @@
   font-size: 1rem;
   font-weight: 500;
   border-radius: 0.5rem;
-  transition: all 0.2s ease;
 }
 
 .navbar-mobile-link:hover {
@@ -399,7 +352,6 @@
   text-decoration: none;
   font-size: 0.875rem;
   border-radius: 0.5rem;
-  transition: all 0.2s ease;
 }
 
 .navbar-mobile-sublink:hover {
@@ -416,23 +368,19 @@
 }
 
 .navbar-mobile-button {
-  padding: 1rem;
+  padding: 0.75rem;
   text-align: center;
   text-decoration: none;
-  font-weight: 600;
-  border-radius: 0.5rem;
-  transition: all 0.2s ease;
+  font-weight: 500;
+  background: transparent;
 }
 
 .navbar-mobile-primary {
-  background: linear-gradient(135deg, var(--primary-accent) 0%, #0066cc 100%);
-  color: white;
+  color: var(--primary-accent);
 }
 
 .navbar-mobile-secondary {
-  background: rgba(255, 255, 255, 0.05);
   color: var(--text-primary);
-  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 /* ================================
