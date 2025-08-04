@@ -20,6 +20,7 @@ export interface CategoryProps {
   size?: "sm" | "md" | "lg";
   variant?: "default" | "featured" | "compact";
   className?: string;
+  style?: React.CSSProperties;
 }
 
 export interface CategoriesSectionProps {

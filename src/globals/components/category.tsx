@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { CategoryProps } from "./category.types";
+import Image from "next/image";
 
 /* ================================
    CATEGORY PILL COMPONENT
@@ -49,12 +50,14 @@ const Category: React.FC<CategoryProps> = ({
       {/* Icon or Letter Avatar */}
       <div className="category-pill-icon">
         {!imageError && category.imageUrl ? (
-          <img
+          <Image
             src={category.imageUrl}
             alt=""
             className="category-pill-image"
             onError={handleImageError}
             loading="lazy"
+            width={24}
+            height={24}
           />
         ) : (
           <span className="category-pill-letter">

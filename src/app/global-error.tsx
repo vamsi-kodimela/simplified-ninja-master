@@ -59,7 +59,7 @@ export default function GlobalError({
               lineHeight: "1.5",
             }}
           >
-            We're sorry, but something unexpected happened. Please try
+            We&apos;re sorry, but something unexpected happened. Please try
             refreshing the page.
           </p>
 

@@ -3,6 +3,10 @@
    Export all components from this module
    ================================ */
 
+// Navbar components
+export { default as Navbar } from "./navbar";
+export { default as NavbarWrapper } from "./navbar-wrapper";
+
 // Hero component
 export { default as Hero } from "./hero";
 
@@ -15,6 +19,14 @@ export { default as PostCard } from "./post-card";
 export { default as PostsSection } from "./posts-section";
 
 // Types
+export type {
+  NavLink,
+  CTAButton,
+  LogoConfig,
+  SearchConfig,
+  NavbarProps,
+} from "./navbar.types";
+
 export type {
   Category as CategoryType,
   CategoryProps,

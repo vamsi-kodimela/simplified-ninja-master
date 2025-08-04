@@ -18,6 +18,14 @@ body {
   line-height: var(--leading-normal);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding-top: 80px; /* Account for fixed navbar */
+}
+
+/* Responsive navbar padding */
+@media (max-width: 768px) {
+  body {
+    padding-top: 70px; /* Mobile navbar height */
+  }
 }
 
 html {

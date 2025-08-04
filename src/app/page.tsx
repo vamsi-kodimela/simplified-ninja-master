@@ -1,4 +1,3 @@
-import styles from "./page.module.css";
 import { API_URL } from "@/config/api.config";
 import { IArticle } from "@/models";
 import { Hero, CategoriesSection, PostsSection } from "@/globals/components";
@@ -176,7 +175,7 @@ export default async function Home() {
     },
   ];
 
-  const articles = await fetchArticles();
+  // const articles = await fetchArticles();
 
   return (
     <div>
