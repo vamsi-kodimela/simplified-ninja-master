@@ -1,6 +1,7 @@
 import styles from "./page.module.css";
 import { API_URL } from "@/config/api.config";
 import { IArticle } from "@/models";
+import { Hero } from "@/globals/components";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -40,9 +41,11 @@ export default async function Home() {
   const articles = await fetchArticles();
 
   return (
-    <div className={`bg-primary-light ${styles.container}`}>
-      {/* <CategorySection />
+    <div>
+      <Hero />
 
+      {/* Future content sections */}
+      {/* <CategorySection />
       <div className={styles["posts-grid"]}>
         {articles &&
           articles.map((article) => <Post post={article} key={article.id} />)}

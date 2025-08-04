@@ -9,6 +9,9 @@ export { default as Navbar } from "./navbar";
 // Navbar wrapper for layout
 export { default as NavbarWrapper } from "./navbar-wrapper";
 
+// Hero component
+export { default as Hero } from "./hero";
+
 // Example implementations
 export {
   BasicNavbar,
