@@ -6,7 +6,6 @@ import { IArticle } from "@/models";
 import { RichText as RichTextConverter } from "@payloadcms/richtext-lexical/react";
 import { jsxConverter } from "@/utils/jsx-converter.util";
 import { Metadata } from "next";
-import { Category } from "@/components/category";
 
 interface PostPageProps {
   params: Promise<{
@@ -120,7 +119,8 @@ const PostPage = async ({ params }: PostPageProps) => {
         <h1 className={styles.title}>{article.title}</h1>
         <div className={styles.metadata}>
           <span className={styles.category}>
-            <Category name={article.category.name} />
+            {/* <Category name={article.category.name} /> */}
+            {article.category.name}
           </span>
           <div className={styles.createdAt}>
             {dayjs(article.createdAt).format("DD MMMM YYYY")}

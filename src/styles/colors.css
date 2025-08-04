@@ -1,0 +1,13 @@
+:root {
+  --primary-dark: #1a1a1a;
+  --primary-light: #ffffff;
+  --light-grey: #f5f5f7;
+  --mid-grey: #8e8e93;
+  --dark-grey: #3a3a3c;
+  --primary-accent: #007aff;
+  --primary-accent-light: #007aff1a;
+  --primary-accent-dark: #007affcc;
+  --secondary-accent: #d92626;
+  --secondary-accent-light: #d926261a;
+  --secondary-accent-dark: #d92626cc;
+}

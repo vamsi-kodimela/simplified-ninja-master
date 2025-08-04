@@ -1,5 +1,3 @@
-import { Post } from "@/components/post";
-import CategorySection from "@/components/category-section";
 import styles from "./page.module.css";
 import { API_URL } from "@/config/api.config";
 import { IArticle } from "@/models";
@@ -43,12 +41,12 @@ export default async function Home() {
 
   return (
     <div className={`bg-primary-light ${styles.container}`}>
-      <CategorySection />
+      {/* <CategorySection />
 
       <div className={styles["posts-grid"]}>
         {articles &&
           articles.map((article) => <Post post={article} key={article.id} />)}
-      </div>
+      </div> */}
     </div>
   );
 }

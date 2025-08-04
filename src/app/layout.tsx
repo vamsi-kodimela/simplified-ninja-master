@@ -1,5 +1,4 @@
 import "@/styles/globals.css";
-import { Navbar } from "@/components/navbar";
 import { Montserrat, Open_Sans } from "next/font/google";
 
 const openSans = Open_Sans({
@@ -22,10 +21,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/simplified-ninja-icon.png" />
       </head>
-      <body>
-        <Navbar />
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
