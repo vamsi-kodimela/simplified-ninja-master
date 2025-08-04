@@ -85,9 +85,9 @@ const PostsSection: React.FC<PostsSectionProps> = ({
           ))}
         </div>
 
-        {/* Load More / View All Actions */}
-        <div className="posts-actions">
-          {showLoadMore && (
+        {/* Load More Actions */}
+        {showLoadMore && (
+          <div className="posts-actions">
             <button
               className={`posts-load-more ${loading ? "loading" : ""}`}
               onClick={handleLoadMore}
@@ -105,18 +105,8 @@ const PostsSection: React.FC<PostsSectionProps> = ({
                 </>
               )}
             </button>
-          )}
-
-          {/* Mobile View All */}
-          {showViewAll && (
-            <div className="posts-mobile-cta">
-              <button className="posts-mobile-view-all" onClick={handleViewAll}>
-                <span>View All Posts</span>
-                <ViewAllIcon />
-              </button>
-            </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
 
       {/* Background Effects */}
