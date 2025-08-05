@@ -77,11 +77,11 @@ export default async function Home() {
       name: article.category.name,
       slug: article.category.name.toLowerCase().replace(/\s+/g, "-"),
     },
-    readCount: Math.floor(Math.random() * 2000) + 100, // Random read count for now
+    readCount: Math.floor((parseInt(article.id, 36) % 1900) + 100), // Deterministic based on ID
     publishedAt: new Date(article.createdAt),
     href: `/post/${article.slug}`,
     readTime: Math.ceil(article.description.length / 200), // Estimate based on description length
-    featured: Math.random() > 0.7, // Random featured status
+    featured: parseInt(article.id, 36) % 5 === 0, // Deterministic featured status
   });
 
   // Transform category data to match CategoryType interface
@@ -94,7 +94,7 @@ export default async function Home() {
     description: category.description || `Explore ${category.name} content`,
     imageUrl: category.icon ? `${SERVER_URL}${category.icon}` : undefined,
     href: `/category/${category.slug || category.name.toLowerCase().replace(/\s+/g, "-")}`,
-    count: Math.floor(Math.random() * 50) + 5, // Random count for now
+    count: Math.floor((parseInt(category.id, 36) % 45) + 5), // Deterministic based on ID
     isNew: index < 2, // Mark first 2 as new
     isFeatured: index % 3 === 0, // Mark every 3rd as featured
   });

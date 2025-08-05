@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Navbar from "./navbar";
 import { NavLink, CTAButton } from "./navbar.types";
@@ -12,9 +12,21 @@ import { NavLink, CTAButton } from "./navbar.types";
 
 const NavbarWrapper: React.FC = () => {
   const pathname = usePathname();
+  const [hasMounted, setHasMounted] = useState(false);
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
 
   // Function to determine if a link is active
   const isLinkActive = (href: string): boolean => {
+    // HYDRATION FIX: Prevent hydration mismatch by ensuring server and client
+    // render the same initial state (no active links), then apply active states
+    // after hydration completes via useEffect
+    if (typeof window === "undefined" || !hasMounted) {
+      return false;
+    }
+
     if (href === "/") {
       return pathname === "/";
     }

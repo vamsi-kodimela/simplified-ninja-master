@@ -41,7 +41,7 @@ export default async function CategoriesPage() {
     description: category.description || `Explore ${category.name} content`,
     imageUrl: category.icon ? `${SERVER_URL}${category.icon}` : undefined,
     href: `/category/${category.slug || category.name.toLowerCase().replace(/\s+/g, "-")}`,
-    count: Math.floor(Math.random() * 50) + 5,
+    count: Math.floor((parseInt(category.id, 36) % 45) + 5), // Deterministic based on ID
     isNew: index < 2,
     isFeatured: index % 3 === 0,
   });

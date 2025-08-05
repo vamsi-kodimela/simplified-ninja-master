@@ -118,11 +118,11 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       name: article.category.name,
       slug: article.category.name.toLowerCase().replace(/\s+/g, "-"),
     },
-    readCount: Math.floor(Math.random() * 2000) + 100,
+    readCount: Math.floor((parseInt(article.id, 36) % 1900) + 100), // Deterministic based on ID
     publishedAt: new Date(article.createdAt),
     href: `/post/${article.slug}`,
     readTime: Math.ceil(article.description.length / 200),
-    featured: Math.random() > 0.7,
+    featured: parseInt(article.id, 36) % 5 === 0, // Deterministic featured status
   });
 
   const [articlesData, categoryInfo] = await Promise.all([
