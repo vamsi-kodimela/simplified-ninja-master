@@ -799,7 +799,7 @@
   border-color: var(--border-emphasis);
 }
 .border-focus {
-  border-color: var(--border-focus);
+  border: none;
 }
 .border-error {
   border-color: var(--border-error);

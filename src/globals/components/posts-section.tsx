@@ -15,7 +15,7 @@ const PostsSection: React.FC<PostsSectionProps> = ({
   posts,
   columns = 3,
   showViewAll = true,
-  viewAllHref = "/posts",
+  viewAllHref = "/article",
   onViewAll,
   showLoadMore = false,
   onLoadMore,
@@ -78,6 +78,16 @@ const PostsSection: React.FC<PostsSectionProps> = ({
             </div>
           ))}
         </div>
+
+        {/* Bottom CTA for mobile */}
+        {showViewAll && (
+          <div className="posts-mobile-cta">
+            <button className="posts-mobile-view-all" onClick={handleViewAll}>
+              <span>View All Posts</span>
+              <ViewAllIcon />
+            </button>
+          </div>
+        )}
 
         {/* Load More Actions */}
         {showLoadMore && (

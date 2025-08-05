@@ -97,6 +97,12 @@
   --space-4xl: 40px;
   --space-5xl: 48px;
 
+  /* Container Padding */
+  --container-padding: var(--space-5xl); /* 48px */
+  --container-padding-lg: 56px; /* Custom larger value */
+  --container-padding-md: var(--space-3xl); /* 32px */
+  --container-padding-sm: var(--space-xl); /* 20px */
+
   /* Border Radius */
   --radius-sm: 4px;
   --radius-md: 6px;

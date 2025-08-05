@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { usePathname } from "next/navigation";
 import Navbar from "./navbar";
 import { NavLink, CTAButton } from "./navbar.types";
 
@@ -10,33 +11,53 @@ import { NavLink, CTAButton } from "./navbar.types";
    ================================ */
 
 const NavbarWrapper: React.FC = () => {
+  const pathname = usePathname();
+
+  // Function to determine if a link is active
+  const isLinkActive = (href: string): boolean => {
+    if (href === "/") {
+      return pathname === "/";
+    }
+
+    // Special case: /post/[slug] should activate Articles link
+    if (href === "/article" && pathname.startsWith("/post/")) {
+      return true;
+    }
+
+    return pathname.startsWith(href);
+  };
+
   // Navigation links configuration
   const navLinks: NavLink[] = [
     {
       id: "home",
       label: "Home",
       href: "/",
-      isActive: true,
+      isActive: isLinkActive("/"),
     },
     {
       id: "articles",
       label: "Articles",
       href: "/article",
+      isActive: isLinkActive("/article"),
     },
     {
       id: "categories",
       label: "Categories",
       href: "/category",
+      isActive: isLinkActive("/category"),
     },
     {
       id: "about",
       label: "About",
       href: "/about",
+      isActive: isLinkActive("/about"),
     },
     {
       id: "contact",
       label: "Contact",
       href: "/contact",
+      isActive: isLinkActive("/contact"),
     },
   ];
 

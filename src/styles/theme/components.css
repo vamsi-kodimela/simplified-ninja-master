@@ -48,7 +48,6 @@
 }
 
 .btn-secondary:hover:not(:disabled) {
-  border-color: var(--border-focus);
   color: var(--interactive-focus);
   background: var(--interactive-active);
 }
@@ -171,9 +170,6 @@
 
 .form-input:focus {
   outline: none;
-  border-color: var(--border-focus);
-  box-shadow: 0 0 0 3px var(--primary-accent-light);
-  background: var(--bg-elevated);
 }
 
 .form-input::placeholder {
