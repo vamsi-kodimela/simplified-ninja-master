@@ -153,14 +153,6 @@ export default async function Home() {
     <div>
       <Hero />
 
-      <CategoriesSection
-        title="Explore Categories"
-        subtitle="Discover content organized by topics that matter to you"
-        categories={categories}
-        showViewAll={true}
-        viewAllHref="/category"
-      />
-
       <PostsSection
         title="Recent Posts"
         subtitle="Stay updated with our latest insights and articles"
@@ -168,6 +160,14 @@ export default async function Home() {
         columns={3}
         showViewAll={true}
         viewAllHref="/article"
+      />
+
+      <CategoriesSection
+        title="Explore Categories"
+        subtitle="Discover content organized by topics that matter to you"
+        categories={categories}
+        showViewAll={true}
+        viewAllHref="/category"
       />
     </div>
   );
