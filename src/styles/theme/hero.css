@@ -10,7 +10,7 @@
   align-items: center;
   background: var(--bg-primary);
   overflow: hidden;
-  padding: var(--space-4xl) 0 var(--space-5xl) 0;
+  padding: calc(var(--space-5xl) * 1.5) 0 calc(var(--space-5xl) * 1.25) 0;
 }
 
 /* ================================
@@ -497,7 +497,7 @@
 
 @media (max-width: 768px) {
   .hero {
-    padding: var(--space-4xl) 0;
+    padding: calc(var(--space-4xl) * 1.25) 0 calc(var(--space-5xl) * 1.1) 0;
   }
 
   .hero-container {

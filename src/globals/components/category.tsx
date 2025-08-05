@@ -69,11 +69,6 @@ const Category: React.FC<CategoryProps> = ({
       {/* Title */}
       <span className="category-pill-title">{category.title}</span>
 
-      {/* Count */}
-      {category.count !== undefined && (
-        <span className="category-pill-count">{category.count}</span>
-      )}
-
       {/* Badges */}
       {category.isNew && <span className="category-pill-badge">New</span>}
       {category.isFeatured && <StarIcon className="category-pill-star" />}
