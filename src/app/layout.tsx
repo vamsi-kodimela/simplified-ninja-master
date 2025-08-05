@@ -15,7 +15,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://simplified-ninja.com"),
+  metadataBase: new URL("https://simplified.ninja"),
   title: {
     default: "Simplified Ninja | Your Simplified Guide to Code",
     template: "%s | Simplified Ninja",
@@ -32,8 +32,8 @@ export const metadata: Metadata = {
     "programming tutorials",
     "case studies",
   ],
-  authors: [{ name: "Simplified Ninja" }],
-  creator: "Simplified Ninja",
+  authors: [{ name: "Vamsi Krishna Kodimela" }],
+  creator: "Vamsi Krishna Kodimela",
   publisher: "Simplified Ninja",
   robots: {
     index: true,
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://simplified-ninja.com",
+    url: "https://simplified.ninja",
     siteName: "Simplified Ninja",
     title: "Simplified Ninja | Your Simplified Guide to Code",
     description:
@@ -76,9 +76,9 @@ export const metadata: Metadata = {
     yandex: "yandex-verification-token",
   },
   alternates: {
-    canonical: "https://simplified-ninja.com",
+    canonical: "https://simplified.ninja",
     languages: {
-      "en-US": "https://simplified-ninja.com",
+      "en-US": "https://simplified.ninja",
     },
   },
   category: "technology",
@@ -109,13 +109,13 @@ export default function RootLayout({
               name: "Simplified Ninja",
               description:
                 "Learn to code by building projects. Get deeper understanding through case studies, discussions, and more.",
-              url: "https://simplified-ninja.com",
+              url: "https://simplified.ninja",
               potentialAction: {
                 "@type": "SearchAction",
                 target: {
                   "@type": "EntryPoint",
                   urlTemplate:
-                    "https://simplified-ninja.com/search?q={search_term_string}",
+                    "https://simplified.ninja/search?q={search_term_string}",
                 },
                 "query-input": "required name=search_term_string",
               },
@@ -124,7 +124,7 @@ export default function RootLayout({
                 name: "Simplified Ninja",
                 logo: {
                   "@type": "ImageObject",
-                  url: "https://simplified-ninja.com/simplified-ninja.png",
+                  url: "https://simplified.ninja/simplified-ninja.png",
                 },
               },
             }),

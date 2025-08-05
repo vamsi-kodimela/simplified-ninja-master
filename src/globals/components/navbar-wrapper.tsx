@@ -64,17 +64,16 @@ const NavbarWrapper: React.FC = () => {
       href: "/category",
       isActive: isLinkActive("/category"),
     },
-    {
-      id: "about",
-      label: "About",
-      href: "/about",
-      isActive: isLinkActive("/about"),
-    },
+    // {
+    //   id: "about",
+    //   label: "About",
+    //   href: "/about",
+    //   isActive: isLinkActive("/about"),
+    // },
     {
       id: "contact",
       label: "Contact",
-      href: "/contact",
-      isActive: isLinkActive("/contact"),
+      href: "mailto:vamsikrishnakdml@gmail.com",
     },
   ];
 
@@ -83,28 +82,28 @@ const NavbarWrapper: React.FC = () => {
     {
       id: "twitter",
       platform: "Twitter",
-      href: "https://twitter.com/SimplifiedNinja",
+      href: "https://x.com/vamsi_kodimelaa",
       icon: <TwitterIcon />,
       label: "Follow us on Twitter",
     },
     {
       id: "linkedin",
       platform: "LinkedIn",
-      href: "https://linkedin.com/company/simplified-ninja",
+      href: "https://www.linkedin.com/in/vamsi-krishna-kodimela/",
       icon: <LinkedInIcon />,
       label: "Connect with us on LinkedIn",
     },
     {
       id: "github",
       platform: "GitHub",
-      href: "https://github.com/SimplifiedNinja",
+      href: "https://github.com/vamsi-krishna-kodimela  ",
       icon: <GitHubIcon />,
       label: "Check out our GitHub",
     },
     {
       id: "youtube",
       platform: "YouTube",
-      href: "https://youtube.com/@SimplifiedNinja",
+      href: "https://www.youtube.com/@VAMSIKRISHNAKODIMELA",
       icon: <YouTubeIcon />,
       label: "Subscribe to our YouTube channel",
     },
