@@ -112,7 +112,7 @@ const Hero: React.FC<HeroProps> = ({ className = "" }) => {
             </div>
 
             {/* Stats */}
-            <div className="hero-stats">
+            {/* <div className="hero-stats">
               <div className="hero-stat">
                 <div className="hero-stat-number">Weekly</div>
                 <div className="hero-stat-label">Intel</div>
@@ -125,7 +125,7 @@ const Hero: React.FC<HeroProps> = ({ className = "" }) => {
                 <div className="hero-stat-number">No</div>
                 <div className="hero-stat-label">Jargon</div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
