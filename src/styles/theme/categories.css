@@ -9,15 +9,14 @@
 
 .categories-section {
   position: relative;
-  padding: var(--space-5xl) 0;
+  padding: calc(var(--space-5xl) * 1.5) 0;
   background: var(--bg-primary);
-  overflow: hidden;
 }
 
 .categories-container {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 0 var(--space-2xl);
+  padding: 0 var(--space-3xl);
   position: relative;
   z-index: 1;
 }
@@ -30,7 +29,7 @@
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  margin-bottom: var(--space-4xl);
+  margin-bottom: calc(var(--space-4xl) * 1.25);
   position: relative;
 }
 
@@ -124,7 +123,7 @@
 .categories-pills-container {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-md);
+  gap: calc(var(--space-md) * 1.5);
   margin-bottom: var(--space-4xl);
   align-items: center;
 }
@@ -376,7 +375,7 @@
   }
 
   .categories-container {
-    padding: 0 var(--space-lg);
+    padding: 0 var(--space-xl);
   }
 
   .categories-header {

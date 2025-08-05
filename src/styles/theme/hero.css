@@ -5,12 +5,12 @@
 
 .hero {
   position: relative;
-  min-height: 100vh;
+  min-height: 85vh;
   display: flex;
   align-items: center;
   background: var(--bg-primary);
   overflow: hidden;
-  padding: var(--space-5xl) 0;
+  padding: var(--space-4xl) 0 var(--space-5xl) 0;
 }
 
 /* ================================
@@ -80,7 +80,7 @@
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
-  padding: 0 var(--space-2xl);
+  padding: 0 var(--space-3xl);
   position: relative;
   z-index: 1;
 }
@@ -95,7 +95,7 @@
 .hero-main {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3xl);
+  gap: var(--space-4xl);
 }
 
 /* ================================
@@ -133,9 +133,10 @@
 .hero-title {
   font-size: clamp(1.75rem, 4vw, 3rem);
   font-weight: var(--font-bold);
-  line-height: var(--leading-tight);
+  line-height: 1.2;
   color: var(--text-primary);
-  margin: 0;
+  margin: 0 0 var(--space-lg) 0;
+  letter-spacing: -0.02em;
   animation: slideInLeft 0.8s ease-out 0.2s both;
 }
 
@@ -149,10 +150,10 @@
 
 .hero-subtitle {
   font-size: var(--font-lg);
-  line-height: var(--leading-relaxed);
+  line-height: 1.6;
   color: var(--text-secondary);
   max-width: 600px;
-  margin: 0;
+  margin: 0 0 var(--space-2xl) 0;
   animation: slideInLeft 0.8s ease-out 0.4s both;
 }
 
@@ -500,7 +501,7 @@
   }
 
   .hero-container {
-    padding: 0 var(--space-lg);
+    padding: 0 var(--space-xl);
   }
 
   .hero-newsletter-form {

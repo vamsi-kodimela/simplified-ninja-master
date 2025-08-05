@@ -9,14 +9,14 @@
 
 .posts-section {
   position: relative;
-  padding: var(--space-5xl) 0;
+  padding: calc(var(--space-5xl) * 1.5) 0;
   background: var(--bg-primary);
 }
 
 .posts-container {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 0 var(--space-2xl);
+  padding: 0 var(--space-3xl);
   position: relative;
 }
 
@@ -28,7 +28,7 @@
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  margin-bottom: var(--space-4xl);
+  margin-bottom: calc(var(--space-4xl) * 1.25);
   position: relative;
 }
 
@@ -83,7 +83,7 @@
 
 .posts-grid {
   display: grid;
-  gap: var(--space-3xl);
+  gap: calc(var(--space-3xl) * 1.25);
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   max-width: 100%;
 }
@@ -382,7 +382,7 @@
 
 @media (max-width: 768px) {
   .posts-container {
-    padding: 0 var(--space-lg);
+    padding: 0 var(--space-xl);
   }
 
   .posts-header {
