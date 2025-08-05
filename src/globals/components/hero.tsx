@@ -50,19 +50,20 @@ const Hero: React.FC<HeroProps> = ({ className = "" }) => {
           {/* Main content */}
           <div className="hero-main">
             <div className="hero-badge">
-              <span className="hero-badge-text">🚀 Now Available</span>
-              <span className="hero-badge-highlight">Pro Features</span>
+              <span className="hero-badge-text">🚀 A 5-MINUTE BRIEFING</span>
+              <span className="hero-badge-highlight"> FOR MODERN DEVS</span>
             </div>
 
             <h1 className="hero-title">
-              Build Something
-              <span className="hero-title-gradient"> Extraordinary</span>
+              Master the Modern Web.
+              <span className="hero-title-gradient"> Ship Faster.</span>
             </h1>
 
             <p className="hero-subtitle">
-              Transform your ideas into powerful digital solutions with our
-              cutting-edge platform. Join thousands of creators who are already
-              building the future.
+              Stop drowning in docs and start delivering. The Ninja&apos;s
+              Dispatch is your weekly 5-minute briefing with curated intel on
+              Core Frontend, AI, Infra, and Security—all you need to build
+              better and move faster.
             </p>
 
             {/* Newsletter subscription */}
@@ -97,7 +98,7 @@ const Hero: React.FC<HeroProps> = ({ className = "" }) => {
                     </>
                   ) : (
                     <>
-                      <span>Get Early Access</span>
+                      <span>Get a Sharper Edge</span>
                       <ArrowRightIcon />
                     </>
                   )}
@@ -105,23 +106,24 @@ const Hero: React.FC<HeroProps> = ({ className = "" }) => {
               </form>
 
               <p className="hero-newsletter-note">
-                Join 12,000+ subscribers. No spam, unsubscribe anytime.
+                Join hundreds of developers who are shipping better code,
+                faster.
               </p>
             </div>
 
             {/* Stats */}
             <div className="hero-stats">
               <div className="hero-stat">
-                <div className="hero-stat-number">50K+</div>
-                <div className="hero-stat-label">Active Users</div>
+                <div className="hero-stat-number">Weekly</div>
+                <div className="hero-stat-label">Intel</div>
               </div>
               <div className="hero-stat">
-                <div className="hero-stat-number">99.9%</div>
-                <div className="hero-stat-label">Uptime</div>
+                <div className="hero-stat-number">Zero</div>
+                <div className="hero-stat-label">Fluff</div>
               </div>
               <div className="hero-stat">
-                <div className="hero-stat-number">24/7</div>
-                <div className="hero-stat-label">Support</div>
+                <div className="hero-stat-number">No</div>
+                <div className="hero-stat-label">Jargon</div>
               </div>
             </div>
           </div>

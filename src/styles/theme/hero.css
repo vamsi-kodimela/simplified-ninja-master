@@ -131,7 +131,7 @@
    ================================ */
 
 .hero-title {
-  font-size: clamp(var(--font-4xl), 5vw, 4rem);
+  font-size: clamp(1.75rem, 4vw, 3rem);
   font-weight: var(--font-bold);
   line-height: var(--leading-tight);
   color: var(--text-primary);
@@ -516,7 +516,7 @@
   }
 
   .hero-title {
-    font-size: var(--font-3xl);
+    font-size: 1.5rem;
   }
 
   .hero-subtitle {
