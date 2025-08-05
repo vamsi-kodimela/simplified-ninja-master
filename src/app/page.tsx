@@ -110,8 +110,10 @@ export default async function Home() {
       ? `${SERVER_URL}${article.featuredImage.url}`
       : undefined,
     category: {
-      name: article.category.name,
-      slug: article.category.name.toLowerCase().replace(/\s+/g, "-"),
+      name: article.category?.name || "Uncategorized",
+      slug:
+        article.category?.name?.toLowerCase().replace(/\s+/g, "-") ||
+        "uncategorized",
     },
     readCount: Math.floor((parseInt(article.id, 36) % 1900) + 100), // Deterministic based on ID
     publishedAt: new Date(article.createdAt),

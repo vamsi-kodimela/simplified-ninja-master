@@ -132,6 +132,9 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
       // Filter articles by category slug
       return articles.filter((article: IArticle) => {
+        if (!article.category?.name) {
+          return false; // Skip articles without a category
+        }
         const categorySlug = article.category.name
           .toLowerCase()
           .replace(/\s+/g, "-");
@@ -178,8 +181,10 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       ? `${SERVER_URL}${article.featuredImage.url}`
       : undefined,
     category: {
-      name: article.category.name,
-      slug: article.category.name.toLowerCase().replace(/\s+/g, "-"),
+      name: article.category?.name || "Uncategorized",
+      slug:
+        article.category?.name?.toLowerCase().replace(/\s+/g, "-") ||
+        "uncategorized",
     },
     readCount: Math.floor((parseInt(article.id, 36) % 1900) + 100), // Deterministic based on ID
     publishedAt: new Date(article.createdAt),
@@ -198,9 +203,29 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   if (posts.length === 0) {
     return (
-      <div style={{ paddingTop: "2rem", textAlign: "center" }}>
-        <h1>No articles found in {categoryName}</h1>
-        <p>Check back later for new content!</p>
+      <div className="posts-section">
+        <div className="posts-container">
+          <div className="empty-state">
+            <div className="empty-state-content">
+              <div className="empty-state-icon">📝</div>
+              <h1 className="empty-state-title">
+                No articles found in {categoryName}
+              </h1>
+              <p className="empty-state-description">
+                We don't have any articles in this category yet. Check back
+                later for new content!
+              </p>
+              <div className="empty-state-actions">
+                <a href="/article" className="btn btn-primary">
+                  Browse All Articles
+                </a>
+                <a href="/category" className="btn btn-secondary">
+                  View Categories
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
