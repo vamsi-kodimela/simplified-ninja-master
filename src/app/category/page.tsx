@@ -6,7 +6,44 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "All Categories | Simplified Ninja",
-  description: "Browse all categories on Simplified Ninja",
+  description:
+    "Explore programming categories on Simplified Ninja. Find tutorials organized by topics including web development, mobile development, data science, DevOps, and more programming disciplines.",
+  keywords: [
+    "programming categories",
+    "coding topics",
+    "web development",
+    "mobile development",
+    "data science",
+    "devops",
+    "software engineering topics",
+    "programming languages",
+  ],
+  openGraph: {
+    title: "All Categories | Simplified Ninja",
+    description:
+      "Explore programming categories on Simplified Ninja. Find tutorials organized by topics including web development, mobile development, and more.",
+    url: "https://simplified-ninja.com/category",
+    siteName: "Simplified Ninja",
+    images: [
+      {
+        url: "/simplified-ninja.png",
+        width: 1200,
+        height: 630,
+        alt: "Simplified Ninja Categories - Programming Topics and Disciplines",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "All Categories | Simplified Ninja",
+    description: "Explore programming categories on Simplified Ninja.",
+    images: ["/simplified-ninja.png"],
+  },
+  alternates: {
+    canonical: "https://simplified-ninja.com/category",
+  },
 };
 
 export default async function CategoriesPage() {

@@ -31,8 +31,8 @@ const NavbarWrapper: React.FC = () => {
       return pathname === "/";
     }
 
-    // Special case: /post/[slug] should activate Articles link
-    if (href === "/article" && pathname.startsWith("/post/")) {
+    // Special case: /article/[slug] should activate Articles link
+    if (href === "/article" && pathname.startsWith("/article/")) {
       return true;
     }
 

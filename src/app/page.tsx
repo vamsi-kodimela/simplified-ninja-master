@@ -7,7 +7,43 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Simplified Ninja | Your Simplified Guide to Code",
   description:
-    "Learn to code by building projects. Get deeper understanding through case studies, discussions, and more.",
+    "Learn to code by building projects. Get deeper understanding through case studies, discussions, and more. Master programming with simplified tutorials and real-world examples.",
+  keywords: [
+    "programming tutorials",
+    "learn to code",
+    "web development",
+    "coding bootcamp",
+    "programming projects",
+    "software engineering",
+    "full stack development",
+  ],
+  openGraph: {
+    title: "Simplified Ninja | Your Simplified Guide to Code",
+    description:
+      "Learn to code by building projects. Get deeper understanding through case studies, discussions, and more.",
+    url: "https://simplified-ninja.com",
+    siteName: "Simplified Ninja",
+    images: [
+      {
+        url: "/simplified-ninja.png",
+        width: 1200,
+        height: 630,
+        alt: "Simplified Ninja - Learn Programming Through Projects",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Simplified Ninja | Your Simplified Guide to Code",
+    description:
+      "Learn to code by building projects. Get deeper understanding through case studies, discussions, and more.",
+    images: ["/simplified-ninja.png"],
+  },
+  alternates: {
+    canonical: "https://simplified-ninja.com",
+  },
 };
 
 export default async function Home() {
@@ -79,7 +115,7 @@ export default async function Home() {
     },
     readCount: Math.floor((parseInt(article.id, 36) % 1900) + 100), // Deterministic based on ID
     publishedAt: new Date(article.createdAt),
-    href: `/post/${article.slug}`,
+    href: `/article/${article.slug}`,
     readTime: Math.ceil(article.description.length / 200), // Estimate based on description length
     featured: parseInt(article.id, 36) % 5 === 0, // Deterministic featured status
   });

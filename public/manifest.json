@@ -1,0 +1,21 @@
+{
+  "name": "Simplified Ninja",
+  "short_name": "Simplified Ninja",
+  "description": "Learn to code by building projects. Get deeper understanding through case studies, discussions, and more.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a1a1a",
+  "theme_color": "#007aff",
+  "icons": [
+    {
+      "src": "/simplified-ninja-icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/simplified-ninja-icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

@@ -6,7 +6,44 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "All Articles | Simplified Ninja",
-  description: "Browse all articles and tutorials on Simplified Ninja",
+  description:
+    "Browse all programming articles and tutorials on Simplified Ninja. Learn coding through in-depth tutorials, case studies, and practical examples covering web development, software engineering, and more.",
+  keywords: [
+    "programming articles",
+    "coding tutorials",
+    "web development guides",
+    "software engineering articles",
+    "programming blog",
+    "learn programming",
+    "tech tutorials",
+  ],
+  openGraph: {
+    title: "All Articles | Simplified Ninja",
+    description:
+      "Browse all programming articles and tutorials on Simplified Ninja. Learn coding through in-depth tutorials and practical examples.",
+    url: "https://simplified-ninja.com/article",
+    siteName: "Simplified Ninja",
+    images: [
+      {
+        url: "/simplified-ninja.png",
+        width: 1200,
+        height: 630,
+        alt: "Simplified Ninja Articles - Programming Tutorials and Guides",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "All Articles | Simplified Ninja",
+    description:
+      "Browse all programming articles and tutorials on Simplified Ninja.",
+    images: ["/simplified-ninja.png"],
+  },
+  alternates: {
+    canonical: "https://simplified-ninja.com/article",
+  },
 };
 
 export default async function ArticlesPage() {
@@ -45,7 +82,7 @@ export default async function ArticlesPage() {
     },
     readCount: Math.floor((parseInt(article.id, 36) % 1900) + 100), // Deterministic based on ID
     publishedAt: new Date(article.createdAt),
-    href: `/post/${article.slug}`,
+    href: `/article/${article.slug}`,
     readTime: Math.ceil(article.description.length / 200),
     featured: parseInt(article.id, 36) % 5 === 0, // Deterministic featured status
   });
