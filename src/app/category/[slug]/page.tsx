@@ -3,6 +3,7 @@ import { IArticle, ICategory } from "@/models";
 import { PostsSection } from "@/globals/components";
 import { Post } from "@/globals/components";
 import { Metadata } from "next";
+import Link from "next/link";
 
 export async function generateStaticParams() {
   try {
@@ -212,16 +213,16 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                 No articles found in {categoryName}
               </h1>
               <p className="empty-state-description">
-                We don't have any articles in this category yet. Check back
+                We don&apos;t have any articles in this category yet. Check back
                 later for new content!
               </p>
               <div className="empty-state-actions">
-                <a href="/article" className="btn btn-primary">
+                <Link href="/article" className="btn btn-primary">
                   Browse All Articles
-                </a>
-                <a href="/category" className="btn btn-secondary">
+                </Link>
+                <Link href="/category" className="btn btn-secondary">
                   View Categories
-                </a>
+                </Link>
               </div>
             </div>
           </div>
