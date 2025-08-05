@@ -98,8 +98,8 @@
   --space-5xl: 48px;
 
   /* Container Padding */
-  --container-padding: var(--space-5xl); /* 48px */
-  --container-padding-lg: 56px; /* Custom larger value */
+  --container-padding: var(--space-3xl); /* 32px - matches navbar */
+  --container-padding-lg: var(--space-4xl); /* 40px */
   --container-padding-md: var(--space-3xl); /* 32px */
   --container-padding-sm: var(--space-xl); /* 20px */
 
