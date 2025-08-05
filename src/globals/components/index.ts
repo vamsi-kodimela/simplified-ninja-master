@@ -7,6 +7,10 @@
 export { default as Navbar } from "./navbar";
 export { default as NavbarWrapper } from "./navbar-wrapper";
 
+// Footer component
+export { default as Footer } from "./footer";
+export { default as FooterWrapper } from "./footer-wrapper";
+
 // Hero component
 export { default as Hero } from "./hero";
 

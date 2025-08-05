@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
 import { Montserrat, Open_Sans } from "next/font/google";
 import NavbarWrapper from "@/globals/components/navbar-wrapper";
+import FooterWrapper from "@/globals/components/footer-wrapper";
 import { Metadata } from "next";
 
 const openSans = Open_Sans({
@@ -131,8 +132,11 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <NavbarWrapper />
-        {children}
+        <div className="layout-wrapper">
+          <NavbarWrapper />
+          <main className="main-content">{children}</main>
+          <FooterWrapper />
+        </div>
       </body>
     </html>
   );

@@ -18,12 +18,24 @@ body {
   line-height: var(--leading-normal);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+
+/* Layout wrapper for sticky footer */
+.layout-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
   padding-top: 80px; /* Account for fixed navbar */
 }
 
 /* Responsive navbar padding */
 @media (max-width: 768px) {
-  body {
+  .main-content {
     padding-top: 70px; /* Mobile navbar height */
   }
 }
