@@ -3,6 +3,8 @@
    TypeScript interfaces for navbar component
    ================================ */
 
+import React from "react";
+
 export interface NavLink {
   id: string;
   label: string;
@@ -18,6 +20,14 @@ export interface CTAButton {
   onClick?: () => void;
   variant: "primary" | "secondary" | "ghost";
   size?: "sm" | "md" | "lg";
+}
+
+export interface SocialLink {
+  id: string;
+  platform: string;
+  href: string;
+  icon: React.ReactNode;
+  label?: string;
 }
 
 export interface LogoConfig {
@@ -39,5 +49,6 @@ export interface NavbarProps {
   navLinks: NavLink[];
   search?: SearchConfig;
   ctaButtons: CTAButton[];
+  socialLinks?: SocialLink[];
   className?: string;
 }

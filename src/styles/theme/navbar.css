@@ -232,6 +232,38 @@
 }
 
 /* ================================
+   SOCIAL LINKS
+   ================================ */
+
+.navbar-social {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.navbar-social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.navbar-social-link:hover {
+  color: var(--primary-accent);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.navbar-social-link svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* ================================
    CTA BUTTONS
    ================================ */
 
@@ -242,38 +274,63 @@
 }
 
 .navbar-cta-button {
-  padding: 0.5rem 0.75rem;
-  font-size: 0.875rem;
-  font-weight: 500;
+  padding: var(--space-md) var(--space-xl);
+  font-size: var(--font-sm);
+  font-weight: var(--font-medium);
   text-decoration: none;
   border: none;
   cursor: pointer;
   white-space: nowrap;
-  background: transparent;
+  border-radius: var(--radius-full);
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
 }
 
 .navbar-cta-primary {
-  color: var(--primary-accent);
+  background: var(--gradient-primary);
+  color: var(--primary-light);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--primary-accent);
 }
 
 .navbar-cta-primary:hover {
-  color: var(--primary-accent-dark);
+  box-shadow: var(--shadow-sm);
+  background: linear-gradient(135deg, var(--primary-accent) 0%, #0056b3 100%);
+}
+
+.navbar-cta-primary:active {
+  transform: scale(0.98);
+  box-shadow: var(--shadow-sm);
 }
 
 .navbar-cta-secondary {
+  background: rgba(255, 255, 255, 0.05);
   color: var(--text-primary);
+  border: 1px solid var(--border-subtle);
+  backdrop-filter: var(--glass-blur);
 }
 
 .navbar-cta-secondary:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--primary-accent);
   color: var(--primary-accent);
 }
 
+.navbar-cta-secondary:active {
+  transform: scale(0.98);
+}
+
 .navbar-cta-ghost {
+  background: transparent;
   color: var(--text-secondary);
+  border: 1px solid transparent;
 }
 
 .navbar-cta-ghost:hover {
   color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--border-subtle);
 }
 
 /* ================================
@@ -359,6 +416,48 @@
   background: rgba(255, 255, 255, 0.03);
 }
 
+.navbar-mobile-social {
+  margin-bottom: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 2rem;
+}
+
+.navbar-mobile-social-title {
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.navbar-mobile-social-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.navbar-mobile-social-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.875rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.navbar-mobile-social-link:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.navbar-mobile-social-link svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
 .navbar-mobile-cta {
   display: flex;
   flex-direction: column;
@@ -368,19 +467,48 @@
 }
 
 .navbar-mobile-button {
-  padding: 0.75rem;
+  padding: var(--space-lg) var(--space-xl);
   text-align: center;
   text-decoration: none;
-  font-weight: 500;
-  background: transparent;
+  font-weight: var(--font-medium);
+  font-size: var(--font-base);
+  border-radius: var(--radius-xl);
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid transparent;
 }
 
 .navbar-mobile-primary {
-  color: var(--primary-accent);
+  background: var(--gradient-primary);
+  color: var(--primary-light);
+  box-shadow: var(--shadow-sm);
+  border-color: var(--primary-accent);
+}
+
+.navbar-mobile-primary:hover {
+  box-shadow: var(--shadow-sm);
+}
+
+.navbar-mobile-primary:active {
+  transform: scale(0.98);
 }
 
 .navbar-mobile-secondary {
+  background: rgba(255, 255, 255, 0.05);
   color: var(--text-primary);
+  border-color: var(--border-subtle);
+  backdrop-filter: var(--glass-blur);
+}
+
+.navbar-mobile-secondary:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--primary-accent);
+  color: var(--primary-accent);
+}
+
+.navbar-mobile-secondary:active {
+  transform: scale(0.98);
 }
 
 /* ================================

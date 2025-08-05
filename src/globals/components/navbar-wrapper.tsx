@@ -2,8 +2,13 @@
 
 import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import Navbar from "./navbar";
-import { NavLink, CTAButton } from "./navbar.types";
+import Navbar, {
+  TwitterIcon,
+  LinkedInIcon,
+  GitHubIcon,
+  YouTubeIcon,
+} from "./navbar";
+import { NavLink, CTAButton, SocialLink } from "./navbar.types";
 
 /* ================================
    NAVBAR WRAPPER COMPONENT
@@ -73,14 +78,40 @@ const NavbarWrapper: React.FC = () => {
     },
   ];
 
+  // Social links configuration
+  const socialLinks: SocialLink[] = [
+    {
+      id: "twitter",
+      platform: "Twitter",
+      href: "https://twitter.com/SimplifiedNinja",
+      icon: <TwitterIcon />,
+      label: "Follow us on Twitter",
+    },
+    {
+      id: "linkedin",
+      platform: "LinkedIn",
+      href: "https://linkedin.com/company/simplified-ninja",
+      icon: <LinkedInIcon />,
+      label: "Connect with us on LinkedIn",
+    },
+    {
+      id: "github",
+      platform: "GitHub",
+      href: "https://github.com/SimplifiedNinja",
+      icon: <GitHubIcon />,
+      label: "Check out our GitHub",
+    },
+    {
+      id: "youtube",
+      platform: "YouTube",
+      href: "https://youtube.com/@SimplifiedNinja",
+      icon: <YouTubeIcon />,
+      label: "Subscribe to our YouTube channel",
+    },
+  ];
+
   // CTA buttons configuration
   const ctaButtons: CTAButton[] = [
-    {
-      id: "all-articles",
-      label: "All Articles",
-      href: "/article",
-      variant: "secondary",
-    },
     {
       id: "subscribe",
       label: "Subscribe",
@@ -118,6 +149,7 @@ const NavbarWrapper: React.FC = () => {
       navLinks={navLinks}
       search={searchConfig}
       ctaButtons={ctaButtons}
+      socialLinks={socialLinks}
     />
   );
 };

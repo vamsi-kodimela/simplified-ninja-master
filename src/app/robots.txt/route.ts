@@ -5,7 +5,7 @@ Allow: /
 # Optimize crawl budget - allow all important pages
 Allow: /article
 Allow: /category
-Allow: /post/*
+Allow: /article/*
 
 # Block unnecessary crawling
 Disallow: /api/
