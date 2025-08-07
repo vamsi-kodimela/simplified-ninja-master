@@ -82,17 +82,16 @@ const Hero: React.FC<HeroProps> = ({ className = "" }) => {
             </h1>
 
             <p className="hero-subtitle">
-              Stop drowning in docs and start delivering. The Ninja&apos;s
-              Dispatch is your weekly 5-minute briefing with curated intel on
-              Core Frontend, AI, Infra, and Security—all you need to build
-              better and move faster.
+              Stop drowning in docs and start delivering. The{" "}
+              <b className="highlight">Frontend Discovery</b> is your weekly
+              5-minute briefing with curated intel on Core Frontend, AI, Infra,
+              and Security—all you need to build better and move faster.
             </p>
 
             {/* Newsletter subscription */}
             <div className="hero-newsletter">
               <form onSubmit={handleSubmit} className="hero-newsletter-form">
                 <div className="hero-input-container">
-                  <EmailIcon className="hero-input-icon" />
                   <input
                     type="email"
                     placeholder="Enter your email address"
