@@ -84,7 +84,7 @@ const FooterWrapper: React.FC = () => {
     {
       id: "github",
       platform: "GitHub",
-      href: "https://github.com/SimplifiedNinja",
+      href: "https://github.com/vamsi-kodimela",
       icon: <GitHubIcon />,
       label: "Check out our open source projects",
     },

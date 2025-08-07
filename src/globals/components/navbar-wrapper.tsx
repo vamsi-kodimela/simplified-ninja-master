@@ -96,7 +96,7 @@ const NavbarWrapper: React.FC = () => {
     {
       id: "github",
       platform: "GitHub",
-      href: "https://github.com/vamsi-krishna-kodimela  ",
+      href: "https://github.com/vamsi-kodimela",
       icon: <GitHubIcon />,
       label: "Check out our GitHub",
     },
