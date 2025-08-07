@@ -13,6 +13,7 @@ import {
   NewsletterConfig,
   BrandingConfig,
 } from "./footer.types";
+import { subscribeEmail } from "@/utils/subscription.util";
 
 /* ================================
    FOOTER WRAPPER COMPONENT
@@ -105,27 +106,21 @@ const FooterWrapper: React.FC = () => {
     buttonText: "Subscribe",
     onSubmit: async (email: string) => {
       try {
-        // Here you would integrate with your newsletter service
-        // For now, we'll just log it
-        console.log("Newsletter subscription:", email);
+        const result = await subscribeEmail(email);
 
-        // Example: Send to your backend API
-        // const response = await fetch('/api/newsletter/subscribe', {
-        //   method: 'POST',
-        //   headers: { 'Content-Type': 'application/json' },
-        //   body: JSON.stringify({ email }),
-        // });
-
-        // Show success message to user
         if (typeof window !== "undefined") {
-          alert(
-            "Thank you for subscribing! Please check your email to confirm.",
-          );
+          if (result.success) {
+            alert(result.message);
+          } else {
+            alert(result.message);
+          }
         }
       } catch (error) {
         console.error("Newsletter subscription error:", error);
         if (typeof window !== "undefined") {
-          alert("Sorry, there was an error. Please try again later.");
+          alert(
+            "Sorry, there was an unexpected error. Please try again later.",
+          );
         }
       }
     },

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { subscribeEmail } from "@/utils/subscription.util";
 
 /* ================================
    HERO COMPONENT
@@ -15,25 +16,46 @@ const Hero: React.FC<HeroProps> = ({ className = "" }) => {
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
+  const [message, setMessage] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim()) return;
 
     setIsLoading(true);
+    setMessage("");
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      const result = await subscribeEmail(email);
 
-    setIsLoading(false);
-    setIsSubscribed(true);
-    console.log("Newsletter subscription:", email);
+      if (result.success) {
+        setIsSubscribed(true);
+        setMessage(result.message);
+        setEmail("");
 
-    // Reset after showing success
-    setTimeout(() => {
-      setIsSubscribed(false);
-      setEmail("");
-    }, 3000);
+        // Reset success state after showing message
+        setTimeout(() => {
+          setIsSubscribed(false);
+          setMessage("");
+        }, 5000);
+      } else {
+        setMessage(result.message);
+
+        // Clear error message after some time
+        setTimeout(() => {
+          setMessage("");
+        }, 5000);
+      }
+    } catch (error) {
+      console.error("Subscription error:", error);
+      setMessage("An unexpected error occurred. Please try again.");
+
+      setTimeout(() => {
+        setMessage("");
+      }, 5000);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -105,6 +127,13 @@ const Hero: React.FC<HeroProps> = ({ className = "" }) => {
                 </button>
               </form>
 
+              {message && (
+                <div
+                  className={`hero-message ${isSubscribed ? "success" : "error"}`}
+                >
+                  {message}
+                </div>
+              )}
               <p className="hero-newsletter-note">
                 Join hundreds of developers who are shipping better code,
                 faster.
@@ -178,36 +207,6 @@ const CheckIcon = ({ className = "" }: { className?: string }) => (
     strokeWidth="2"
   >
     <polyline points="20,6 9,17 4,12" />
-  </svg>
-);
-
-const SparklesIcon = ({ className = "" }: { className?: string }) => (
-  <svg
-    className={className}
-    width="20"
-    height="20"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-  >
-    <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" />
-  </svg>
-);
-
-const ExternalLinkIcon = ({ className = "" }: { className?: string }) => (
-  <svg
-    className={className}
-    width="14"
-    height="14"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-  >
-    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-    <polyline points="15,3 21,3 21,9" />
-    <line x1="10" y1="14" x2="21" y2="3" />
   </svg>
 );
 
