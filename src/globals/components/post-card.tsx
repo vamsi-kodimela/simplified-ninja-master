@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { Eye, Calendar, Clock, Star, FileText, ArrowRight } from "lucide-react";
 import { PostCardProps } from "./post-card.types";
 import Image from "next/image";
 const PostCard: React.FC<PostCardProps> = ({ post, className = "", style }) => {
@@ -71,14 +72,14 @@ const PostCard: React.FC<PostCardProps> = ({ post, className = "", style }) => {
         ) : (
           <div className="post-card-gradient-placeholder">
             <div className="post-card-placeholder-pattern"></div>
-            <span className="post-card-placeholder-icon">📄</span>
+            <FileText className="post-card-placeholder-icon" size={24} />
           </div>
         )}
 
         {/* Featured Badge */}
         {post.featured && (
           <div className="post-card-featured-badge">
-            <span>⭐</span>
+            <Star size={16} />
             <span>Featured</span>
           </div>
         )}
@@ -101,21 +102,23 @@ const PostCard: React.FC<PostCardProps> = ({ post, className = "", style }) => {
         <div className="post-card-meta">
           <div className="post-card-meta-left">
             <div className="post-card-meta-item">
-              <span>👁️</span>
+              <Eye size={14} />
               <span>{formatReadCount(post.readCount)} reads</span>
             </div>
             <div className="post-card-meta-item">
-              <span>📅</span>
+              <Calendar size={14} />
               <span>{formatDate(post.publishedAt)}</span>
             </div>
             {post.readTime && (
               <div className="post-card-meta-item">
-                <span>⏱️</span>
+                <Clock size={14} />
                 <span>{post.readTime} min read</span>
               </div>
             )}
           </div>
-          <div className="post-card-arrow">→</div>
+          <div className="post-card-arrow">
+            <ArrowRight size={16} />
+          </div>
         </div>
       </div>
     </article>

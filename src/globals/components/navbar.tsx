@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import { Search, X, ChevronDown, Menu } from "lucide-react";
 import { NavbarProps } from "./navbar.types";
 import Image from "next/image";
 
@@ -85,7 +86,7 @@ const Navbar: React.FC<NavbarProps> = ({
     return (
       <div className="navbar-search">
         <form onSubmit={handleSearch} className="navbar-search-form">
-          <SearchIcon className="navbar-search-icon" />
+          <Search className="navbar-search-icon" size={18} />
           <input
             type="text"
             placeholder={search.placeholder || "Search..."}
@@ -99,7 +100,7 @@ const Navbar: React.FC<NavbarProps> = ({
               onClick={handleClearSearch}
               className="navbar-search-clear"
             >
-              <CloseIcon />
+              <X size={16} />
             </button>
           )}
         </form>
@@ -123,8 +124,9 @@ const Navbar: React.FC<NavbarProps> = ({
           >
             {link.label}
             {link.children && (
-              <ChevronDownIcon
+              <ChevronDown
                 className={`navbar-dropdown-icon ${activeDropdown === link.id ? "open" : ""}`}
+                size={14}
               />
             )}
           </a>
@@ -303,7 +305,7 @@ const Navbar: React.FC<NavbarProps> = ({
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label="Toggle menu"
         >
-          <HamburgerIcon />
+          <Menu size={24} />
         </button>
       </div>
 
@@ -314,71 +316,7 @@ const Navbar: React.FC<NavbarProps> = ({
 };
 
 /* ================================
-   ICON COMPONENTS
-   ================================ */
-
-const SearchIcon = ({ className = "" }: { className?: string }) => (
-  <svg
-    className={className}
-    width="18"
-    height="18"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-  >
-    <circle cx="11" cy="11" r="8" />
-    <path d="m21 21-4.35-4.35" />
-  </svg>
-);
-
-const CloseIcon = ({ className = "" }: { className?: string }) => (
-  <svg
-    className={className}
-    width="16"
-    height="16"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-  >
-    <line x1="18" y1="6" x2="6" y2="18" />
-    <line x1="6" y1="6" x2="18" y2="18" />
-  </svg>
-);
-
-const ChevronDownIcon = ({ className = "" }: { className?: string }) => (
-  <svg
-    className={className}
-    width="14"
-    height="14"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-  >
-    <polyline points="6,9 12,15 18,9" />
-  </svg>
-);
-
-const HamburgerIcon = ({ className = "" }: { className?: string }) => (
-  <svg
-    className={className}
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-  >
-    <line x1="3" y1="6" x2="21" y2="6" />
-    <line x1="3" y1="12" x2="21" y2="12" />
-    <line x1="3" y1="18" x2="21" y2="18" />
-  </svg>
-);
-
-/* ================================
-   SOCIAL MEDIA ICONS
+   SOCIAL MEDIA ICONS (kept as they are brand-specific)
    ================================ */
 
 export const TwitterIcon = ({ className = "" }: { className?: string }) => (

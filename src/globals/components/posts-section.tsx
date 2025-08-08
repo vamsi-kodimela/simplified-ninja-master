@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { ExternalLink, MoreHorizontal, Loader2 } from "lucide-react";
 import PostCard from "./post-card";
 import { PostsSectionProps } from "./post-card.types";
 
@@ -52,7 +53,7 @@ const PostsSection: React.FC<PostsSectionProps> = ({
             {showViewAll && (
               <button className="posts-view-all" onClick={handleViewAll}>
                 <span>View All</span>
-                <ViewAllIcon />
+                <ExternalLink size={16} />
               </button>
             )}
           </div>
@@ -84,7 +85,7 @@ const PostsSection: React.FC<PostsSectionProps> = ({
           <div className="posts-mobile-cta">
             <button className="posts-mobile-view-all" onClick={handleViewAll}>
               <span>View All Posts</span>
-              <ViewAllIcon />
+              <ExternalLink size={16} />
             </button>
           </div>
         )}
@@ -99,13 +100,16 @@ const PostsSection: React.FC<PostsSectionProps> = ({
             >
               {loading ? (
                 <>
-                  <LoadingIcon className="posts-loading-icon" />
+                  <Loader2
+                    className="posts-loading-icon animate-spin"
+                    size={16}
+                  />
                   Loading...
                 </>
               ) : (
                 <>
                   <span>Load More Posts</span>
-                  <MoreIcon />
+                  <MoreHorizontal size={16} />
                 </>
               )}
             </button>
@@ -122,61 +126,5 @@ const PostsSection: React.FC<PostsSectionProps> = ({
     </section>
   );
 };
-
-/* ================================
-   ICON COMPONENTS
-   ================================ */
-
-const ViewAllIcon = ({ className = "" }: { className?: string }) => (
-  <svg
-    className={className}
-    width="16"
-    height="16"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-  >
-    <line x1="7" y1="17" x2="17" y2="7" />
-    <polyline points="7,7 17,7 17,17" />
-  </svg>
-);
-
-const MoreIcon = ({ className = "" }: { className?: string }) => (
-  <svg
-    className={className}
-    width="16"
-    height="16"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-  >
-    <circle cx="12" cy="12" r="1" />
-    <circle cx="19" cy="12" r="1" />
-    <circle cx="5" cy="12" r="1" />
-  </svg>
-);
-
-const LoadingIcon = ({ className = "" }: { className?: string }) => (
-  <svg
-    className={className}
-    width="16"
-    height="16"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-  >
-    <line x1="12" y1="2" x2="12" y2="6" />
-    <line x1="12" y1="18" x2="12" y2="22" />
-    <line x1="4.93" y1="4.93" x2="7.76" y2="7.76" />
-    <line x1="16.24" y1="16.24" x2="19.07" y2="19.07" />
-    <line x1="2" y1="12" x2="6" y2="12" />
-    <line x1="18" y1="12" x2="22" y2="12" />
-    <line x1="4.93" y1="19.07" x2="7.76" y2="16.24" />
-    <line x1="16.24" y1="7.76" x2="19.07" y2="4.93" />
-  </svg>
-);
 
 export default PostsSection;

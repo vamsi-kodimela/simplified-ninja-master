@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { Star } from "lucide-react";
 import { CategoryProps } from "./category.types";
 import Image from "next/image";
 
@@ -71,25 +72,9 @@ const Category: React.FC<CategoryProps> = ({
 
       {/* Badges */}
       {category.isNew && <span className="category-pill-badge">New</span>}
-      {category.isFeatured && <StarIcon className="category-pill-star" />}
+      {category.isFeatured && <Star className="category-pill-star" size={12} />}
     </button>
   );
 };
-
-/* ================================
-   ICON COMPONENTS
-   ================================ */
-
-const StarIcon = ({ className = "" }: { className?: string }) => (
-  <svg
-    className={className}
-    width="12"
-    height="12"
-    viewBox="0 0 24 24"
-    fill="currentColor"
-  >
-    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-  </svg>
-);
 
 export default Category;

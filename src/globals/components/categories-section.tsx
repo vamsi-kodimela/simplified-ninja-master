@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { ExternalLink } from "lucide-react";
 import Category from "./category";
 import { CategoriesSectionProps } from "./category.types";
 
@@ -40,7 +41,7 @@ const CategoriesSection: React.FC<CategoriesSectionProps> = ({
             {showViewAll && (
               <button className="categories-view-all" onClick={handleViewAll}>
                 <span>View All</span>
-                <ViewAllIcon />
+                <ExternalLink size={16} />
               </button>
             )}
           </div>
@@ -76,7 +77,7 @@ const CategoriesSection: React.FC<CategoriesSectionProps> = ({
               onClick={handleViewAll}
             >
               <span>View All Categories</span>
-              <ViewAllIcon />
+              <ExternalLink size={16} />
             </button>
           </div>
         )}
@@ -91,24 +92,5 @@ const CategoriesSection: React.FC<CategoriesSectionProps> = ({
     </section>
   );
 };
-
-/* ================================
-   ICON COMPONENTS
-   ================================ */
-
-const ViewAllIcon = ({ className = "" }: { className?: string }) => (
-  <svg
-    className={className}
-    width="16"
-    height="16"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-  >
-    <line x1="7" y1="17" x2="17" y2="7" />
-    <polyline points="7,7 17,7 17,17" />
-  </svg>
-);
 
 export default CategoriesSection;

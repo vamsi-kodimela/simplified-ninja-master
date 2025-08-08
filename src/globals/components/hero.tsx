@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { ArrowRight, Check, Loader2 } from "lucide-react";
 import { subscribeEmail } from "@/utils/subscription.util";
 
 /* ================================
@@ -109,18 +110,18 @@ const Hero: React.FC<HeroProps> = ({ className = "" }) => {
                 >
                   {isLoading ? (
                     <>
-                      <LoadingSpinner />
+                      <Loader2 className="animate-spin" size={16} />
                       <span>Subscribing...</span>
                     </>
                   ) : isSubscribed ? (
                     <>
-                      <CheckIcon />
+                      <Check size={16} />
                       <span>Subscribed!</span>
                     </>
                   ) : (
                     <>
                       <span>Get a Sharper Edge</span>
-                      <ArrowRightIcon />
+                      <ArrowRight size={16} />
                     </>
                   )}
                 </button>
@@ -160,71 +161,5 @@ const Hero: React.FC<HeroProps> = ({ className = "" }) => {
     </section>
   );
 };
-
-/* ================================
-   ICON COMPONENTS
-   ================================ */
-
-const ArrowRightIcon = ({ className = "" }: { className?: string }) => (
-  <svg
-    className={className}
-    width="16"
-    height="16"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-  >
-    <line x1="5" y1="12" x2="19" y2="12" />
-    <polyline points="12,5 19,12 12,19" />
-  </svg>
-);
-
-const CheckIcon = ({ className = "" }: { className?: string }) => (
-  <svg
-    className={className}
-    width="16"
-    height="16"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-  >
-    <polyline points="20,6 9,17 4,12" />
-  </svg>
-);
-
-const LoadingSpinner = ({ className = "" }: { className?: string }) => (
-  <svg
-    className={`hero-spinner ${className}`}
-    width="16"
-    height="16"
-    viewBox="0 0 24 24"
-    fill="none"
-  >
-    <circle
-      cx="12"
-      cy="12"
-      r="10"
-      stroke="currentColor"
-      strokeWidth="4"
-      strokeDasharray="32"
-      strokeDashoffset="32"
-    >
-      <animate
-        attributeName="stroke-dasharray"
-        dur="2s"
-        values="0 32;16 16;0 32;0 32"
-        repeatCount="indefinite"
-      />
-      <animate
-        attributeName="stroke-dashoffset"
-        dur="2s"
-        values="0;-16;-32;-32"
-        repeatCount="indefinite"
-      />
-    </circle>
-  </svg>
-);
 
 export default Hero;

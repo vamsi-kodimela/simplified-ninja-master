@@ -142,7 +142,7 @@ export default async function Home() {
   ]);
 
   // Transform data to match component interfaces
-  const posts: Post[] = articlesData.map(transformArticleToPost);
+  const posts: Post[] = articlesData.map(transformArticleToPost).slice(0, 3);
   const categories: CategoryType[] = categoriesData.map(
     transformCategoryToType,
   );
