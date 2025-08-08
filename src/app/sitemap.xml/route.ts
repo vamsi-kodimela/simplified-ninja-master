@@ -2,7 +2,7 @@ import { API_URL } from "@/config/api.config";
 import { IArticle, ICategory } from "@/models";
 
 export async function GET() {
-  const baseUrl = "https://simplified-ninja.com";
+  const baseUrl = "https://simplified.ninja";
 
   try {
     // Fetch articles and categories for dynamic sitemap

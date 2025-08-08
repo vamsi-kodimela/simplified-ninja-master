@@ -6,6 +6,7 @@ import { IArticle } from "@/models";
 import { RichText as RichTextConverter } from "@payloadcms/richtext-lexical/react";
 import { jsxConverter } from "@/utils/jsx-converter.util";
 import { Metadata } from "next";
+import { Category } from "@/globals/components";
 
 interface PostPageProps {
   params: Promise<{
@@ -78,7 +79,7 @@ export async function generateMetadata({
         article.description ||
         `Learn about ${article.title} in this comprehensive programming tutorial.`,
       keywords: [
-        article.category?.name?.toLowerCase() || "programming",
+        article.category[0]?.name?.toLowerCase() || "programming",
         "programming tutorial",
         "coding guide",
         "software development",
@@ -93,7 +94,7 @@ export async function generateMetadata({
         description:
           article.description ||
           `Learn about ${article.title} in this comprehensive programming tutorial.`,
-        url: `https://simplified-ninja.com/article/${article.slug}`,
+        url: `https://simplified.ninja/article/${article.slug}`,
         siteName: "Simplified Ninja",
         images: [
           {
@@ -107,9 +108,9 @@ export async function generateMetadata({
         type: "article",
         publishedTime: publishedDate,
         modifiedTime: updatedDate,
-        section: article.category?.name || "programming",
+        section: article.category[0]?.name || "programming",
         tags: [
-          article.category?.name || "programming",
+          article.category[0]?.name || "programming",
           "programming",
           "tutorial",
         ],
@@ -123,11 +124,11 @@ export async function generateMetadata({
         images: [imageUrl],
       },
       alternates: {
-        canonical: `https://simplified-ninja.com/article/${article.slug}`,
+        canonical: `https://simplified.ninja/article/${article.slug}`,
       },
       other: {
         "article:author": "Simplified Ninja",
-        "article:section": article.category?.name || "programming",
+        "article:section": article.category[0]?.name || "programming",
         "article:published_time": publishedDate,
         "article:modified_time": updatedDate,
       },
@@ -144,7 +145,7 @@ export async function generateMetadata({
 const PostPage = async ({ params }: PostPageProps) => {
   const fetchArticles = async (): Promise<IArticle[]> => {
     try {
-      const response = await fetch(`${API_URL}/article`, {
+      const response = await fetch(`${API_URL}/article?depth=1`, {
         next: { revalidate: 3600 },
       });
 
@@ -189,14 +190,14 @@ const PostPage = async ({ params }: PostPageProps) => {
     author: {
       "@type": "Person",
       name: "Simplified Ninja",
-      url: "https://simplified-ninja.com",
+      url: "https://simplified.ninja",
     },
     publisher: {
       "@type": "Organization",
       name: "Simplified Ninja",
       logo: {
         "@type": "ImageObject",
-        url: "https://simplified-ninja.com/simplified-ninja.png",
+        url: "https://simplified.ninja/simplified-ninja.png",
       },
     },
     datePublished: new Date(article.createdAt).toISOString(),
@@ -205,11 +206,11 @@ const PostPage = async ({ params }: PostPageProps) => {
     ).toISOString(),
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `https://simplified-ninja.com/article/${article.slug}`,
+      "@id": `https://simplified.ninja/article/${article.slug}`,
     },
-    articleSection: article.category?.name || "programming",
+    articleSection: article.category[0]?.name || "programming",
     keywords: [
-      article.category?.name || "programming",
+      article.category[0]?.name || "programming",
       "programming",
       "tutorial",
       "coding",
@@ -229,10 +230,17 @@ const PostPage = async ({ params }: PostPageProps) => {
         <header className={styles.header}>
           <h1 className={styles.title}>{article.title}</h1>
           <div className={styles.metadata}>
-            <span className={styles.category}>
-              {/* <Category name={article.category?.name} /> */}
-              {article.category?.name || "Programming"}
-            </span>
+            {article.category[0] && (
+              <Category
+                category={{
+                  id: article.category[0]?.id,
+                  title: article.category[0]?.name,
+                  href: `/category/${article.category[0]?.slug}`,
+                }}
+                size="sm"
+                variant="default"
+              />
+            )}
             <div className={styles.createdAt}>
               {dayjs(article.createdAt).format("DD MMMM YYYY")}
             </div>

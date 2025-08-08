@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     title: "All Articles | Simplified Ninja",
     description:
       "Browse all programming articles and tutorials on Simplified Ninja. Learn coding through in-depth tutorials and practical examples.",
-    url: "https://simplified-ninja.com/article",
+    url: "https://simplified.ninja/article",
     siteName: "Simplified Ninja",
     images: [
       {
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     images: ["/simplified-ninja.png"],
   },
   alternates: {
-    canonical: "https://simplified-ninja.com/article",
+    canonical: "https://simplified.ninja/article",
   },
 };
 

@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export async function generateStaticParams() {
   try {
-    const response = await fetch(`${API_URL}/category`, {
+    const response = await fetch(`${API_URL}/category?depth=2`, {
       next: { revalidate: 3600 },
     });
 
@@ -19,7 +19,7 @@ export async function generateStaticParams() {
     const categories = data.docs || [];
 
     return categories.map((category: ICategory) => ({
-      slug: category.slug || category.name.toLowerCase().replace(/\s+/g, "-"),
+      slug: category.slug,
     }));
   } catch (error) {
     console.error("Error generating static params for categories:", error);
@@ -40,7 +40,7 @@ export async function generateMetadata({
 
   // Fetch category info for metadata
   try {
-    const response = await fetch(`${API_URL}/category`, {
+    const response = await fetch(`${API_URL}/category?depth=2`, {
       next: { revalidate: 3600 },
     });
 
@@ -75,7 +75,7 @@ export async function generateMetadata({
           openGraph: {
             title: `${category.name} Articles | Simplified Ninja`,
             description: categoryDescription,
-            url: `https://simplified-ninja.com/category/${category.slug || category.name.toLowerCase().replace(/\s+/g, "-")}`,
+            url: `https://simplified.ninja/category/${category.slug || category.name.toLowerCase().replace(/\s+/g, "-")}`,
             siteName: "Simplified Ninja",
             images: [
               {
@@ -95,7 +95,7 @@ export async function generateMetadata({
             images: [imageUrl],
           },
           alternates: {
-            canonical: `https://simplified-ninja.com/category/${category.slug || category.name.toLowerCase().replace(/\s+/g, "-")}`,
+            canonical: `https://simplified.ninja/category/${category.slug || category.name.toLowerCase().replace(/\s+/g, "-")}`,
           },
         };
       }
@@ -133,12 +133,10 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
       // Filter articles by category slug
       return articles.filter((article: IArticle) => {
-        if (!article.category?.name) {
+        if (!article.category[0]?.name) {
           return false; // Skip articles without a category
         }
-        const categorySlug = article.category.name
-          .toLowerCase()
-          .replace(/\s+/g, "-");
+        const categorySlug = article.category[0]?.slug;
         return categorySlug === slug;
       });
     } catch (error) {
@@ -149,7 +147,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   const fetchCategoryInfo = async (): Promise<ICategory | null> => {
     try {
-      const response = await fetch(`${API_URL}/category`, {
+      const response = await fetch(`${API_URL}/category?depth=2`, {
         next: { revalidate: 3600 },
       });
 
@@ -182,16 +180,14 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       ? `${SERVER_URL}${article.featuredImage.url}`
       : undefined,
     category: {
-      name: article.category?.name || "Uncategorized",
-      slug:
-        article.category?.name?.toLowerCase().replace(/\s+/g, "-") ||
-        "uncategorized",
+      name: article.category[0]?.name,
+      slug: article.category[0]?.slug,
     },
     readCount: Math.floor((parseInt(article.id, 36) % 1900) + 100), // Deterministic based on ID
     publishedAt: new Date(article.createdAt),
     href: `/article/${article.slug}`,
     readTime: Math.ceil(article.description.length / 200),
-    featured: parseInt(article.id, 36) % 5 === 0, // Deterministic featured status
+    featured: article.isFeatured,
   });
 
   const [articlesData, categoryInfo] = await Promise.all([

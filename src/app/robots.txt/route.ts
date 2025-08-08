@@ -14,7 +14,7 @@ Disallow: /admin
 Disallow: /search?*
 
 # Sitemap location
-Sitemap: https://simplified-ninja.com/sitemap.xml
+Sitemap: https://simplified.ninja/sitemap.xml
 
 # Crawl delay for better server performance
 Crawl-delay: 1

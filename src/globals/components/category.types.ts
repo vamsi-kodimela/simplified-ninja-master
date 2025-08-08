@@ -3,6 +3,8 @@
    Type definitions for category and categories section
    ================================ */
 
+import { IArticle } from "@/models/article.interface";
+
 export interface Category {
   id: string;
   title: string;
@@ -12,6 +14,7 @@ export interface Category {
   count?: number;
   isNew?: boolean;
   isFeatured?: boolean;
+  articles?: IArticle[];
   onClick?: () => void;
 }
 

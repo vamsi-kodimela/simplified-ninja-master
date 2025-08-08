@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     title: "Simplified Ninja | Your Simplified Guide to Code",
     description:
       "Learn to code by building projects. Get deeper understanding through case studies, discussions, and more.",
-    url: "https://simplified-ninja.com",
+    url: "https://simplified.ninja",
     siteName: "Simplified Ninja",
     images: [
       {
@@ -42,14 +42,14 @@ export const metadata: Metadata = {
     images: ["/simplified-ninja.png"],
   },
   alternates: {
-    canonical: "https://simplified-ninja.com",
+    canonical: "https://simplified.ninja",
   },
 };
 
 export default async function Home() {
   const fetchArticles = async (): Promise<IArticle[]> => {
     try {
-      const response = await fetch(`${API_URL}/article`, {
+      const response = await fetch(`${API_URL}/article?depth=1`, {
         next: { revalidate: 3600 }, // Revalidate every hour
       });
 
@@ -110,10 +110,8 @@ export default async function Home() {
       ? `${SERVER_URL}${article.featuredImage.url}`
       : undefined,
     category: {
-      name: article.category?.name || "Uncategorized",
-      slug:
-        article.category?.name?.toLowerCase().replace(/\s+/g, "-") ||
-        "uncategorized",
+      name: article.category[0]?.name,
+      slug: article.category[0]?.slug,
     },
     readCount: Math.floor((parseInt(article.id, 36) % 1900) + 100), // Deterministic based on ID
     publishedAt: new Date(article.createdAt),

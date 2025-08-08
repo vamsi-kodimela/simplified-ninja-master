@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     title: "All Categories | Simplified Ninja",
     description:
       "Explore programming categories on Simplified Ninja. Find tutorials organized by topics including web development, mobile development, and more.",
-    url: "https://simplified-ninja.com/category",
+    url: "https://simplified.ninja/category",
     siteName: "Simplified Ninja",
     images: [
       {
@@ -42,14 +42,14 @@ export const metadata: Metadata = {
     images: ["/simplified-ninja.png"],
   },
   alternates: {
-    canonical: "https://simplified-ninja.com/category",
+    canonical: "https://simplified.ninja/category",
   },
 };
 
 export default async function CategoriesPage() {
   const fetchCategories = async (): Promise<ICategory[]> => {
     try {
-      const response = await fetch(`${API_URL}/category`, {
+      const response = await fetch(`${API_URL}/category?depth=2`, {
         next: { revalidate: 3600 },
       });
 
@@ -69,18 +69,16 @@ export default async function CategoriesPage() {
   };
 
   // Transform category data to match CategoryType interface
-  const transformCategoryToType = (
-    category: ICategory,
-    index: number,
-  ): CategoryType => ({
+  const transformCategoryToType = (category: ICategory): CategoryType => ({
     id: category.id,
     title: category.name,
     description: category.description || `Explore ${category.name} content`,
     imageUrl: category.icon ? `${SERVER_URL}${category.icon}` : undefined,
-    href: `/category/${category.slug || category.name.toLowerCase().replace(/\s+/g, "-")}`,
-    count: Math.floor((parseInt(category.id, 36) % 45) + 5), // Deterministic based on ID
-    isNew: index < 2,
-    isFeatured: index % 3 === 0,
+    href: `/category/${category.slug}`,
+    count: category.articles?.length || 0,
+    isNew: category.isNew,
+    isFeatured: category.isFeatured,
+    articles: category.articles,
   });
 
   const categoriesData = await fetchCategories();

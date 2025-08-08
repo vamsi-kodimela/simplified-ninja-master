@@ -9,12 +9,14 @@ interface IArticle {
   category: {
     id: string;
     name: string;
-  };
+    slug: string;
+  }[];
   featuredImage: {
     url: string;
   };
   createdAt: string;
   updatedAt: string;
+  isFeatured: boolean;
 }
 
 export type { IArticle };
