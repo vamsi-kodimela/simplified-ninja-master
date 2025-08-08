@@ -78,7 +78,7 @@ export async function generateMetadata({
         article.description ||
         `Learn about ${article.title} in this comprehensive programming tutorial.`,
       keywords: [
-        article.category.name.toLowerCase(),
+        article.category?.name?.toLowerCase() || "programming",
         "programming tutorial",
         "coding guide",
         "software development",
@@ -107,8 +107,12 @@ export async function generateMetadata({
         type: "article",
         publishedTime: publishedDate,
         modifiedTime: updatedDate,
-        section: article.category.name,
-        tags: [article.category.name, "programming", "tutorial"],
+        section: article.category?.name || "programming",
+        tags: [
+          article.category?.name || "programming",
+          "programming",
+          "tutorial",
+        ],
       },
       twitter: {
         card: "summary_large_image",
@@ -123,7 +127,7 @@ export async function generateMetadata({
       },
       other: {
         "article:author": "Simplified Ninja",
-        "article:section": article.category.name,
+        "article:section": article.category?.name || "programming",
         "article:published_time": publishedDate,
         "article:modified_time": updatedDate,
       },
@@ -203,9 +207,9 @@ const PostPage = async ({ params }: PostPageProps) => {
       "@type": "WebPage",
       "@id": `https://simplified-ninja.com/article/${article.slug}`,
     },
-    articleSection: article.category.name,
+    articleSection: article.category?.name || "programming",
     keywords: [
-      article.category.name,
+      article.category?.name || "programming",
       "programming",
       "tutorial",
       "coding",
@@ -226,8 +230,8 @@ const PostPage = async ({ params }: PostPageProps) => {
           <h1 className={styles.title}>{article.title}</h1>
           <div className={styles.metadata}>
             <span className={styles.category}>
-              {/* <Category name={article.category.name} /> */}
-              {article.category.name}
+              {/* <Category name={article.category?.name} /> */}
+              {article.category?.name || "Programming"}
             </span>
             <div className={styles.createdAt}>
               {dayjs(article.createdAt).format("DD MMMM YYYY")}
