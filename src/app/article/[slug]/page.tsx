@@ -1,64 +1,34 @@
 import styles from "./page.module.css";
 import Image from "next/image";
 import dayjs from "dayjs";
-import { API_URL, SERVER_URL } from "@/config/api.config";
+import { SERVER_URL } from "@/config/api.config";
 import { IArticle } from "@/models";
 import { RichText as RichTextConverter } from "@payloadcms/richtext-lexical/react";
 import { jsxConverter } from "@/utils/jsx-converter.util";
 import { Metadata } from "next";
 import { Category } from "@/globals/components";
+import { getArticles, getArticleBySlug } from "@/services/articles";
 
 interface PostPageProps {
-  params: Promise<{
-    slug: string;
-  }>;
+  params: { slug: string };
 }
 
 export async function generateStaticParams() {
-  try {
-    const response = await fetch(`${API_URL}/article`, {
-      next: { revalidate: 3600 },
-    });
-
-    if (!response.ok) {
-      return [];
-    }
-
-    const data = await response.json();
-    const articles = data.docs || [];
-
-    return articles
-      .filter((article: IArticle) => article.slug) // Only include articles with slugs
-      .map((article: IArticle) => ({
-        slug: article.slug,
-      }));
-  } catch (error) {
-    console.error("Error generating static params:", error);
-    return [];
-  }
+  const articles = await getArticles({ depth: 0, revalidate: 3600 });
+  return articles
+    .filter((article: IArticle) => article.slug)
+    .map((article: IArticle) => ({ slug: article.slug }));
 }
 
 export async function generateMetadata({
   params,
 }: PostPageProps): Promise<Metadata> {
   try {
-    const { slug } = await params;
-    const response = await fetch(
-      `${API_URL}/article?where[slug][equals]=${slug}`,
-      {
-        next: { revalidate: 3600 },
-      },
-    );
-
-    if (!response.ok) {
-      return {
-        title: "Article Not Found | Simplified Ninja",
-        description: "The requested article could not be found.",
-      };
-    }
-
-    const data = await response.json();
-    const article = data.docs?.[0] as IArticle;
+    const { slug } = params;
+    const article = await getArticleBySlug(slug, {
+      depth: 1,
+      revalidate: 3600,
+    });
 
     if (!article) {
       return {
@@ -143,36 +113,8 @@ export async function generateMetadata({
 }
 
 const PostPage = async ({ params }: PostPageProps) => {
-  const fetchArticles = async (): Promise<IArticle[]> => {
-    try {
-      const response = await fetch(`${API_URL}/article?depth=1`, {
-        next: { revalidate: 3600 },
-      });
-
-      if (!response.ok) {
-        console.error(
-          `Failed to fetch articles: ${response.status} ${response.statusText}`,
-        );
-        return [];
-      }
-
-      const contentType = response.headers.get("content-type");
-      if (!contentType || !contentType.includes("application/json")) {
-        console.error("API did not return JSON data");
-        return [];
-      }
-
-      const data = await response.json();
-      return data.docs || [];
-    } catch (error) {
-      console.error("Error fetching articles:", error);
-      return [];
-    }
-  };
-
-  const docs = await fetchArticles();
-  const slug = (await params).slug;
-  const article = docs?.find((article: IArticle) => article.slug === slug);
+  const { slug } = params;
+  const article = await getArticleBySlug(slug, { depth: 1, revalidate: 3600 });
 
   if (!article) {
     return <div>Post not found</div>;

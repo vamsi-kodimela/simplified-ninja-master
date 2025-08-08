@@ -1,104 +1,77 @@
-import { API_URL, SERVER_URL } from "@/config/api.config";
+import { SERVER_URL } from "@/config/api.config";
 import { IArticle, ICategory } from "@/models";
 import { PostsSection } from "@/globals/components";
-import { Post } from "@/globals/components";
+import type { Post } from "@/globals/components";
 import { Metadata } from "next";
 import Link from "next/link";
+import { getArticles } from "@/services/articles";
+import { getCategories, getCategoryBySlug } from "@/services/categories";
+import { mapArticleToPost } from "@/mappers/article.mapper";
 
 export async function generateStaticParams() {
-  try {
-    const response = await fetch(`${API_URL}/category?depth=2`, {
-      next: { revalidate: 3600 },
-    });
-
-    if (!response.ok) {
-      return [];
-    }
-
-    const data = await response.json();
-    const categories = data.docs || [];
-
-    return categories.map((category: ICategory) => ({
-      slug: category.slug,
-    }));
-  } catch (error) {
-    console.error("Error generating static params for categories:", error);
-    return [];
-  }
+  const categories = await getCategories({ depth: 0, revalidate: 3600 });
+  return categories.map((category: ICategory) => ({ slug: category.slug }));
 }
 
 interface CategoryPageProps {
-  params: Promise<{
-    slug: string;
-  }>;
+  params: { slug: string };
 }
 
 export async function generateMetadata({
   params,
 }: CategoryPageProps): Promise<Metadata> {
-  const { slug } = await params;
-
-  // Fetch category info for metadata
+  const { slug } = params;
   try {
-    const response = await fetch(`${API_URL}/category?depth=2`, {
-      next: { revalidate: 3600 },
+    const category = await getCategoryBySlug(slug, {
+      depth: 2,
+      revalidate: 3600,
     });
+    if (category) {
+      const categoryDescription =
+        category.description ||
+        `Explore ${category.name} programming tutorials and articles. Learn through comprehensive guides, practical examples, and in-depth case studies.`;
 
-    if (response.ok) {
-      const data = await response.json();
-      const categories = data.docs || [];
-      const category = categories.find(
-        (c: ICategory) =>
-          (c.slug || c.name.toLowerCase().replace(/\s+/g, "-")) === slug,
-      );
+      const imageUrl = category.icon
+        ? `${SERVER_URL}${category.icon}`
+        : "/simplified-ninja.png";
 
-      if (category) {
-        const categoryDescription =
-          category.description ||
-          `Explore ${category.name} programming tutorials and articles. Learn through comprehensive guides, practical examples, and in-depth case studies.`;
-
-        const imageUrl = category.icon
-          ? `${SERVER_URL}${category.icon}`
-          : "/simplified-ninja.png";
-
-        return {
+      return {
+        title: `${category.name} Articles | Simplified Ninja`,
+        description: categoryDescription,
+        keywords: [
+          category.name.toLowerCase(),
+          "programming tutorials",
+          "coding guides",
+          "software development",
+          `${category.name.toLowerCase()} programming`,
+          `learn ${category.name.toLowerCase()}`,
+        ],
+        openGraph: {
           title: `${category.name} Articles | Simplified Ninja`,
           description: categoryDescription,
-          keywords: [
-            category.name.toLowerCase(),
-            "programming tutorials",
-            "coding guides",
-            "software development",
-            `${category.name.toLowerCase()} programming`,
-            `learn ${category.name.toLowerCase()}`,
+          url: `https://simplified.ninja/category/${category.slug || category.name.toLowerCase().replace(/\s+/g, "-")}`,
+          siteName: "Simplified Ninja",
+          images: [
+            {
+              url: imageUrl,
+              width: 1200,
+              height: 630,
+              alt: `${category.name} Programming Tutorials - Simplified Ninja`,
+            },
           ],
-          openGraph: {
-            title: `${category.name} Articles | Simplified Ninja`,
-            description: categoryDescription,
-            url: `https://simplified.ninja/category/${category.slug || category.name.toLowerCase().replace(/\s+/g, "-")}`,
-            siteName: "Simplified Ninja",
-            images: [
-              {
-                url: imageUrl,
-                width: 1200,
-                height: 630,
-                alt: `${category.name} Programming Tutorials - Simplified Ninja`,
-              },
-            ],
-            locale: "en_US",
-            type: "website",
-          },
-          twitter: {
-            card: "summary_large_image",
-            title: `${category.name} Articles | Simplified Ninja`,
-            description: categoryDescription,
-            images: [imageUrl],
-          },
-          alternates: {
-            canonical: `https://simplified.ninja/category/${category.slug || category.name.toLowerCase().replace(/\s+/g, "-")}`,
-          },
-        };
-      }
+          locale: "en_US",
+          type: "website",
+        },
+        twitter: {
+          card: "summary_large_image",
+          title: `${category.name} Articles | Simplified Ninja`,
+          description: categoryDescription,
+          images: [imageUrl],
+        },
+        alternates: {
+          canonical: `https://simplified.ninja/category/${category.slug || category.name.toLowerCase().replace(/\s+/g, "-")}`,
+        },
+      };
     }
   } catch (error) {
     console.error("Error fetching category metadata:", error);
@@ -112,90 +85,19 @@ export async function generateMetadata({
 }
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
-  const { slug } = await params;
+  const { slug } = params;
 
-  const fetchCategoryArticles = async (): Promise<IArticle[]> => {
-    try {
-      // Fetch all articles and filter by category
-      const response = await fetch(`${API_URL}/article`, {
-        next: { revalidate: 3600 },
-      });
-
-      if (!response.ok) {
-        console.error(
-          `Failed to fetch articles: ${response.status} ${response.statusText}`,
-        );
-        return [];
-      }
-
-      const data = await response.json();
-      const articles = data.docs || [];
-
-      // Filter articles by category slug
-      return articles.filter((article: IArticle) => {
-        if (!article.category[0]?.name) {
-          return false; // Skip articles without a category
-        }
-        const categorySlug = article.category[0]?.slug;
-        return categorySlug === slug;
-      });
-    } catch (error) {
-      console.error("Error fetching category articles:", error);
-      return [];
-    }
-  };
-
-  const fetchCategoryInfo = async (): Promise<ICategory | null> => {
-    try {
-      const response = await fetch(`${API_URL}/category?depth=2`, {
-        next: { revalidate: 3600 },
-      });
-
-      if (!response.ok) {
-        return null;
-      }
-
-      const data = await response.json();
-      const categories = data.docs || [];
-
-      return (
-        categories.find(
-          (category: ICategory) =>
-            (category.slug ||
-              category.name.toLowerCase().replace(/\s+/g, "-")) === slug,
-        ) || null
-      );
-    } catch (error) {
-      console.error("Error fetching category info:", error);
-      return null;
-    }
-  };
-
-  // Transform article data to match Post interface
-  const transformArticleToPost = (article: IArticle): Post => ({
-    id: article.id,
-    title: article.title,
-    description: article.description,
-    imageUrl: article.featuredImage?.url
-      ? `${SERVER_URL}${article.featuredImage.url}`
-      : undefined,
-    category: {
-      name: article.category[0]?.name,
-      slug: article.category[0]?.slug,
-    },
-    readCount: Math.floor((parseInt(article.id, 36) % 1900) + 100), // Deterministic based on ID
-    publishedAt: new Date(article.createdAt),
-    href: `/article/${article.slug}`,
-    readTime: Math.ceil(article.description.length / 200),
-    featured: article.isFeatured,
-  });
-
-  const [articlesData, categoryInfo] = await Promise.all([
-    fetchCategoryArticles(),
-    fetchCategoryInfo(),
+  const [allArticles, categoryInfo] = await Promise.all([
+    getArticles({ depth: 1, revalidate: 3600 }),
+    getCategoryBySlug(slug, { depth: 2, revalidate: 3600 }),
   ]);
 
-  const posts: Post[] = articlesData.map(transformArticleToPost);
+  const articlesData = allArticles.filter((article: IArticle) => {
+    const categorySlug = article.category[0]?.slug;
+    return categorySlug === slug;
+  });
+
+  const posts: Post[] = articlesData.map(mapArticleToPost);
   const categoryName = categoryInfo?.name || slug.replace(/-/g, " ");
 
   if (posts.length === 0) {
