@@ -77,10 +77,8 @@ export default async function ArticlesPage() {
       ? `${SERVER_URL}${article.featuredImage.url}`
       : undefined,
     category: {
-      name: article.category?.name || "Uncategorized",
-      slug:
-        article.category?.name?.toLowerCase().replace(/\s+/g, "-") ||
-        "uncategorized",
+      name: article.category[0]?.name,
+      slug: article.category[0]?.slug,
     },
     readCount: Math.floor((parseInt(article.id, 36) % 1900) + 100), // Deterministic based on ID
     publishedAt: new Date(article.createdAt),
