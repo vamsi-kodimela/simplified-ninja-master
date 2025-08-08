@@ -10,7 +10,7 @@ import { Category } from "@/globals/components";
 import { getArticles, getArticleBySlug } from "@/services/articles";
 
 interface PostPageProps {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 export async function generateStaticParams() {
@@ -24,7 +24,7 @@ export async function generateMetadata({
   params,
 }: PostPageProps): Promise<Metadata> {
   try {
-    const { slug } = params;
+    const { slug } = await params;
     const article = await getArticleBySlug(slug, {
       depth: 1,
       revalidate: 3600,
@@ -113,7 +113,7 @@ export async function generateMetadata({
 }
 
 const PostPage = async ({ params }: PostPageProps) => {
-  const { slug } = params;
+  const { slug } = await params;
   const article = await getArticleBySlug(slug, { depth: 1, revalidate: 3600 });
 
   if (!article) {

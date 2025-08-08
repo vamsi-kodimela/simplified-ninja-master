@@ -14,13 +14,13 @@ export async function generateStaticParams() {
 }
 
 interface CategoryPageProps {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 export async function generateMetadata({
   params,
 }: CategoryPageProps): Promise<Metadata> {
-  const { slug } = params;
+  const { slug } = await params;
   try {
     const category = await getCategoryBySlug(slug, {
       depth: 2,
@@ -85,7 +85,7 @@ export async function generateMetadata({
 }
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
-  const { slug } = params;
+  const { slug } = await params;
 
   const [allArticles, categoryInfo] = await Promise.all([
     getArticles({ depth: 1, revalidate: 3600 }),
