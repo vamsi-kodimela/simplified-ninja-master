@@ -1,7 +1,5 @@
 import { PostsSection } from "@/globals/components";
-import type { Post } from "@/globals/components";
 import { getArticles } from "@/services/articles";
-import { mapArticleToPost } from "@/mappers/article.mapper";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -47,15 +45,14 @@ export const metadata: Metadata = {
 };
 
 export default async function ArticlesPage() {
-  const articlesData = await getArticles({ depth: 1, revalidate: 3600 });
-  const posts: Post[] = articlesData.map(mapArticleToPost);
+  const articles = await getArticles({ depth: 1, revalidate: 3600 });
 
   return (
     <div style={{ paddingTop: "2rem" }}>
       <PostsSection
         title="All Articles"
         subtitle="Explore our complete collection of articles and tutorials"
-        posts={posts}
+        posts={articles}
         columns={3}
         showViewAll={false}
       />

@@ -1,16 +1,13 @@
 import { SERVER_URL } from "@/config/api.config";
-import { IArticle, ICategory } from "@/models";
 import { PostsSection } from "@/globals/components";
-import type { Post } from "@/globals/components";
 import { Metadata } from "next";
 import Link from "next/link";
 import { getArticles } from "@/services/articles";
 import { getCategories, getCategoryBySlug } from "@/services/categories";
-import { mapArticleToPost } from "@/mappers/article.mapper";
 
 export async function generateStaticParams() {
   const categories = await getCategories({ depth: 0, revalidate: 3600 });
-  return categories.map((category: ICategory) => ({ slug: category.slug }));
+  return categories.map((category) => ({ slug: category.slug }));
 }
 
 interface CategoryPageProps {
@@ -29,34 +26,34 @@ export async function generateMetadata({
     if (category) {
       const categoryDescription =
         category.description ||
-        `Explore ${category.name} programming tutorials and articles. Learn through comprehensive guides, practical examples, and in-depth case studies.`;
+        `Explore ${category.title} programming tutorials and articles. Learn through comprehensive guides, practical examples, and in-depth case studies.`;
 
-      const imageUrl = category.icon
-        ? `${SERVER_URL}${category.icon}`
+      const imageUrl = category.imageUrl
+        ? `${SERVER_URL}${category.imageUrl}`
         : "/simplified-ninja.png";
 
       return {
-        title: `${category.name} Articles | Simplified Ninja`,
+        title: `${category.title} Articles | Simplified Ninja`,
         description: categoryDescription,
         keywords: [
-          category.name.toLowerCase(),
+          category.title.toLowerCase(),
           "programming tutorials",
           "coding guides",
           "software development",
-          `${category.name.toLowerCase()} programming`,
-          `learn ${category.name.toLowerCase()}`,
+          `${category.title.toLowerCase()} programming`,
+          `learn ${category.title.toLowerCase()}`,
         ],
         openGraph: {
-          title: `${category.name} Articles | Simplified Ninja`,
+          title: `${category.title} Articles | Simplified Ninja`,
           description: categoryDescription,
-          url: `https://simplified.ninja/category/${category.slug || category.name.toLowerCase().replace(/\s+/g, "-")}`,
+          url: `https://simplified.ninja/category/${category.slug || category.title.toLowerCase().replace(/\s+/g, "-")}`,
           siteName: "Simplified Ninja",
           images: [
             {
               url: imageUrl,
               width: 1200,
               height: 630,
-              alt: `${category.name} Programming Tutorials - Simplified Ninja`,
+              alt: `${category.title} Programming Tutorials - Simplified Ninja`,
             },
           ],
           locale: "en_US",
@@ -64,12 +61,12 @@ export async function generateMetadata({
         },
         twitter: {
           card: "summary_large_image",
-          title: `${category.name} Articles | Simplified Ninja`,
+          title: `${category.title} Articles | Simplified Ninja`,
           description: categoryDescription,
           images: [imageUrl],
         },
         alternates: {
-          canonical: `https://simplified.ninja/category/${category.slug || category.name.toLowerCase().replace(/\s+/g, "-")}`,
+          canonical: `https://simplified.ninja/category/${category.slug || category.title.toLowerCase().replace(/\s+/g, "-")}`,
         },
       };
     }
@@ -92,15 +89,14 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     getCategoryBySlug(slug, { depth: 2, revalidate: 3600 }),
   ]);
 
-  const articlesData = allArticles.filter((article: IArticle) => {
-    const categorySlug = article.category[0]?.slug;
+  const articles = allArticles.filter((article) => {
+    const categorySlug = article.category.slug;
     return categorySlug === slug;
   });
 
-  const posts: Post[] = articlesData.map(mapArticleToPost);
-  const categoryName = categoryInfo?.name || slug.replace(/-/g, " ");
+  const categoryName = categoryInfo?.title || slug.replace(/-/g, " ");
 
-  if (posts.length === 0) {
+  if (articles.length === 0) {
     return (
       <div className="posts-section">
         <div className="posts-container">
@@ -136,7 +132,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         subtitle={
           categoryInfo?.description || `Explore articles about ${categoryName}`
         }
-        posts={posts}
+        posts={articles}
         columns={3}
         showViewAll={false}
       />

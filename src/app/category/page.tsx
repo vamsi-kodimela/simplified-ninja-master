@@ -1,7 +1,5 @@
 import { CategoriesSection } from "@/globals/components";
-import type { CategoryType } from "@/globals/components";
 import { getCategories } from "@/services/categories";
-import { mapCategoryToType } from "@/mappers/category.mapper";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -47,8 +45,7 @@ export const metadata: Metadata = {
 };
 
 export default async function CategoriesPage() {
-  const categoriesData = await getCategories({ depth: 2, revalidate: 3600 });
-  const categories: CategoryType[] = categoriesData.map(mapCategoryToType);
+  const categories = await getCategories({ depth: 2, revalidate: 3600 });
 
   return (
     <div style={{ paddingTop: "2rem" }}>

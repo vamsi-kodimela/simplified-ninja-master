@@ -11,11 +11,15 @@ export function mapArticleToPost(article: IArticle): Post {
       ? `${SERVER_URL}${article.featuredImage.url}`
       : undefined,
     category: {
-      name: article.category[0]?.name,
-      slug: article.category[0]?.slug,
+      id: article.category[0].id,
+      name: article.category[0].name,
+      slug: article.category[0].slug,
     },
     readCount: Math.floor((parseInt(article.id, 36) % 1900) + 100),
     publishedAt: new Date(article.createdAt),
+    updatedAt: new Date(article.updatedAt),
+    content: article.content,
+    slug: article.slug,
     href: `/article/${article.slug}`,
     readTime: Math.ceil(article.description.length / 200),
     featured:

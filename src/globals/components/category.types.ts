@@ -15,6 +15,7 @@ export interface Category {
   isNew?: boolean;
   isFeatured?: boolean;
   articles?: IArticle[];
+  slug: string;
   onClick?: () => void;
 }
 

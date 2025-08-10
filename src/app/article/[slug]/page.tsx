@@ -2,11 +2,10 @@ import styles from "./page.module.css";
 import Image from "next/image";
 import dayjs from "dayjs";
 import { SERVER_URL } from "@/config/api.config";
-import { IArticle } from "@/models";
 import { RichText as RichTextConverter } from "@payloadcms/richtext-lexical/react";
 import { jsxConverter } from "@/utils/jsx-converter.util";
 import { Metadata } from "next";
-import { Category } from "@/globals/components";
+import { Category, Post } from "@/globals/components";
 import { getArticles, getArticleBySlug } from "@/services/articles";
 
 interface PostPageProps {
@@ -16,8 +15,8 @@ interface PostPageProps {
 export async function generateStaticParams() {
   const articles = await getArticles({ depth: 0, revalidate: 3600 });
   return articles
-    .filter((article: IArticle) => article.slug)
-    .map((article: IArticle) => ({ slug: article.slug }));
+    .filter((article: Post) => article.slug)
+    .map((article: Post) => ({ slug: article.slug }));
 }
 
 export async function generateMetadata({
@@ -37,10 +36,10 @@ export async function generateMetadata({
       };
     }
 
-    const publishedDate = new Date(article.createdAt).toISOString();
-    const updatedDate = new Date(article.updatedAt).toISOString();
-    const imageUrl = article.featuredImage?.url
-      ? `${SERVER_URL}${article.featuredImage.url}`
+    const publishedDate = new Date(article.publishedAt).toISOString();
+    const updatedDate = new Date(article.publishedAt).toISOString();
+    const imageUrl = article.imageUrl
+      ? `${SERVER_URL}${article.imageUrl}`
       : "/simplified-ninja.png";
 
     return {
@@ -49,7 +48,7 @@ export async function generateMetadata({
         article.description ||
         `Learn about ${article.title} in this comprehensive programming tutorial.`,
       keywords: [
-        article.category[0]?.name?.toLowerCase() || "programming",
+        article.category.name.toLowerCase(),
         "programming tutorial",
         "coding guide",
         "software development",
@@ -78,12 +77,8 @@ export async function generateMetadata({
         type: "article",
         publishedTime: publishedDate,
         modifiedTime: updatedDate,
-        section: article.category[0]?.name || "programming",
-        tags: [
-          article.category[0]?.name || "programming",
-          "programming",
-          "tutorial",
-        ],
+        section: article.category.name,
+        tags: [article.category.name, "programming", "tutorial"],
       },
       twitter: {
         card: "summary_large_image",
@@ -98,7 +93,7 @@ export async function generateMetadata({
       },
       other: {
         "article:author": "Simplified Ninja",
-        "article:section": article.category[0]?.name || "programming",
+        "article:section": article.category.name,
         "article:published_time": publishedDate,
         "article:modified_time": updatedDate,
       },
@@ -126,8 +121,8 @@ const PostPage = async ({ params }: PostPageProps) => {
     "@type": "Article",
     headline: article.title,
     description: article.description,
-    image: article.featuredImage?.url
-      ? `${SERVER_URL}${article.featuredImage.url}`
+    image: article.imageUrl
+      ? `${SERVER_URL}${article.imageUrl}`
       : `${SERVER_URL}/simplified-ninja.png`,
     author: {
       "@type": "Person",
@@ -142,17 +137,15 @@ const PostPage = async ({ params }: PostPageProps) => {
         url: "https://simplified.ninja/simplified-ninja.png",
       },
     },
-    datePublished: new Date(article.createdAt).toISOString(),
-    dateModified: new Date(
-      article.updatedAt || article.createdAt,
-    ).toISOString(),
+    datePublished: new Date(article.publishedAt).toISOString(),
+    dateModified: new Date(article.publishedAt).toISOString(),
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": `https://simplified.ninja/article/${article.slug}`,
     },
-    articleSection: article.category[0]?.name || "programming",
+    articleSection: article.category.name,
     keywords: [
-      article.category[0]?.name || "programming",
+      article.category.name,
       "programming",
       "tutorial",
       "coding",
@@ -172,26 +165,27 @@ const PostPage = async ({ params }: PostPageProps) => {
         <header className={styles.header}>
           <h1 className={styles.title}>{article.title}</h1>
           <div className={styles.metadata}>
-            {article.category[0] && (
+            {article.category && (
               <Category
                 category={{
-                  id: article.category[0]?.id,
-                  title: article.category[0]?.name,
-                  href: `/category/${article.category[0]?.slug}`,
+                  id: article.category.id,
+                  title: article.category.name,
+                  href: `/category/${article.category.slug}`,
+                  slug: article.category.slug,
                 }}
                 size="sm"
                 variant="default"
               />
             )}
             <div className={styles.createdAt}>
-              {dayjs(article.createdAt).format("DD MMMM YYYY")}
+              {dayjs(article.publishedAt).format("DD MMMM YYYY")}
             </div>
           </div>
         </header>
 
         <div className={styles.imageContainer}>
           <Image
-            src={`${SERVER_URL}${article.featuredImage.url}`}
+            src={`${SERVER_URL}${article.imageUrl}`}
             alt={article.title}
             className={styles.featuredImage}
             width={1200}

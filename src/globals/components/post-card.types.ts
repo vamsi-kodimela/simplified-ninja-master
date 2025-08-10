@@ -1,7 +1,4 @@
-/* ================================
-   POST CARD TYPE DEFINITIONS
-   TypeScript interfaces for post cards and posts section
-   ================================ */
+import { SerializedEditorState } from "@payloadcms/richtext-lexical/lexical";
 
 export interface Post {
   id: string;
@@ -9,19 +6,23 @@ export interface Post {
   description: string;
   imageUrl?: string;
   category: {
+    id: string;
     name: string;
     slug: string;
     color?: string;
   };
   readCount: number;
   publishedAt: Date;
+  updatedAt: Date;
   href: string;
+  slug: string;
   author?: {
     name: string;
     avatar?: string;
   };
   readTime?: number; // in minutes
   featured?: boolean;
+  content: SerializedEditorState;
 }
 
 export interface PostCardProps {

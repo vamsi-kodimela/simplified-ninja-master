@@ -12,6 +12,7 @@ export function mapCategoryToType(
     description: category.description || `Explore ${category.name} content`,
     imageUrl: category.icon ? `${SERVER_URL}${category.icon}` : undefined,
     href: `/category/${category.slug || category.name.toLowerCase().replace(/\s+/g, "-")}`,
+    slug: category.slug,
     count:
       typeof category.articles?.length === "number"
         ? category.articles.length
