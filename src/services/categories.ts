@@ -1,6 +1,8 @@
 import { API_URL } from "@/config/api.config";
 import { ICategory } from "@/models";
 import { fetchJson } from "@/lib/fetcher";
+import { mapCategoryToType } from "@/mappers/category.mapper";
+import { CategoryType } from "@/globals/components";
 
 interface CategoriesResponse {
   docs: ICategory[];
@@ -9,21 +11,23 @@ interface CategoriesResponse {
 export async function getCategories(options?: {
   depth?: number;
   revalidate?: number;
-}): Promise<ICategory[]> {
+}): Promise<CategoryType[]> {
   const depth = options?.depth ?? 1;
   const revalidate = options?.revalidate ?? 3600;
   const url = `${API_URL}/category${depth ? `?depth=${depth}` : ""}`;
   const data = await fetchJson<CategoriesResponse>(url, { revalidate });
-  return data?.docs ?? [];
+  const categories = data?.docs ?? [];
+  return categories.map((category) => mapCategoryToType(category));
 }
 
 export async function getCategoryBySlug(
   slug: string,
   options?: { depth?: number; revalidate?: number },
-): Promise<ICategory | null> {
+): Promise<CategoryType | null> {
   const depth = options?.depth ?? 1;
   const revalidate = options?.revalidate ?? 3600;
-  const url = `${API_URL}/category?where[slug][equals]=${encodeURIComponent(slug)}${depth ? `&depth=${depth}` : ""}`;
+  const url = `${API_URL}/category?where[slug][equals]=${slug}${depth ? `&depth=${depth}` : ""}`;
   const data = await fetchJson<CategoriesResponse>(url, { revalidate });
-  return data?.docs?.[0] ?? null;
+  const category = data?.docs?.[0] ?? null;
+  return category ? mapCategoryToType(category) : null;
 }
