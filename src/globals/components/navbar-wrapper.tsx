@@ -70,11 +70,6 @@ const NavbarWrapper: React.FC = () => {
     //   href: "/about",
     //   isActive: isLinkActive("/about"),
     // },
-    {
-      id: "contact",
-      label: "Contact",
-      href: "mailto:vamsikrishnakdml@gmail.com",
-    },
   ];
 
   // Social links configuration
@@ -110,14 +105,7 @@ const NavbarWrapper: React.FC = () => {
   ];
 
   // CTA buttons configuration
-  const ctaButtons: CTAButton[] = [
-    {
-      id: "subscribe",
-      label: "Subscribe",
-      href: "#subscribe",
-      variant: "primary",
-    },
-  ];
+  const ctaButtons: CTAButton[] = [];
 
   // Search configuration
   const searchConfig = {
