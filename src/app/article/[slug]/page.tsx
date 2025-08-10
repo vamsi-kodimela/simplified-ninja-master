@@ -185,7 +185,7 @@ const PostPage = async ({ params }: PostPageProps) => {
 
         <div className={styles.imageContainer}>
           <Image
-            src={`${SERVER_URL}${article.imageUrl}`}
+            src={article.imageUrl ?? "/simplified-ninja.png"}
             alt={article.title}
             className={styles.featuredImage}
             width={1200}
