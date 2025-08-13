@@ -29,11 +29,21 @@ export function CopyButton({ code }: CopyButtonProps) {
 
   return (
     <button
-      className="absolute right-2 top-2 z-10 rounded-md bg-gray-800 p-2 text-white transition-colors hover:bg-gray-700 disabled:opacity-50"
+      className="absolute right-2 top-2 z-20 flex items-center gap-1 rounded px-2 py-1 text-xs text-[#cccccc] transition-colors duration-200 hover:bg-white/10 hover:text-white disabled:opacity-50"
       onClick={onCopy}
       disabled={hasCopied}
     >
-      {hasCopied ? <Check size={16} /> : <Copy size={16} />}
+      {hasCopied ? (
+        <>
+          <Check size={12} />
+          <span className="hidden sm:inline">Copied!</span>
+        </>
+      ) : (
+        <>
+          <Copy size={12} />
+          <span className="hidden sm:inline">Copy</span>
+        </>
+      )}
     </button>
   );
 }
