@@ -6,6 +6,7 @@ import { JSXConvertersFunction } from "@payloadcms/richtext-lexical/react";
 import { SERVER_URL } from "@/config/api.config";
 import Image from "next/image";
 import React from "react";
+import { Component as CodeBlock } from "@/blocks/Code/Component";
 
 type NodeTypes = DefaultNodeTypes | SerializedBlockNode<any>; // eslint-disable-line
 
@@ -13,7 +14,13 @@ export const jsxConverter: JSXConvertersFunction<NodeTypes> = ({
   defaultConverters,
 }) => ({
   ...defaultConverters,
-  blocks: {},
+  // This now handles our custom block with the slug 'code'
+  blocks: {
+    code: ({ node }) => {
+      if (!node || !node.fields) return null;
+      return React.createElement(CodeBlock, { ...node.fields });
+    },
+  },
   // Handle upload nodes (Payload CMS images)
   upload: ({ node }) => {
     const upload = node?.value as Record<string, unknown>;
@@ -74,9 +81,8 @@ export const jsxConverter: JSXConvertersFunction<NodeTypes> = ({
       },
     });
   },
-  // Handle code blocks with proper styling
+  // Handles standard inline code
   code: ({ node }) => {
-    const codeNode = node as Record<string, unknown>;
     return React.createElement(
       "code",
       {
@@ -92,7 +98,7 @@ export const jsxConverter: JSXConvertersFunction<NodeTypes> = ({
           border: "1px solid var(--border-subtle)",
         },
       },
-      (codeNode.text as string) || "",
+      node.text,
     );
   },
   // Handle code blocks

@@ -3,6 +3,7 @@ import { Montserrat, Open_Sans } from "next/font/google";
 import NavbarWrapper from "@/globals/components/navbar-wrapper";
 import FooterWrapper from "@/globals/components/footer-wrapper";
 import { Metadata } from "next";
+import { Toaster } from "sonner";
 
 const openSans = Open_Sans({
   subsets: ["latin"],
@@ -137,6 +138,7 @@ export default function RootLayout({
           <main className="main-content">{children}</main>
           <FooterWrapper />
         </div>
+        <Toaster richColors position="top-right" />
       </body>
     </html>
   );
