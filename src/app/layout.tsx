@@ -4,6 +4,7 @@ import NavbarWrapper from "@/globals/components/navbar-wrapper";
 import FooterWrapper from "@/globals/components/footer-wrapper";
 import { Metadata } from "next";
 import { Toaster } from "sonner";
+import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 
 const openSans = Open_Sans({
   subsets: ["latin"],
@@ -93,6 +94,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${openSans.className} ${montserrat.className}`}>
       <head>
+        <GoogleAnalytics gaId="G-Z1DFKHXHEM" />
+        <GoogleTagManager gtmId="GTM-5D7SC6QT" />
         <link rel="icon" href="/simplified-ninja-icon.png" />
         <link rel="apple-touch-icon" href="/simplified-ninja-icon.png" />
         <link rel="manifest" href="/manifest.json" />
